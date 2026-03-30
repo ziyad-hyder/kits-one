@@ -277,7 +277,113 @@ const EseCalculator = {
         // Save inputs to localStorage
         this.saveInputs(branch, sem);
     },
+  calculatePassMode() {
+    const branch = document.getElementById('branch-select').value;
+    const sem = document.getElementById('semester-select').value;
 
+    if (!branch || !sem || !COURSE_DATA[branch] || !COURSE_DATA[branch][sem]) {
+        alert('Please select Branch and Semester first.');
+        return;
+    }
+
+    const courses = COURSE_DATA[branch][sem];
+
+    courses.forEach((course, index) => {
+        const subId = `ese_sub${index}`;
+        const category = this.getSubjectCategory(course);
+        if (category === 'skip' || category === 'credit') return;
+
+        const resultEl = document.getElementById(`${subId}_result`);
+        const isLab = (category === 'lab' || category === 'theorylab');
+
+        const cie = parseInt(document.getElementById(`${subId}_cie`)?.value) || 0;
+        const labInt = isLab ? (parseInt(document.getElementById(`${subId}_labint`)?.value) || 0) : 0;
+        const labExt = isLab ? (parseInt(document.getElementById(`${subId}_labext`)?.value) || 0) : 0;
+
+        const current = cie + labInt + labExt;
+
+        const minESE = 40;
+        const minTotal = isLab ? 140 : 100;
+
+        let eseNeeded = Math.max(minESE, minTotal - current);
+
+        let text = "";
+
+        if (current >= minTotal && eseNeeded <= 40) {
+            text = "SAFE PASS need only 40 in ese✅";
+            eseNeeded = 0;
+        } 
+        else if (eseNeeded > 100) {
+            text = "not possible with current score❌";
+        } 
+        else {
+            text = `Need to score ${eseNeeded} in ESE`;
+        }
+
+        if (resultEl) {
+            resultEl.textContent = text;
+            resultEl.className = "mt-3 text-center text-sm font-semibold min-h-[28px] text-white";
+        }
+    });
+
+let totalPoints = 0;
+let totalCredits = 0;
+
+courses.forEach((course, index) => {
+    const subId = `ese_sub${index}`;
+    const category = this.getSubjectCategory(course);
+    if (category === 'skip') return;
+
+    const isLab = (category === 'lab' || category === 'theorylab');
+
+    const cie = parseInt(document.getElementById(`${subId}_cie`)?.value) || 0;
+    const labInt = isLab ? (parseInt(document.getElementById(`${subId}_labint`)?.value) || 0) : 0;
+    const labExt = isLab ? (parseInt(document.getElementById(`${subId}_labext`)?.value) || 0) : 0;
+
+    const current = cie + labInt + labExt;
+
+    const minESE = 40;
+    const minTotal = isLab ? 140 : 100;
+
+    let eseNeeded = Math.max(minESE, minTotal - current);
+
+    if (eseNeeded > 100) {
+    // F grade (0 GP) but credits MUST be counted
+    totalPoints += 0 * course.c;
+    totalCredits += course.c;
+    return;
+}
+if (category === 'credit') {
+    const gp = parseInt(document.getElementById(`${subId}_gp`)?.value) || 10;
+    totalPoints += gp * course.c;
+    totalCredits += course.c;
+    return;
+}
+    const totalMarks = this.getTotalMarks(category);
+    const finalTotal = current + eseNeeded;
+    const percent = (finalTotal / totalMarks) * 100;
+
+    let gp = 0;
+    if (percent >= 90) gp = 10;
+    else if (percent >= 80) gp = 9;
+    else if (percent >= 70) gp = 8;
+    else if (percent >= 60) gp = 7;
+    else if (percent >= 50) gp = 6;
+    else if (percent >= 40) gp = 4;
+    else gp = 0;
+
+    totalPoints += gp * course.c;
+    totalCredits += course.c;
+});
+const sgpa = totalCredits === 0 ? 0 : (totalPoints / totalCredits);
+document.getElementById('ese-sgpa-display').textContent = sgpa.toFixed(2);
+document.getElementById('ese-sgpa-title').textContent = "Estimated SGPA (Minimum to Pass)";
+    // just show results section (no summary logic)
+    const resultsSection = document.getElementById('ese-results');
+    if (resultsSection) {
+        resultsSection.classList.remove('hidden');
+    }
+},
     /**
      * Saves all ESE input values to localStorage.
      */

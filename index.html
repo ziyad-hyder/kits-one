@@ -245,15 +245,19 @@
                         class="btn-glow w-full py-4 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition">
                         Calculate ESE Targets
                     </button>
+                    <button onclick="EseCalculator.calculatePassMode()"
+    class="btn-glow w-full py-4 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-600 transition mt-3">
+    calculate How Much to Pass?
+</button>
                 </div>
                 <!-- Results Section -->
                 <div id="ese-results" class="hidden space-y-4">
                     <div
                         class="bg-gradient-to-br from-indigo-600 to-indigo-700 p-6 rounded-2xl text-white shadow-lg shadow-indigo-200 text-center">
-                        <p class="text-indigo-100 text-xs font-bold uppercase tracking-widest mb-1">Estimated SGPA</p>
+                        <p id="ese-sgpa-title" class="text-indigo-100 text-xs font-bold uppercase tracking-widest mb-1">Estimated SGPA</p>
                         <h2 id="ese-sgpa-display" class="text-5xl font-black">0.00</h2>
                     </div>
-                    <div class="theme-card p-5 rounded-xl border theme-border">
+                    <div class="theme-card p-5 rounded-xl border theme-border" id="ese-summary-heading">
                         <h4 class="text-sm font-bold theme-muted uppercase tracking-wider mb-3">ESE Target Summary</h4>
                         <ul id="ese-summary" class="space-y-2 list-none"></ul>
                     </div>
