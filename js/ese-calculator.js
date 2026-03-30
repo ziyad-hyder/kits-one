@@ -221,31 +221,37 @@ const EseCalculator = {
                 const eseNeeded = requiredTotal - currentMarks;
 
                 let resultText = '';
-                let resultColor = '';
+                let resultTextColor = '';
+                let resultBg = '';
                 let summaryText = '';
 
                 if (desiredGP === 0) {
                     resultText = 'F Grade selected';
-                    resultColor = 'text-slate-400';
+                    resultTextColor = 'text-slate-500 dark:text-slate-400';
+                    resultBg = 'rgba(100, 116, 139, 0.1)';
                     summaryText = `<strong>${course.n}:</strong> F Grade selected — no ESE target.`;
                 } else if (eseNeeded <= 0) {
-                    resultText = `✓ Already achieved! (surplus: ${Math.abs(eseNeeded)})`;
-                    resultColor = 'text-green-500';
+                    resultText = `Already achieved! (surplus: ${Math.abs(eseNeeded)})`;
+                    resultTextColor = 'text-green-600 dark:text-green-400';
+                    resultBg = 'rgba(34, 197, 94, 0.1)';
                     summaryText = `<strong>${course.n}:</strong> Already achieved ${desiredGP} GP target.`;
                 } else if (eseNeeded > 100) {
-                    resultText = `✗ Needs ${eseNeeded} in ESE (not possible)`;
-                    resultColor = 'text-red-500';
+                    resultText = `Needs ${eseNeeded} in ESE (not possible)`;
+                    resultTextColor = 'text-red-500 dark:text-red-400';
+                    resultBg = 'rgba(239, 68, 68, 0.1)';
                     summaryText = `<strong>${course.n}:</strong> ${desiredGP} GP not possible (needs ${eseNeeded} in ESE).`;
                     allGrades[index] = 0; // Override to F for SGPA calc
                 } else {
-                    resultText = `→ Need ${eseNeeded} in ESE`;
-                    resultColor = 'text-amber-500';
+                    resultText = `Need ${eseNeeded} in ESE`;
+                    resultTextColor = 'text-amber-600 dark:text-amber-500';
+                    resultBg = 'rgba(245, 158, 11, 0.1)';
                     summaryText = `<strong>${course.n}:</strong> Need <strong>${eseNeeded}</strong> in ESE for ${desiredGP} GP.`;
                 }
 
                 if (resultEl) {
                     resultEl.textContent = resultText;
-                    resultEl.className = `mt-3 text-center text-sm font-semibold min-h-[28px] ${resultColor}`;
+                    resultEl.className = `mt-3 p-2 theme-input w-full border theme-border rounded-lg text-center text-sm font-bold transition ${resultTextColor}`;
+                    resultEl.style.backgroundColor = resultBg;
                 }
                 summaryItems.push(summaryText);
             }
@@ -264,10 +270,14 @@ const EseCalculator = {
 
         // Update results UI
         const sgpaDisplay = document.getElementById('ese-sgpa-display');
+        const sgpaTitle = document.getElementById('ese-sgpa-title');
         const summaryList = document.getElementById('ese-summary');
         const resultsSection = document.getElementById('ese-results');
+        const summaryHeading = document.getElementById('ese-summary-heading');
 
         if (sgpaDisplay) sgpaDisplay.textContent = sgpa.toFixed(2);
+        if (sgpaTitle) sgpaTitle.textContent = "Estimated SGPA";
+        if (summaryHeading) summaryHeading.classList.remove('hidden');
         if (summaryList) summaryList.innerHTML = summaryItems.map(s => `<li class="theme-muted text-sm leading-relaxed">${s}</li>`).join('');
         if (resultsSection) {
             resultsSection.classList.remove('hidden');
@@ -277,113 +287,120 @@ const EseCalculator = {
         // Save inputs to localStorage
         this.saveInputs(branch, sem);
     },
-  calculatePassMode() {
-    const branch = document.getElementById('branch-select').value;
-    const sem = document.getElementById('semester-select').value;
+    calculatePassMode() {
+        const branch = document.getElementById('branch-select').value;
+        const sem = document.getElementById('semester-select').value;
 
-    if (!branch || !sem || !COURSE_DATA[branch] || !COURSE_DATA[branch][sem]) {
-        alert('Please select Branch and Semester first.');
-        return;
-    }
-
-    const courses = COURSE_DATA[branch][sem];
-
-    courses.forEach((course, index) => {
-        const subId = `ese_sub${index}`;
-        const category = this.getSubjectCategory(course);
-        if (category === 'skip' || category === 'credit') return;
-
-        const resultEl = document.getElementById(`${subId}_result`);
-        const isLab = (category === 'lab' || category === 'theorylab');
-
-        const cie = parseInt(document.getElementById(`${subId}_cie`)?.value) || 0;
-        const labInt = isLab ? (parseInt(document.getElementById(`${subId}_labint`)?.value) || 0) : 0;
-        const labExt = isLab ? (parseInt(document.getElementById(`${subId}_labext`)?.value) || 0) : 0;
-
-        const current = cie + labInt + labExt;
-
-        const minESE = 40;
-        const minTotal = isLab ? 140 : 100;
-
-        let eseNeeded = Math.max(minESE, minTotal - current);
-
-        let text = "";
-
-        if (current >= minTotal && eseNeeded <= 40) {
-            text = "SAFE PASS need only 40 in ese✅";
-            eseNeeded = 0;
-        } 
-        else if (eseNeeded > 100) {
-            text = "not possible with current score❌";
-        } 
-        else {
-            text = `Need to score ${eseNeeded} in ESE`;
+        if (!branch || !sem || !COURSE_DATA[branch] || !COURSE_DATA[branch][sem]) {
+            alert('Please select Branch and Semester first.');
+            return;
         }
 
-        if (resultEl) {
-            resultEl.textContent = text;
-            resultEl.className = "mt-3 text-center text-sm font-semibold min-h-[28px] text-white";
+        const courses = COURSE_DATA[branch][sem];
+        const grades = [];
+        const summaryItems = [];
+        
+        const getGrade = (percent) => {
+            if (percent >= 90) return { point: 10, letter: 'S' };
+            if (percent >= 80) return { point: 9, letter: 'A' };
+            if (percent >= 70) return { point: 8, letter: 'B' };
+            if (percent >= 60) return { point: 7, letter: 'C' };
+            if (percent >= 50) return { point: 6, letter: 'D' };
+            if (percent >= 40) return { point: 4, letter: 'P' };
+            return { point: 0, letter: 'F' };
+        };
+
+        courses.forEach((course, index) => {
+            const subId = `ese_sub${index}`;
+            const category = this.getSubjectCategory(course);
+            if (category === 'skip') return;
+
+            const resultEl = document.getElementById(`${subId}_result`);
+            let resultText = '';
+            let resultTextColor = '';
+            let resultBg = '';
+            let summaryText = '';
+
+            if (category === 'credit') {
+                const gpSelect = document.getElementById(`${subId}_gp`);
+                const gp = gpSelect ? parseInt(gpSelect.value) : 10;
+                grades.push({ credits: course.c, gradePoint: gp });
+                resultText = `1-Credit Evaluated (GP: ${gp})`;
+                summaryText = `<strong>${course.n}:</strong> 1-Credit evaluated as ${gp} GP.`;
+            } else {
+                const isLab = (category === 'lab' || category === 'theorylab');
+                const cie = parseInt(document.getElementById(`${subId}_cie`)?.value) || 0;
+                const labInt = isLab ? (parseInt(document.getElementById(`${subId}_labint`)?.value) || 0) : 0;
+                const labExt = isLab ? (parseInt(document.getElementById(`${subId}_labext`)?.value) || 0) : 0;
+
+                const current = cie + labInt + labExt;
+                const minESE = 40;
+                const minTotal = isLab ? 140 : 100;
+                const totalMarks = this.getTotalMarks(category);
+
+                const eseNeeded = Math.max(minESE, minTotal - current);
+
+                let projectedGP = 0;
+
+                if (eseNeeded > 100) {
+                    resultText = `Fail: Needs ${eseNeeded} ESE`;
+                    resultTextColor = 'text-red-500 dark:text-red-400';
+                    resultBg = 'rgba(239, 68, 68, 0.1)';
+                    summaryText = `<strong>${course.n}:</strong> Not possible to pass (needs ${eseNeeded} in ESE).`;
+                    if (resultEl) resultEl.removeAttribute('title');
+                } else {
+                    const finalMarks = current + eseNeeded;
+                    const percent = (finalMarks / totalMarks) * 100;
+                    const gradeInfo = getGrade(percent);
+                    projectedGP = gradeInfo.point;
+
+                    resultText = `Pass @ ${eseNeeded} ESE (Grade ${gradeInfo.letter})`;
+                    if (eseNeeded === minESE) {
+                        resultTextColor = 'text-green-600 dark:text-green-400';
+                        resultBg = 'rgba(34, 197, 94, 0.1)';
+                    } else {
+                        resultTextColor = 'text-amber-600 dark:text-amber-500';
+                        resultBg = 'rgba(245, 158, 11, 0.1)';
+                    }
+                    
+                    summaryText = `<strong>${course.n}:</strong> Need <strong>${eseNeeded}</strong> in ESE to pass with ${projectedGP} GP (Grade ${gradeInfo.letter}).`;
+                    
+                    if (resultEl) {
+                        resultEl.title = `Minimum required to pass: Grade ${gradeInfo.letter} (${eseNeeded}/100 in ESE)`;
+                    }
+                }
+
+                grades.push({ credits: course.c, gradePoint: projectedGP });
+
+                if (resultEl) {
+                    resultEl.textContent = resultText;
+                    resultEl.className = `mt-3 p-2 theme-input w-full border theme-border rounded-lg text-center text-sm font-bold transition ${resultTextColor}`;
+                    resultEl.style.backgroundColor = resultBg;
+                }
+            }
+            if (summaryText) {
+                summaryItems.push(summaryText);
+            }
+        });
+
+        const sgpaResult = Calculator.calculateSGPA(grades);
+        
+        document.getElementById('ese-sgpa-display').textContent = sgpaResult.sgpa.toFixed(2);
+        const sgpaTitle = document.getElementById('ese-sgpa-title');
+        if (sgpaTitle) sgpaTitle.textContent = "Estimated SGPA (Minimum to Pass)";
+
+        const summaryHeading = document.getElementById('ese-summary-heading');
+        if (summaryHeading) summaryHeading.classList.remove('hidden');
+
+        const summaryUl = document.getElementById('ese-summary');
+        if (summaryUl) summaryUl.innerHTML = summaryItems.map(s => `<li class="theme-muted text-sm leading-relaxed">${s}</li>`).join('');
+        
+        // Show results block
+        const resultsSection = document.getElementById('ese-results');
+        if (resultsSection) {
+            resultsSection.classList.remove('hidden');
         }
-    });
-
-let totalPoints = 0;
-let totalCredits = 0;
-
-courses.forEach((course, index) => {
-    const subId = `ese_sub${index}`;
-    const category = this.getSubjectCategory(course);
-    if (category === 'skip') return;
-
-    const isLab = (category === 'lab' || category === 'theorylab');
-
-    const cie = parseInt(document.getElementById(`${subId}_cie`)?.value) || 0;
-    const labInt = isLab ? (parseInt(document.getElementById(`${subId}_labint`)?.value) || 0) : 0;
-    const labExt = isLab ? (parseInt(document.getElementById(`${subId}_labext`)?.value) || 0) : 0;
-
-    const current = cie + labInt + labExt;
-
-    const minESE = 40;
-    const minTotal = isLab ? 140 : 100;
-
-    let eseNeeded = Math.max(minESE, minTotal - current);
-
-    if (eseNeeded > 100) {
-    // F grade (0 GP) but credits MUST be counted
-    totalPoints += 0 * course.c;
-    totalCredits += course.c;
-    return;
-}
-if (category === 'credit') {
-    const gp = parseInt(document.getElementById(`${subId}_gp`)?.value) || 10;
-    totalPoints += gp * course.c;
-    totalCredits += course.c;
-    return;
-}
-    const totalMarks = this.getTotalMarks(category);
-    const finalTotal = current + eseNeeded;
-    const percent = (finalTotal / totalMarks) * 100;
-
-    let gp = 0;
-    if (percent >= 90) gp = 10;
-    else if (percent >= 80) gp = 9;
-    else if (percent >= 70) gp = 8;
-    else if (percent >= 60) gp = 7;
-    else if (percent >= 50) gp = 6;
-    else if (percent >= 40) gp = 4;
-    else gp = 0;
-
-    totalPoints += gp * course.c;
-    totalCredits += course.c;
-});
-const sgpa = totalCredits === 0 ? 0 : (totalPoints / totalCredits);
-document.getElementById('ese-sgpa-display').textContent = sgpa.toFixed(2);
-document.getElementById('ese-sgpa-title').textContent = "Estimated SGPA (Minimum to Pass)";
-    // just show results section (no summary logic)
-    const resultsSection = document.getElementById('ese-results');
-    if (resultsSection) {
-        resultsSection.classList.remove('hidden');
-    }
-},
+    },
     /**
      * Saves all ESE input values to localStorage.
      */
