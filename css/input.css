@@ -26,25 +26,25 @@
     }
 
     .dark-mode {
-        --bg: #1B1F3B;
-        --surface: #1B1F3B;
-        --card: #0B0E1A;
-        --border: #2A2F55;
-        --table-border: #32396A;
-        --text: #DDE6ED;
-        --heading: #C7D2FE;
-        --muted: #9AA4B2;
-        --muted-light: #7F8BA3;
-        --primary: #818cf8;
-        --primary-light: #2A2F55;
-        --input-bg: #0B0E1A;
-        --input-text: #DDE6ED;
-        --placeholder: #6B7280;
+        --bg: #09090B;
+        --surface: #111113;
+        --card: #18181B;
+        --border: #27272A;
+        --table-border: #303033;
+        --text: #E4E4E7;
+        --heading: #F4F4F5;
+        --muted: #A1A1AA;
+        --muted-light: #71717A;
+        --primary: #818CF8;
+        --primary-light: #1E1E2E;
+        --input-bg: #18181B;
+        --input-text: #E4E4E7;
+        --placeholder: #52525B;
         --shadow: none;
-        --row-hover-bg: #161B33;
-        --row-active-bg: #1E2447;
-        --result-bg: #0B0E1A;
-        --result-text: #9AA4B2;
+        --row-hover-bg: #1F1F23;
+        --row-active-bg: #26263A;
+        --result-bg: #18181B;
+        --result-text: #A1A1AA;
     }
 
     body {
@@ -219,6 +219,85 @@ td.text-muted-light {
 
 .animate-slide-left {
     animation: slideInLeft 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* UMS Autofill error highlight — theme-aware */
+.ums-error {
+    background-color: var(--color-error-bg, #fee2e2) !important;
+    border: 2px solid var(--color-error-border, #ef4444) !important;
+}
+
+.dark-mode .ums-error {
+    background-color: #3b0f0f !important;
+    border: 2px solid #f87171 !important;
+}
+
+/* UMS Autofill error highlight — theme-aware */
+.ums-error {
+    background-color: var(--color-error-bg, #fee2e2) !important;
+    border: 2px solid var(--color-error-border, #ef4444) !important;
+}
+
+.dark-mode .ums-error {
+    background-color: #2A1010 !important;
+    border: 2px solid #F87171 !important;
+}
+
+/* Attendance status badges — fully theme-aware */
+.att-badge {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.att-badge--safe {
+    color: #0F6E56;
+    background: transparent;
+    font-size: 0.875rem;
+}
+.dark-mode .att-badge--safe {
+    color: #2DD4BF;
+}
+
+.att-badge--caution {
+    color: #92400E;
+    background: #FEF3C7;
+}
+.dark-mode .att-badge--caution {
+    color: #FCD34D;
+    background: #2A1F0A;
+}
+
+.att-badge--danger {
+    color: #991B1B;
+    background: #FEF2F2;
+}
+.dark-mode .att-badge--danger {
+    color: #FCA5A5;
+    background: #2A1010;
+}
+
+.att-badge--warn {
+    color: #92400E;
+    background: #FFFBEB;
+}
+.dark-mode .att-badge--warn {
+    color: #FCD34D;
+    background: #2A1F0A;
+}
+
+/* Absent input — subtle red tint, theme-aware */
+.att-absent-input {
+    color: #DC2626;
+    background-color: #FEF2F2 !important;
+    border-color: #FECACA !important;
+}
+.dark-mode .att-absent-input {
+    color: #FCA5A5 !important;
+    background-color: #2A1010 !important;
+    border-color: #7F1D1D !important;
 }
 
 /* Number input spinner removal */

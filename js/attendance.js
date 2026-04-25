@@ -191,7 +191,7 @@ function renderAttendanceTable() {
             </td>
             <td class="p-4 text-center">
                 <input type="number" min="0" data-idx="${i}" data-code="${s.code || ''}" data-type="${s.type || ''}" data-field="held" value="${s.held}" 
-                    class="w-16 p-2 text-center bg-white border border-slate-200 rounded-lg font-bold text-slate-700 focus:ring-2 focus:ring-indigo-500 outline-none transition text-sm">
+                    class="w-16 p-2 text-center theme-input border theme-border rounded-lg font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition text-sm">
             </td>
             <td class="p-4 text-center">
                 <input type="number" min="0" data-idx="${i}" data-code="${s.code || ''}" data-type="${s.type || ''}" data-field="absent" value="${s.absent}" 
@@ -237,7 +237,7 @@ function renderAttendanceTable() {
                         data-type="${s.type || ''}"
                         data-field="absent"
                         value="${s.absent}"
-                        class="w-full p-3 text-center bg-red-50 border border-red-100 rounded-xl font-bold text-red-600 focus:ring-2 focus:ring-red-500 outline-none text-lg">
+                        class="w-full p-3 text-center theme-input border theme-border rounded-xl font-bold att-absent-input focus:ring-2 focus:ring-red-500 outline-none text-lg">
                 </div>
             </div>
         </div>
@@ -273,34 +273,43 @@ function updateAttendanceCalculations(providedData = null) {
 
     // Update row percentages
     data.forEach((s, i) => {
+        // Clamp negatives and invalid values
+        s.held = Math.max(0, s.held || 0);
+        s.absent = Math.max(0, s.absent || 0);
+
         totalHeld += s.held;
         totalAbsent += s.absent;
 
+        const isInvalid = s.absent > s.held && s.held > 0;
         const pct = s.held > 0 ? ((s.held - s.absent) / s.held) * 100 : 100;
 
         // Desktop Badge
         const pctEl = document.getElementById(`att-pct-${i}`);
         if (pctEl) {
-            pctEl.textContent = pct.toFixed(1) + '%';
-            if (pct >= 75) {
-                pctEl.className = 'font-bold text-[#2DD4BF] text-sm'; // Teal-Green
+            pctEl.textContent = isInvalid ? '⚠ Invalid' : pct.toFixed(1) + '%';
+            if (isInvalid) {
+                pctEl.className = 'att-badge att-badge--warn';
+            } else if (pct >= 75) {
+                pctEl.className = 'att-badge att-badge--safe';
             } else if (pct >= 65) {
-                pctEl.className = 'font-bold text-orange-500 bg-orange-50 px-2 py-1 rounded text-xs';
+                pctEl.className = 'att-badge att-badge--caution';
             } else {
-                pctEl.className = 'font-bold text-red-500 bg-red-50 px-2 py-1 rounded text-xs';
+                pctEl.className = 'att-badge att-badge--danger';
             }
         }
 
         // Mobile Badge
         const mobPctEl = document.getElementById(`att-pct-mobile-${i}`);
         if (mobPctEl) {
-            mobPctEl.textContent = pct.toFixed(1) + '%';
-            if (pct >= 75) {
-                mobPctEl.className = 'font-bold text-[#2DD4BF] text-sm px-2 py-1 rounded theme-bg';
+            mobPctEl.textContent = isInvalid ? '⚠ Invalid' : pct.toFixed(1) + '%';
+            if (isInvalid) {
+                mobPctEl.className = 'att-badge att-badge--warn';
+            } else if (pct >= 75) {
+                mobPctEl.className = 'att-badge att-badge--safe';
             } else if (pct >= 65) {
-                mobPctEl.className = 'font-bold text-orange-500 text-sm px-2 py-1 rounded bg-orange-50';
+                mobPctEl.className = 'att-badge att-badge--caution';
             } else {
-                mobPctEl.className = 'font-bold text-red-500 text-sm px-2 py-1 rounded bg-red-50';
+                mobPctEl.className = 'att-badge att-badge--danger';
             }
         }
     });
@@ -544,20 +553,16 @@ function parseUmsAttendance() {
 
             if (mobileHeld) {
                 mobileHeld.value = parsedMap[key].held;
-                mobileHeld.style.backgroundColor = "";
-                mobileHeld.style.border = "";
+                mobileHeld.classList.remove("ums-error");
             }
 
             if (mobileAbsent) {
                 mobileAbsent.value = parsedMap[key].absent;
-                mobileAbsent.style.backgroundColor = "";
-                mobileAbsent.style.border = "";
+                mobileAbsent.classList.remove("ums-error");
             }
 
-            heldInput.style.backgroundColor = "";
-            absentInput.style.backgroundColor = "";
-            heldInput.style.border = "";
-            absentInput.style.border = "";
+            heldInput.classList.remove("ums-error");
+            absentInput.classList.remove("ums-error");
         }
         else {
 
@@ -581,23 +586,20 @@ function parseUmsAttendance() {
 
             if (mobileHeld) {
                 mobileHeld.value = 0;
-                mobileHeld.style.backgroundColor = "#fee2e2";
-                mobileHeld.style.border = "2px solid #ef4444";
+                mobileHeld.classList.add("ums-error");
             }
 
             if (mobileAbsent) {
                 mobileAbsent.value = 0;
-                mobileAbsent.style.backgroundColor = "#fee2e2";
-                mobileAbsent.style.border = "2px solid #ef4444";
+                mobileAbsent.classList.add("ums-error");
             }
 
-            heldInput.style.backgroundColor = "#fee2e2";
-            heldInput.style.border = "2px solid #ef4444";
-            absentInput.style.backgroundColor = "#fee2e2";
-            absentInput.style.border = "2px solid #ef4444";
+            heldInput.classList.add("ums-error");
+            absentInput.classList.add("ums-error");
         }
     });
     updateAttendanceCalculations();
+    saveAttendanceData(getCurrentTableData()); // Fix: persist autofilled data to localStorage
 
     if (unmatched.length > 0) {
         const listHTML = unmatched.map(u =>
