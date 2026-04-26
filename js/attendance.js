@@ -126,7 +126,7 @@ function getAttendanceData() {
     const key = getStorageKey();
     if (!key) return null;
 
-    const saved = localStorage.getItem(key);
+    const saved = Store.get(key);
     if (saved) {
         try {
             return JSON.parse(saved);
@@ -144,7 +144,7 @@ function getAttendanceData() {
 function saveAttendanceData(data) {
     const key = getStorageKey();
     if (key) {
-        localStorage.setItem(key, JSON.stringify(data));
+        Store.set(key, JSON.stringify(data));
     }
 }
 
@@ -195,10 +195,11 @@ function renderAttendanceTable() {
             </td>
             <td class="p-4 text-center">
                 <input type="number" min="0" data-idx="${i}" data-code="${s.code || ''}" data-type="${s.type || ''}" data-field="absent" value="${s.absent}" 
-                    class="w-16 p-2 text-center bg-white border border-red-200 text-red-600 rounded-lg font-bold focus:ring-2 focus:ring-red-500 outline-none transition text-sm">
+                    class="w-16 p-2 text-center theme-input border theme-border rounded-lg font-bold focus:ring-2 focus:ring-red-500 outline-none transition text-sm">
             </td>
             <td class="p-4 text-right">
                 <span id="att-pct-${i}" class="font-bold text-slate-400 text-sm">0%</span>
+                <div id="att-warn-${i}" class="hidden text-xs text-amber-500 font-semibold mt-1">⚠ Absent &gt; Held</div>
             </td>
         </tr>
 
@@ -285,6 +286,7 @@ function updateAttendanceCalculations(providedData = null) {
 
         // Desktop Badge
         const pctEl = document.getElementById(`att-pct-${i}`);
+        const warnEl = document.getElementById(`att-warn-${i}`);
         if (pctEl) {
             pctEl.textContent = isInvalid ? '⚠ Invalid' : pct.toFixed(1) + '%';
             if (isInvalid) {
@@ -297,6 +299,7 @@ function updateAttendanceCalculations(providedData = null) {
                 pctEl.className = 'att-badge att-badge--danger';
             }
         }
+        if (warnEl) warnEl.classList.toggle('hidden', !isInvalid);
 
         // Mobile Badge
         const mobPctEl = document.getElementById(`att-pct-mobile-${i}`);
@@ -398,7 +401,7 @@ function calculateFutureBuffer() {
 function resetAttendanceData() {
     if (confirm("Reset attendance data for this semester? This cannot be undone.")) {
         const key = getStorageKey();
-        if (key) localStorage.removeItem(key);
+        if (key) Store.remove(key);
         renderAttendanceTable();
     }
 }
@@ -600,6 +603,12 @@ function parseUmsAttendance() {
     });
     updateAttendanceCalculations();
     saveAttendanceData(getCurrentTableData()); // Fix: persist autofilled data to localStorage
+
+    // GA4 — track UMS autofill usage
+    trackEvent('ums_autofill_used', {
+        matched: Object.keys(parsedMap).length,
+        unmatched: unmatched.length
+    });
 
     if (unmatched.length > 0) {
         const listHTML = unmatched.map(u =>

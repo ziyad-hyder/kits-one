@@ -274,6 +274,9 @@ const EseCalculator = {
             resultsSection.scrollIntoView({ behavior: 'smooth' });
         }
 
+        // GA4 — track ESE calculation
+        trackEvent('ese_calculated', { branch, semester: sem, estimated_sgpa: sgpa.toFixed(2) });
+
         // Save inputs to localStorage
         this.saveInputs(branch, sem);
     },
@@ -308,14 +311,14 @@ const EseCalculator = {
                 }
             }
         });
-        localStorage.setItem(`ese_${branch}_${sem}`, JSON.stringify(data));
+        Store.set(`ese_${branch}_${sem}`, JSON.stringify(data));
     },
 
     /**
      * Restores saved ESE input values from localStorage.
      */
     restoreInputs(branch, sem) {
-        const saved = localStorage.getItem(`ese_${branch}_${sem}`);
+        const saved = Store.get(`ese_${branch}_${sem}`);
         if (!saved) return;
         try {
             const data = JSON.parse(saved);
@@ -366,6 +369,8 @@ const EseCalculator = {
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
+            // GA4 — track ESE export
+            trackEvent('ese_exported');
         }).catch(err => {
             console.error("Export Error:", err);
             // Restore styles just in case

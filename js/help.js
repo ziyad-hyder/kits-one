@@ -147,7 +147,7 @@ const HelpSystem = {
 
     // Check if help should show for a feature (not dismissed)
     shouldShow(featureId) {
-        return localStorage.getItem(`help_dismissed_${featureId}`) !== 'true';
+        return (() => { try { return localStorage.getItem(`help_dismissed_${featureId}`) !== 'true'; } catch { return true; } })();
     },
 
     // Check if global step was shown this session
@@ -155,13 +155,13 @@ const HelpSystem = {
 
     // Dismiss help for a feature forever
     dismiss(featureId) {
-        localStorage.setItem(`help_dismissed_${featureId}`, 'true');
+        (() => { try { localStorage.setItem(`help_dismissed_${featureId}`, 'true'); } catch {} })();
     },
 
     // Reset all dismissals (for testing)
     resetAll() {
         Object.keys(this.content).forEach(id => {
-            localStorage.removeItem(`help_dismissed_${id}`);
+            (() => { try { localStorage.removeItem(`help_dismissed_${id}`); } catch {} })();
         });
     },
 

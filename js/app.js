@@ -11,19 +11,34 @@ const resultsSection = document.getElementById('results-section');
 
 // TAB_ORDER is defined in gestures.js
 
+
+// All reads/writes go through these helpers so the app never crashes silently.
+const Store = {
+    get(key) {
+        try { return localStorage.getItem(key); } catch { return null; }
+    },
+    set(key, value) {
+        try { localStorage.setItem(key, value); } catch { /* silent */ }
+    },
+    remove(key) {
+        try { localStorage.removeItem(key); } catch { /* silent */ }
+    }
+};
+
+// ─── GA4 event helper ────────────────────────────────────────────────────────
+function trackEvent(name, params = {}) {
+    if (typeof gtag === 'function') gtag('event', name, params);
+}
+
 // Tab Switching Logic
 function switchTab(tabId) {
-    // Determine direction
     const currentActive = document.querySelector('.tab-content:not(.hidden)');
     const currentIndex = currentActive ? TAB_ORDER.indexOf(currentActive.id) : 0;
     const newIndex = TAB_ORDER.indexOf(tabId);
 
-    // Default to 'right' (slide in from right) if going forward, 'left' if backward
-    // Initial load (currentIndex -1) just fades or defaults
     const direction = newIndex > currentIndex ? 'right' : 'left';
     const animClass = direction === 'right' ? 'animate-slide-right' : 'animate-slide-left';
 
-    // Hide all contents
     document.querySelectorAll('.tab-content').forEach(el => {
         el.classList.add('hidden');
         el.classList.remove('animate-slide-right', 'animate-slide-left', 'animate-fade-in');
@@ -33,7 +48,6 @@ function switchTab(tabId) {
         el.classList.remove('active');
     });
 
-    // Show selected with animation
     const target = document.getElementById(tabId);
     target.classList.remove('hidden');
     void target.offsetWidth; // Force reflow
@@ -42,7 +56,6 @@ function switchTab(tabId) {
     const activeBtn = document.querySelector(`[onclick="switchTab('${tabId}')"]`);
     if (activeBtn) activeBtn.classList.add('active');
 
-    // Trigger help modal for this tab (if not dismissed)
     if (typeof HelpSystem !== 'undefined' && HelpSystem.content[tabId]) {
         setTimeout(() => HelpSystem.show(tabId), 300);
     }
@@ -56,9 +69,12 @@ function init() {
         branchSelect.innerHTML += `<option value="${code}">${BRANCH_MAPPING[code]} (${code})</option>`;
     });
 
-    // Populate Semesters on Branch Change
+    // Populate Semesters on Branch Change — also persist selection
     branchSelect.addEventListener('change', () => {
         const branch = branchSelect.value;
+        Store.set('lastBranch', branch);
+        Store.remove('lastSem'); // reset sem when branch changes
+
         semesterSelect.innerHTML = '<option value="">Select Semester</option>';
         semesterSelect.disabled = !branch;
 
@@ -70,86 +86,74 @@ function init() {
         courseContainer.classList.add('hidden');
         resultsSection.classList.add('hidden');
 
-        // Reset Bunk Buffer if active
-        if (typeof renderAttendanceTable === 'function') {
-            renderAttendanceTable();
-        }
-          // Reset ESE Calculator if active
-        if (typeof EseCalculator !== 'undefined') {
-            EseCalculator.render();
-        }
+        if (typeof renderAttendanceTable === 'function') renderAttendanceTable();
+        if (typeof EseCalculator !== 'undefined') EseCalculator.render();
     });
 
-    // Render Courses on Semester Change
+    // Render Courses on Semester Change — also persist selection
     semesterSelect.addEventListener('change', () => {
+        Store.set('lastSem', semesterSelect.value);
         renderCourses();
-        if (typeof renderAttendanceTable === 'function') {
-            renderAttendanceTable();
-        }
-                if (typeof EseCalculator !== 'undefined') {
-            EseCalculator.render();
-        }
-
+        if (typeof renderAttendanceTable === 'function') renderAttendanceTable();
+        if (typeof EseCalculator !== 'undefined') EseCalculator.render();
     });
 
-    // Initialize Attendance Module (if present)
-    if (typeof initAttendance === 'function') {
-        initAttendance();
+    // ── Restore last used branch + semester ──────────────────────────────────
+    const savedBranch = Store.get('lastBranch');
+    const savedSem    = Store.get('lastSem');
+    if (savedBranch && COURSE_DATA[savedBranch]) {
+        branchSelect.value = savedBranch;
+        branchSelect.dispatchEvent(new Event('change'));
+        if (savedSem) {
+            semesterSelect.value = savedSem;
+            semesterSelect.dispatchEvent(new Event('change'));
+        }
     }
+
+    // Initialize Attendance Module
+    if (typeof initAttendance === 'function') initAttendance();
 
     // Initialize Gestures
-    if (typeof initGestures === 'function') {
-        initGestures();
-    }
+    if (typeof initGestures === 'function') initGestures();
 
     // Initialize Help System
-    if (typeof HelpSystem !== 'undefined') {
-        HelpSystem.init();
-    }
+    if (typeof HelpSystem !== 'undefined') HelpSystem.init();
 
     // Theme Toggle Logic
     const themeBtn = document.getElementById('theme-toggle');
-    const sunIcon = document.getElementById('sun-icon');
+    const sunIcon  = document.getElementById('sun-icon');
     const moonIcon = document.getElementById('moon-icon');
 
     function toggleDarkMode() {
         const isDark = document.body.classList.toggle('dark-mode');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        Store.set('theme', isDark ? 'dark' : 'light');
         updateThemeIcons(isDark);
     }
 
     function updateThemeIcons(isDark) {
-        if (isDark) {
-            sunIcon.classList.remove('hidden');
-            moonIcon.classList.add('hidden');
-        } else {
-            sunIcon.classList.add('hidden');
-            moonIcon.classList.remove('hidden');
-        }
+        sunIcon.classList.toggle('hidden', !isDark);
+        moonIcon.classList.toggle('hidden', isDark);
     }
 
     // Load saved theme
-    if (localStorage.getItem('theme') === 'dark') {
+    if (Store.get('theme') === 'dark') {
         document.body.classList.add('dark-mode');
         updateThemeIcons(true);
     }
 
     themeBtn.addEventListener('click', toggleDarkMode);
 
-    // Show Swipe Hint every time
+    // Show swipe hint on mobile only
     const hint = document.getElementById('swipe-hint');
-    if (hint) {
+    if (hint && window.innerWidth < 768) {
         hint.classList.remove('hidden');
-        // Auto hide after 5s
-        setTimeout(() => {
-            hint.classList.add('hidden');
-        }, 5000);
+        setTimeout(() => hint.classList.add('hidden'), 5000);
     }
 }
 
 function renderCourses() {
     const branch = branchSelect.value;
-    const sem = semesterSelect.value;
+    const sem    = semesterSelect.value;
 
     if (!branch || !sem || !COURSE_DATA[branch][sem]) {
         courseContainer.classList.add('hidden');
@@ -157,9 +161,8 @@ function renderCourses() {
     }
 
     courseTableBody.innerHTML = '';
-    COURSE_DATA[branch][sem].forEach((course, index) => {
+    COURSE_DATA[branch][sem].forEach((course) => {
         const row = document.createElement('tr');
-        // Removed explicit hover:bg-slate-50, relying on CSS tbody tr:hover
         row.className = "transition-colors";
         row.innerHTML = `
             <td class="p-4 text-sm font-medium theme-text">
@@ -179,20 +182,15 @@ function renderCourses() {
     });
 
     courseContainer.classList.remove('hidden');
-    resultsSection.classList.add('hidden'); // Hide old results until new calc
+    resultsSection.classList.add('hidden');
 }
 
 function calculateResults() {
     const inputs = document.querySelectorAll('.grade-input');
     const grades = [];
-    let allSelected = true;
 
     inputs.forEach(input => {
-        if (!input.value) {
-            allSelected = false; // Don't auto-calculate if not all filled? Actually, maybe calculate partial? 
-            // Better to only calculate if user intentionally wants to, OR calculate valid ones.
-            // Let's calculate based on what is selected.
-        } else {
+        if (input.value) {
             grades.push({
                 credits: parseFloat(input.dataset.credits),
                 gradePoint: parseFloat(input.value)
@@ -202,26 +200,31 @@ function calculateResults() {
 
     if (grades.length === 0) return;
 
-    const result = Calculator.calculateSGPA(grades);
+    const result     = Calculator.calculateSGPA(grades);
     const percentage = Calculator.cgpaToPercentage(result.sgpa);
 
-    // Update UI
-    document.getElementById('sgpa-display').innerText = result.sgpa.toFixed(2);
+    document.getElementById('sgpa-display').innerText     = result.sgpa.toFixed(2);
     document.getElementById('percentage-display').innerText = percentage + "%";
-    document.getElementById('credits-display').innerText = result.clearedCredits + " / " + result.totalRegisteredCredits;
+    document.getElementById('credits-display').innerText  = result.clearedCredits + " / " + result.totalRegisteredCredits;
 
     resultsSection.classList.remove('hidden');
+
+    // GA4 — track SGPA calculation
+    trackEvent('sgpa_calculated', {
+        branch: branchSelect.value,
+        semester: semesterSelect.value,
+        sgpa: result.sgpa.toFixed(2)
+    });
 }
 
-
-// Converter Logic 
+// Converter Logic
 function convertSgpaToPerc() {
     const val = parseFloat(document.getElementById('converter-input').value);
     if (isNaN(val) || val < 0 || val > 10) {
         alert("Please enter a valid SGPA/CGPA (0-10)");
         return;
     }
-    const perc = Calculator.cgpaToPercentage(val);
+    const perc    = Calculator.cgpaToPercentage(val);
     const usScale = (val / 10) * 4;
     document.getElementById('converter-result').innerHTML = `
         <div class="grid grid-cols-2 gap-4 w-full">
@@ -230,31 +233,30 @@ function convertSgpaToPerc() {
                 <div class="text-3xl font-black text-indigo-600">${perc}%</div>
             </div>
             <div class="border-l theme-border pl-4">
-                <div class="text-xs text-slate-500 uppercase font-bold tracking-wider mb-1">US 4.0 Scale</div>
+                <div class="text-xs text-slate-500 uppercase font-bold tracking-wider mb-1">US 4.0 Scale <span class="font-normal normal-case">(approx.)</span></div>
                 <div class="text-3xl font-black text-emerald-600">${usScale.toFixed(2)}</div>
             </div>
         </div>
     `;
 }
 
-// Target Planner Logic 
+// Target Planner Logic
 function calculateTarget() {
-    const currentCGPA = parseFloat(document.getElementById('current-cgpa').value);
+    const currentCGPA    = parseFloat(document.getElementById('current-cgpa').value);
     const currentCredits = parseFloat(document.getElementById('current-credits').value);
-    const targetCGPA = parseFloat(document.getElementById('target-cgpa').value);
-    const nextCredits = parseFloat(document.getElementById('next-credits').value);
+    const targetCGPA     = parseFloat(document.getElementById('target-cgpa').value);
+    const nextCredits    = parseFloat(document.getElementById('next-credits').value);
 
     if ([currentCGPA, currentCredits, targetCGPA, nextCredits].some(isNaN)) {
         alert("Please fill all fields correctly.");
         return;
     }
-
     if (nextCredits <= 0) {
         alert("Next Semester Credits must be greater than 0.");
         return;
     }
 
-    const req = Calculator.calculateTargetSGPA(currentCGPA, currentCredits, targetCGPA, nextCredits);
+    const req   = Calculator.calculateTargetSGPA(currentCGPA, currentCredits, targetCGPA, nextCredits);
     const resEl = document.getElementById('planner-result');
 
     if (typeof req === 'string') {
@@ -269,3 +271,4 @@ function calculateTarget() {
 
 // Initialize on Load
 document.addEventListener('DOMContentLoaded', init);
+

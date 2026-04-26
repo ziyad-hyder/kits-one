@@ -39,7 +39,6 @@
     <link rel="manifest" href="site.webmanifest">
     <!-- Local Tailwind CSS -->
     <link href="css/output.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
     <meta name="google-site-verification" content="P53uMom3Vt8mM1fAM8-95QupltE2P9SIblg_Wx4Xps8" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
@@ -54,7 +53,7 @@
             <p class="font-medium">Academic Companion • URR-24 Regulations</p>
         </div>
 
-        <button id="theme-toggle"
+        <button id="theme-toggle" aria-label="Toggle dark mode"
             class="p-2.5 theme-surface theme-border border rounded-xl shadow-sm hover:opacity-80 transition-opacity"
             title="Toggle Theme">
             <!-- Sun Icon (shown in dark mode) -->
@@ -128,7 +127,7 @@
                                 <th class="p-4 text-xs font-bold text-slate-500 uppercase w-32">Grade</th>
                             </tr>
                         </thead>
-                        <tbody id="course-list" class="divide-y divide-slate-100 bg-white">
+                        <tbody id="course-list" class="divide-y theme-border theme-card">
                             <!-- JS Generated Rows -->
                         </tbody>
                     </table>
@@ -155,8 +154,8 @@
             <!-- Tool 5: CGPA Converter -->
             <div id="tab-conv" class="tab-content hidden max-w-lg mx-auto space-y-6 pt-4">
                 <div class="text-center">
-                    <h3 class="font-bold text-xl text-slate-800">CGPA Converter</h3>
-                    <p class="text-sm text-slate-500 mt-1">Formulas: (CGPA - 0.50) × 10 &nbsp;|&nbsp; 4.0 Scale: (CGPA ÷ 10) × 4</p>
+                    <h3 class="font-bold text-xl theme-heading">CGPA Converter</h3>
+                    <p class="text-sm theme-muted mt-1">Formulas: (CGPA - 0.50) × 10 &nbsp;|&nbsp; 4.0 Scale (approx. linear): (CGPA ÷ 10) × 4</p>
                 </div>
                 <div class="flex gap-4 items-end theme-card p-6 rounded-2xl border theme-border">
                     <div class="flex-1">
@@ -176,8 +175,8 @@
             <!-- Tool 4: Target Planner -->
             <div id="tab-plan" class="tab-content hidden max-w-2xl mx-auto space-y-6">
                 <div class="text-center mb-6">
-                    <h3 class="font-bold text-xl text-slate-800">Target CGPA Planner</h3>
-                    <p class="text-sm text-slate-500 mt-1">Calculate what SGPA you need next semester</p>
+                    <h3 class="font-bold text-xl theme-heading">Target CGPA Planner</h3>
+                    <p class="text-sm theme-muted mt-1">Calculate what SGPA you need next semester</p>
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
