@@ -95,14 +95,14 @@
         <div class="p-6 md:p-8">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                 <div>
-                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1.5 ml-1">Branch</label>
+                    <label class="block text-xs font-bold theme-text opacity-70 uppercase mb-1.5 ml-1">Branch</label>
                     <select id="branch-select"
                         class="theme-input w-full p-3 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500 outline-none transition cursor-pointer">
                         <option value="">Select Branch</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1.5 ml-1">Semester</label>
+                    <label class="block text-xs font-bold theme-text opacity-70 uppercase mb-1.5 ml-1">Semester</label>
                     <select id="semester-select" disabled
                         class="theme-input w-full p-3 rounded-xl font-medium focus:ring-2 focus:ring-indigo-500 outline-none transition disabled:opacity-50 cursor-pointer">
                         <option value="">Select Semester</option>
@@ -119,12 +119,12 @@
                     <table class="w-full text-left">
                         <thead class="theme-surface border-b theme-border">
                             <tr>
-                                <th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Course Title
+                                <th class="p-4 text-xs font-bold theme-text opacity-80 uppercase tracking-wider">Course Title
                                 </th>
                                 <th
-                                    class="p-4 text-xs font-bold text-slate-500 uppercase text-center w-24 hidden md:table-cell">
+                                    class="p-4 text-xs font-bold theme-text opacity-80 uppercase text-center w-24 hidden md:table-cell">
                                     Credits</th>
-                                <th class="p-4 text-xs font-bold text-slate-500 uppercase w-32">Grade</th>
+                                <th class="p-4 text-xs font-bold theme-text opacity-80 uppercase w-32">Grade</th>
                             </tr>
                         </thead>
                         <tbody id="course-list" class="divide-y theme-border theme-card">
@@ -141,11 +141,11 @@
                         <h2 id="sgpa-display" class="text-4xl md:text-5xl font-black">0.00</h2>
                     </div>
                     <div class="theme-card p-6 rounded-2xl border theme-border">
-                        <p class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">Equivalent %</p>
+                        <p class="theme-muted text-xs font-bold uppercase tracking-widest mb-1">Equivalent %</p>
                         <h2 id="percentage-display" class="text-3xl font-bold theme-text">0.0%</h2>
                     </div>
                     <div class="theme-card p-6 rounded-2xl border theme-border">
-                        <p class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">Cleared Credits</p>
+                        <p class="theme-muted text-xs font-bold uppercase tracking-widest mb-1">Cleared Credits</p>
                         <h2 id="credits-display" class="text-3xl font-bold theme-text">0 / 0</h2>
                     </div>
                 </div>
@@ -159,7 +159,7 @@
                 </div>
                 <div class="flex gap-4 items-end theme-card p-6 rounded-2xl border theme-border">
                     <div class="flex-1">
-                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1.5">Enter SGPA / CGPA</label>
+                        <label class="block text-xs font-bold theme-text opacity-70 uppercase mb-1.5">Enter SGPA / CGPA</label>
                         <input type="number" id="converter-input" step="0.01" max="10" placeholder="e.g. 8.75"
                             class="theme-input w-full p-3 border rounded-xl text-lg font-bold text-center focus:ring-2 focus:ring-indigo-500 outline-none">
                     </div>
@@ -168,7 +168,7 @@
                 </div>
                 <div id="converter-result"
                     class="theme-result text-center p-6 rounded-2xl border-2 min-h-[100px] flex flex-col justify-center items-center">
-                    <span class="text-slate-400 font-medium">Result will appear here</span>
+                    <span class="theme-muted font-medium">Result will appear here</span>
                 </div>
             </div>
 
@@ -181,12 +181,12 @@
 
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Current CGPA</label>
+                        <label class="block text-xs font-bold theme-text opacity-70 uppercase mb-1">Current CGPA</label>
                         <input type="number" id="current-cgpa" placeholder="Current"
                             class="theme-input w-full p-3 border border-slate-200 rounded-xl font-medium">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Current Total
+                        <label class="block text-xs font-bold theme-text opacity-70 uppercase mb-1">Current Total
                             Credits</label>
                         <input type="number" id="current-credits" placeholder="e.g. 60"
                             class="theme-input w-full p-3 border border-slate-200 rounded-xl font-medium">
@@ -197,7 +197,7 @@
                             class="theme-input w-full p-3 border-2 border-indigo-100 rounded-xl font-bold text-indigo-700 focus:border-indigo-500 outline-none">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Next Sem Credits</label>
+                        <label class="block text-xs font-bold theme-text opacity-70 uppercase mb-1">Next Sem Credits</label>
                         <input type="number" id="next-credits" placeholder="e.g. 24"
                             class="theme-input w-full p-3 border border-slate-200 rounded-xl font-medium">
                     </div>
@@ -208,7 +208,7 @@
                     Required SGPA</button>
 
                 <div id="planner-result" class="theme-result text-center p-6 rounded-2xl border theme-border">
-                    <span class="text-slate-400 font-medium">Enter details to calculate</span>
+                    <span class="theme-muted font-medium">Enter details to calculate</span>
                 </div>
             </div>
 
@@ -222,20 +222,20 @@
                 <!-- Empty State -->
                 <div id="ese-empty-state"
                     class="theme-card text-center p-8 rounded-xl border border-dashed theme-border">
-                    <p class="text-slate-400 font-bold">Select Branch and Semester to load subjects</p>
+                    <p class="theme-muted font-bold">Select Branch and Semester to load subjects</p>
                 </div>
                 <!-- Form Container -->
                 <div id="ese-form-container" class="hidden space-y-6">
                     <!-- Main Subjects -->
                     <div>
-                        <h4 id="ese-main-header" class="text-sm font-bold theme-muted uppercase tracking-wider mb-3">
+                        <h4 id="ese-main-header" class="text-sm font-bold theme-text opacity-80 uppercase tracking-wider mb-3">
                             Main Subjects</h4>
                         <div id="ese-main-subjects" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                     </div>
                     <!-- 1-Credit Subjects -->
                     <div>
                         <h4 id="ese-credit-header"
-                            class="text-sm font-bold theme-muted uppercase tracking-wider mb-3 hidden">1-Credit Subjects
+                            class="text-sm font-bold theme-text opacity-80 uppercase tracking-wider mb-3 hidden">1-Credit Subjects
                         </h4>
                         <div id="ese-credit-subjects" class="grid grid-cols-2 md:grid-cols-4 gap-3"></div>
                     </div>
@@ -253,7 +253,7 @@
                         <h2 id="ese-sgpa-display" class="text-5xl font-black">0.00</h2>
                     </div>
                     <div class="theme-card p-5 rounded-xl border theme-border">
-                        <h4 class="text-sm font-bold theme-muted uppercase tracking-wider mb-3">ESE Target Summary</h4>
+                        <h4 class="text-sm font-bold theme-text opacity-80 uppercase tracking-wider mb-3">ESE Target Summary</h4>
                         <ul id="ese-summary" class="space-y-2 list-none"></ul>
                     </div>
                     <p class="text-xs text-center theme-muted">Note: ESE scores depend on both your performance and
@@ -270,7 +270,7 @@
                 <!-- Empty State for Table moved upwards to provide space for auto-fill card-->
                 <div id="att-empty-state"
                     class="theme-card text-center p-8 rounded-xl border border-dashed theme-border">
-                    <p class="text-slate-400 font-bold">Select Branch and Semester to load subjects</p>
+                    <p class="theme-muted font-bold">Select Branch and Semester to load subjects</p>
                 </div>
                 <!-- Stats Cards -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -283,10 +283,10 @@
                     <div
                         class="theme-card p-6 rounded-2xl border theme-border text-center flex flex-col justify-center items-center">
                         <p id="att-buffer-title"
-                            class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-1">
+                            class="theme-muted text-xs font-bold uppercase tracking-widest mb-1">
                             Buffer Status</p>
-                        <h2 id="att-buffer-value" class="text-5xl font-black text-slate-300">-</h2>
-                        <p id="att-buffer-subtitle" class="text-slate-400 text-xs font-medium mt-1">Calculated</p>
+                        <h2 id="att-buffer-value" class="text-5xl font-black theme-heading">-</h2>
+                        <p id="att-buffer-subtitle" class="theme-muted text-xs font-medium mt-1">Calculated</p>
                     </div>
                 </div>
 
@@ -316,10 +316,10 @@ You can still edit everything manually below."
                     <table class="w-full text-left">
                         <thead class="theme-surface border-b theme-border">
                             <tr>
-                                <th class="p-4 text-xs font-bold text-slate-500 uppercase">Subject</th>
-                                <th class="p-4 text-xs font-bold text-slate-500 uppercase text-center w-20">Held</th>
-                                <th class="p-4 text-xs font-bold text-slate-500 uppercase text-center w-20">Absent</th>
-                                <th class="p-4 text-xs font-bold text-slate-500 uppercase text-right w-24">Status</th>
+                                <th class="p-4 text-xs font-bold theme-text opacity-80 uppercase">Subject</th>
+                                <th class="p-4 text-xs font-bold theme-text opacity-80 uppercase text-center w-20">Held</th>
+                                <th class="p-4 text-xs font-bold theme-text opacity-80 uppercase text-center w-20">Absent</th>
+                                <th class="p-4 text-xs font-bold theme-text opacity-80 uppercase text-right w-24">Status</th>
                             </tr>
                         </thead>
                         <tbody id="att-table-body" class="divide-y divide-slate-100">
@@ -335,15 +335,15 @@ You can still edit everything manually below."
                         <span class="text-sm font-bold theme-text whitespace-nowrap">If next</span>
                         <input type="number" id="att-future-input" placeholder="0" min="0"
                             class="theme-input w-20 p-2 border border-slate-200 rounded-lg text-sm font-bold text-center outline-none focus:ring-2 focus:ring-indigo-500">
-                        <span class="text-sm text-slate-500 whitespace-nowrap">classes are held?</span>
+                        <span class="theme-muted text-sm whitespace-nowrap">classes are held?</span>
                     </div>
                     <div id="att-future-result"
-                        class="text-sm font-bold text-slate-400 w-full md:w-auto text-center md:text-right">...</div>
+                        class="text-sm font-bold theme-muted w-full md:w-auto text-center md:text-right">...</div>
                 </div>
 
                 <div class="text-center pt-4">
                     <button onclick="resetAttendanceData()"
-                        class="text-xs font-bold text-slate-400 hover:text-red-500 transition dashed-underline">Reset
+                        class="text-xs font-bold theme-muted hover:text-red-500 transition dashed-underline">Reset
                         Subject Data</button>
                 </div>
             </div>
@@ -351,11 +351,11 @@ You can still edit everything manually below."
         </div>
     </div>
 
-    <footer class="max-w-4xl mx-auto mt-12 mb-8 text-center text-slate-400 text-sm">
+    <footer class="max-w-4xl mx-auto mt-12 mb-8 text-center theme-muted text-sm">
 
         <!-- Official Links -->
         <div class="mb-8 p-6 theme-card rounded-2xl border theme-border shadow-sm">
-            <p class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">Official Quick Links</p>
+            <p class="text-xs font-bold uppercase tracking-widest theme-muted mb-4">Official Quick Links</p>
             <div class="flex flex-wrap justify-center gap-3 md:gap-6">
                 <a href="https://kitsw.rlabs24.in/" target="_blank"
                     class="px-3 py-1.5 bg-indigo-50 text-indigo-700 rounded-lg text-xs font-bold hover:bg-indigo-100 transition">Courseweb</a>
@@ -374,7 +374,7 @@ You can still edit everything manually below."
         <p>&copy; Made with ❤️ by <a target="_blank" href="https://github.com/ziyad-hyder"
                 class="text-indigo-500 font-bold hover:underline">Ziyad Hyder</a></p>
         <p class="text-xs mt-2">Not affiliated with KITS Administration</p>
-        <p class="text-xs mt-2 font-mono text-slate-300">v3.0.0</p>
+        <p class="text-xs mt-2 font-mono theme-muted">v3.0.0</p>
     </footer>
 
     <!-- Swipe Hint (Mobile Only) -->

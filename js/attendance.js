@@ -186,7 +186,7 @@ function renderAttendanceTable() {
     // Added data-code and data-type attributes to enable reliable course-based attendance matching in both desktop and mobile view
     attTableBody.innerHTML = data.map((s, i) => `
         <tr class="group border-b border-slate-100 hover:bg-slate-50 transition-colors hidden md:table-row">
-<td class="p-4 font-bold text-slate-700 text-sm">
+<td class="p-4 font-bold theme-text text-sm">
                 ${s.name}
             </td>
             <td class="p-4 text-center">
@@ -198,7 +198,7 @@ function renderAttendanceTable() {
                     class="w-16 p-2 text-center theme-input border theme-border rounded-lg font-bold focus:ring-2 focus:ring-red-500 outline-none transition text-sm">
             </td>
             <td class="p-4 text-right">
-                <span id="att-pct-${i}" class="font-bold text-slate-400 text-sm">0%</span>
+                <span id="att-pct-${i}" class="font-bold theme-muted text-sm">0%</span>
                 <div id="att-warn-${i}" class="hidden text-xs text-amber-500 font-semibold mt-1">⚠ Absent &gt; Held</div>
             </td>
         </tr>
@@ -210,12 +210,12 @@ function renderAttendanceTable() {
         <div class="flex flex-col gap-3">
             <div class="flex justify-between items-start">
                 <span class="font-bold theme-text text-base">${s.name}</span>
-                <span id="att-pct-mobile-${i}" class="font-bold text-slate-400 text-sm px-2 py-1 rounded theme-bg">0%</span>
+                <span id="att-pct-mobile-${i}" class="font-bold theme-muted text-sm px-2 py-1 rounded theme-bg">0%</span>
             </div>
             
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-xs font-bold theme-muted-light uppercase mb-1">Held</label>
+                    <label class="block text-xs font-bold theme-muted uppercase mb-1">Held</label>
                     <input type="number"
                         inputmode="numeric"
                         pattern="[0-9]*"
@@ -331,9 +331,9 @@ function updateAttendanceCalculations(providedData = null) {
 
     if (totalHeld === 0) {
         bufferValEl.textContent = "-";
-        bufferValEl.className = "text-5xl font-black text-slate-300";
+        bufferValEl.className = "text-5xl font-black theme-heading";
         bufferTitleEl.textContent = "Buffer Status";
-        bufferTitleEl.className = "text-slate-400 text-xs font-bold uppercase tracking-widest mb-1";
+        bufferTitleEl.className = "theme-muted text-xs font-bold uppercase tracking-widest mb-1";
         bufferSubEl.textContent = "No data";
     } else if (buffer >= 0) {
         // Safe
@@ -394,7 +394,7 @@ function calculateFutureBuffer() {
         }
     } else {
         futureResultEl.textContent = "...";
-        futureResultEl.className = "ml-2 text-slate-400 font-bold text-sm";
+        futureResultEl.className = "ml-2 theme-muted font-bold text-sm";
     }
 }
 

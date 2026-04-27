@@ -11,7 +11,7 @@ const resultsSection = document.getElementById('results-section');
 
 // TAB_ORDER is defined in gestures.js
 
-
+// Safe localStorage wrapper 
 // All reads/writes go through these helpers so the app never crashes silently.
 const Store = {
     get(key) {
@@ -229,11 +229,11 @@ function convertSgpaToPerc() {
     document.getElementById('converter-result').innerHTML = `
         <div class="grid grid-cols-2 gap-4 w-full">
             <div>
-                <div class="text-xs text-slate-500 uppercase font-bold tracking-wider mb-1">Percentage</div>
+                <div class="text-xs theme-muted uppercase font-bold tracking-wider mb-1">Percentage</div>
                 <div class="text-3xl font-black text-indigo-600">${perc}%</div>
             </div>
             <div class="border-l theme-border pl-4">
-                <div class="text-xs text-slate-500 uppercase font-bold tracking-wider mb-1">US 4.0 Scale <span class="font-normal normal-case">(approx.)</span></div>
+                <div class="text-xs theme-muted uppercase font-bold tracking-wider mb-1">US 4.0 Scale <span class="font-normal normal-case">(approx.)</span></div>
                 <div class="text-3xl font-black text-emerald-600">${usScale.toFixed(2)}</div>
             </div>
         </div>
@@ -263,7 +263,7 @@ function calculateTarget() {
         resEl.innerHTML = `<span class="text-red-500 font-bold">${req}</span>`;
     } else {
         resEl.innerHTML = `
-             <div class="text-sm text-slate-500 uppercase font-bold tracking-wider mb-1">Required SGPA</div>
+             <div class="text-sm theme-muted uppercase font-bold tracking-wider mb-1">Required SGPA</div>
              <div class="text-3xl font-black text-indigo-600">${req}</div>
         `;
     }

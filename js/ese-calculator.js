@@ -226,7 +226,7 @@ const EseCalculator = {
 
                 if (desiredGP === 0) {
                     resultText = 'F Grade selected';
-                    resultColor = 'text-slate-400';
+                    resultColor = 'theme-muted';
                     summaryText = `<strong>${course.n}:</strong> F Grade selected — no ESE target.`;
                 } else if (eseNeeded <= 0) {
                     resultText = `✓ Already achieved! (surplus: ${Math.abs(eseNeeded)})`;
