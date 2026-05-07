@@ -37,6 +37,15 @@ KITS One is a complete academic companion designed to take the guesswork out of 
 
 - **[Simi Riza](https://github.com/SimiRiza)** – Attendance autofill feature (UMS table parsing & input automation)
 
+### Curriculum Data (URR24-R25)
+
+- **Md Fayazuddin** – 4CSE
+- **B. Varun** – 4CSM
+- **[Md Taqiuddin](https://github.com/Taqi128)** – 4CSD
+- **[Salman Syed](https://github.com/Salman-a-gamer)** – 4IT
+- **B. Pragnesh** – 2CSM
+- **Md K Moinuddin** – 2IT
+
 
 ## License
 
