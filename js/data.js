@@ -27,168 +27,178 @@ const BRANCH_MAPPING = {
 // n: Name, c: Credits
 const COURSE_DATA = {
     "CSE": {
-    "Sem 1": [
-        { n: "DCODE", code: "U24MH101", c: 3 },
-        { n: "EP", code: "U24PY102C", c: 4 },
-        { n: "COA", code: "U24CS103", c: 3 },
-        { n: "PPSC", code: "U24CS104", c: 4 },
-        { n: "BEE", code: "U24EE105C", c: 4 },
-        { n: "ILMS", code: "U24AE107", c: 1, type: "lab" },
-    ],
+        "Sem 1": [
+            { n: "DCODE", code: "U24MH101", c: 3 },
+            { n: "EP", code: "U24PY102C", c: 4 },
+            { n: "COA", code: "U24CS103", c: 3 },
+            { n: "PPSC", code: "U24CS104", c: 4 },
+            { n: "BEE", code: "U24EE105C", c: 4 },
+            { n: "ILMS", code: "U24AE107", c: 1, type: "lab" },
+        ],
 
-    "Sem 2": [
-        { n: "MTVC", code: "U24MH201", c: 3 },
-        { n: "EC", code: "U24CY202C", c: 4 },
-        { n: "OS", code: "U24CS203", c: 3 },
-        { n: "DSTC", code: "U24CS204", c: 4 },
-        { n: "ECRW", code: "U24MH205", c: 2 },
-        { n: "Sports & Yoga", code: "U24VA206", c: 1, type: "lab" },
-        { n: "EGCAD", code: "U24ME207", c: 1, type: "lab" },
-        { n: "PSD Lab-1", code: "U24SE208", c: 1, type: "lab" },
-    ],
+        "Sem 2": [
+            { n: "MTVC", code: "U24MH201", c: 3 },
+            { n: "EC", code: "U24CY202C", c: 3 },
+            { n: "OS", code: "U24CS203", c: 3 },
+            { n: "DSTC", code: "U24CS204", c: 3 },
+            { n: "ECRW", code: "U24MH205", c: 2 },
+            { n: "Sports & Yoga", code: "U24VA206", c: 1, type: "lab" },
+            { n: "EGCAD", code: "U24ME207", c: 1, type: "lab" },
+            { n: "PSD Lab-1", code: "U24SE208", c: 1, type: "lab" },
+            { n: "EC Lab", code: "U24CY209C", c: 1, type: "lab" },
+            { n: "DSTC Lab", code: "U24CS210", c: 1, type: "lab" },
+        ],
 
-    "Sem 3": [
-        { n: "SE", code: "U24CS301", c: 3 },
-        { n: "TOC", code: "U24CS302", c: 3 },
-        { n: "ADS", code: "U24CS303", c: 4 },
-        { n: "CN", code: "U24CS304", c: 3 },
-        { n: "OOP Through Java", code: "U24CS305", c: 4 },
-        { n: "QALR", code: "U24VA306A", c: 2 },
-        { n: "PSD Lab-2", code: "U24SE307", c: 1, type: "lab" },
-    ],
+        "Sem 3": [
+            { n: "SE", code: "U24CS301", c: 3 },
+            { n: "TOC", code: "U24CS302", c: 3 },
+            { n: "ADS", code: "U24CS303", c: 4 },
+            { n: "CN", code: "U24CS304", c: 3 },
+            { n: "OOP Through Java", code: "U24CS305", c: 4 },
+            { n: "QALR", code: "U24VA306A", c: 2 },
+            { n: "PSD Lab-2", code: "U24SE307", c: 1, type: "lab" },
+        ],
 
-    "Sem 4": [
-        { n: "DMPS", code: "U24MH401", c: 3 },
-        { n: "WP", code: "U24CS402", c: 4 },
-        { n: "DBMS", code: "U24CS403", c: 4 },
-        { n: "AI", code: "U24CS404", c: 3 },
-        { n: "PP", code: "U24CS405", c: 4 },
-        { n: "SIS", code: "U24VA406B", c: 1 },//default to "theory" in attendance.js so not required to explicitly mark as type "theory"
-        { n: "PSD Lab-3", code: "U24SE407", c: 1, type: "lab" },// stanalone alone labs marked seperately 
-    ],
-"Sem 5": [
-    { n: "M-Elective 1", code: "U24OE501YYX", c: 3 },
-    { n: "ML", code: "U24CS502", c: 4 },
-    { n: "Full Stack Dev", code: "U24CS503", c: 4 },
-    { n: "CD", code: "U24CS504", c: 4 },
-    { n: "S&E Basket", code: "U24ST505X", c: 3 },
-    { n: "EITK", code: "U24IK506A", c: 2 },
-    { n: "PSD Lab-4", code: "U24SE507", c: 1, type: "lab" },
-    { n: "Tech. English", code: "U24MH508", c: 1 },
-    { n: "Seminar", code: "U24CS509", c: 1 },
-],
+        "Sem 4": [
+            { n: "DMPS", code: "U24MH401", c: 3 }, //data contributed by Mohammad Fayazuddin
+            { n: "WP", code: "U24CS402", c: 3 },
+            { n: "DBMS", code: "U24CS403", c: 3 },
+            { n: "AI", code: "U24CS404", c: 3 },
+            { n: "PP", code: "U24CS405", c: 3 },
+            { n: "SIS", code: "U24VA406B", c: 1 },//default to "theory" in attendance.js so not required to explicitly mark as type "theory"
+            { n: "PSD Lab-3", code: "U24SE407", c: 1, type: "lab" },// stanalone alone labs marked seperately 
+            { n: "WP Lab", code: "U24CS408", c: 1, type: "lab" },
+            { n: "DBMS Lab", code: "U24CS409", c: 1, type: "lab" },
+            { n: "PP Lab", code: "U24CS410", c: 1, type: "lab" },
+        ],
+        "Sem 5": [
+            { n: "M-Elective 1", code: "U24OE501YYX", c: 3 },
+            { n: "ML", code: "U24CS502", c: 4 },
+            { n: "Full Stack Dev", code: "U24CS503", c: 4 },
+            { n: "CD", code: "U24CS504", c: 4 },
+            { n: "S&E Basket", code: "U24ST505X", c: 3 },
+            { n: "EITK", code: "U24IK506A", c: 2 },
+            { n: "PSD Lab-4", code: "U24SE507", c: 1, type: "lab" },
+            { n: "Tech. English", code: "U24MH508", c: 1 },
+            { n: "Seminar", code: "U24CS509", c: 1 },
+        ],
 
-"Sem 6": [
-    { n: "P-Elective 1", code: "U24CS601", c: 3 },
-    { n: "CNS", code: "U24CS602", c: 3 },
-    { n: "DAA", code: "U24CS603", c: 4 },
-    { n: "IOT", code: "U24IN604", c: 4 },
-    { n: "MCB", code: "U24MB605X", c: 3 },
-    { n: "UHV-II", code: "U24IK606B", c: 2 },
-    { n: "PSD Lab-5", code: "U24SE607", c: 1, type: "lab" },
-    { n: "Mini Project", code: "U24CS608", c: 1, type: "lab" },
-],
+        "Sem 6": [
+            { n: "P-Elective 1", code: "U24CS601", c: 3 },
+            { n: "CNS", code: "U24CS602", c: 3 },
+            { n: "DAA", code: "U24CS603", c: 4 },
+            { n: "IOT", code: "U24IN604", c: 4 },
+            { n: "MCB", code: "U24MB605X", c: 3 },
+            { n: "UHV-II", code: "U24IK606B", c: 2 },
+            { n: "PSD Lab-5", code: "U24SE607", c: 1, type: "lab" },
+            { n: "Mini Project", code: "U24CS608", c: 1, type: "lab" },
+        ],
 
-"Sem 7": [
-    { n: "M-Elective-II", code: "U24OE701XX", c: 3 },
-    { n: "P-Elective-II", code: "U24CS702", c: 3 },
-    { n: "CC", code: "U24CS703", c: 4 },
-    { n: "DL", code: "U24CS704", c: 3 },
-    { n: "Blockchain", code: "U24CS705", c: 3 },
-    { n: "Internship", code: "U24CS706", c: 1, type: "lab" },
-    { n: "Major Project-I", code: "U24CS707", c: 4 }
-],
+        "Sem 7": [
+            { n: "M-Elective-II", code: "U24OE701XX", c: 3 },
+            { n: "P-Elective-II", code: "U24CS702", c: 3 },
+            { n: "CC", code: "U24CS703", c: 4 },
+            { n: "DL", code: "U24CS704", c: 3 },
+            { n: "Blockchain", code: "U24CS705", c: 3 },
+            { n: "Internship", code: "U24CS706", c: 1, type: "lab" },
+            { n: "Major Project-I", code: "U24CS707", c: 4 }
+        ],
 
-"Sem 8": [
-    { n: "M-Elective-III", code: "U24OE801XX", c: 3 },
-    { n: "P-Elective-III", code: "U24CS802", c: 3 },
-    { n: "P-Elective-IV", code: "U24CS803", c: 3 },
-    { n: "Major Project-II", code: "U24CS804", c: 6 }
-]
+        "Sem 8": [
+            { n: "M-Elective-III", code: "U24OE801XX", c: 3 },
+            { n: "P-Elective-III", code: "U24CS802", c: 3 },
+            { n: "P-Elective-IV", code: "U24CS803", c: 3 },
+            { n: "Major Project-II", code: "U24CS804", c: 6 }
+        ]
     },
     "CSM": {
-       "Sem 1": [
-    { n: "DCODE", code: "U24MH101", c: 3 },
-    { n: "EC", code: "U24CY102B", c: 4 },
-    { n: "STLD", code: "U24EC111", c: 3 },
-    { n: "PPSC", code: "U24AI104", c: 4 },
-    { n: "ECRW", code: "U24MH105", c: 2 },
-    { n: "Sports & Yoga", code: "U24VA106", c: 1, type: "lab" },
-    { n: "EGCAD", code: "U24ME107", c: 1, type: "lab" }
-],
+        "Sem 1": [
+            { n: "DCODE", code: "U24MH101", c: 3 },
+            { n: "EC", code: "U24CY102B", c: 4 },
+            { n: "STLD", code: "U24EC111", c: 3 },
+            { n: "PPSC", code: "U24AI104", c: 4 },
+            { n: "ECRW", code: "U24MH105", c: 2 },
+            { n: "Sports & Yoga", code: "U24VA106", c: 1, type: "lab" },
+            { n: "EGCAD", code: "U24ME107", c: 1, type: "lab" }
+        ],
 
-"Sem 2": [
-    { n: "MTVC", code: "U24MH201", c: 3 },
-    { n: "EP", code: "U24PY202B", c: 4 },
-    { n: "COA", code: "U24AI203", c: 3 },
-    { n: "DSTC", code: "U24AI204", c: 4 },
-    { n: "BEE", code: "U24EE205B", c: 4 },
-    { n: "ILMS", code: "U24AE207", c: 1, type: "lab" },
-    { n: "PSD Lab-1", code: "U24SE208", c: 1, type: "lab" }
-],
+        "Sem 2": [
+            { n: "MTVC", code: "U24MH201", c: 3 }, //data contributed by Bonagiri Pragnesh
+            { n: "EP", code: "U24PY202B", c: 3 },
+            { n: "CAO", code: "U24AI203", c: 3 },
+            { n: "DSTC", code: "U24AI204", c: 3 },
+            { n: "BEE", code: "U24EE205B", c: 3 },
+            { n: "ILMS", code: "U24AE207", c: 1, type: "lab" },
+            { n: "PSD Lab-1", code: "U24SE208", c: 1, type: "lab" },
+            { n: "EP Lab", code: "U24PY209B", c: 1, type: "lab" },
+            { n: "DSTC Lab", code: "U24AI210", c: 1, type: "lab" },
+            { n: "BEE Lab", code: "U24EE211B", c: 1, type: "lab" },
+        ],
 
-"Sem 3": [
-    { n: "EM & SML", code: "U24MH301E", c: 3 },
-    { n: "ADS", code: "U24AI302", c: 4 },
-    { n: "OS", code: "U24AI303", c: 3 },
-    { n: "ATCD", code: "U24AI304", c: 3 },
-    { n: "OOP Through Java", code: "U24AI305", c: 4 },
-    { n: "SIS", code: "U24VA306B", c: 1 },
-    { n: "PSD Lab-2", code: "U24SE307", c: 1, type: "lab" }
-],
+        "Sem 3": [
+            { n: "EM & SML", code: "U24MH301E", c: 3 },
+            { n: "ADS", code: "U24AI302", c: 4 },
+            { n: "OS", code: "U24AI303", c: 3 },
+            { n: "ATCD", code: "U24AI304", c: 3 },
+            { n: "OOP Through Java", code: "U24AI305", c: 4 },
+            { n: "SIS", code: "U24VA306B", c: 1 },
+            { n: "PSD Lab-2", code: "U24SE307", c: 1, type: "lab" }
+        ],
 
-"Sem 4": [
-    { n: "DBMS", code: "U24AI401", c: 4 },
-    { n: "AI", code: "U24AI402", c: 3 },
-    { n: "SE", code: "U24AI403", c: 3 },
-    { n: "CN", code: "U24AI404", c: 3 },
-    { n: "PP", code: "U24AI405", c: 4 },
-    { n: "QALR", code: "U24VA406A", c: 2 },
-    { n: "PSD Lab-3", code: "U24SE407", c: 1, type: "lab" }
-],
+        "Sem 4": [
+            { n: "DBMS", code: "U24AI401", c: 3 }, //data contributed by Zuu
+            { n: "AI", code: "U24AI402", c: 3 },
+            { n: "SE", code: "U24AI403", c: 3 },
+            { n: "CN", code: "U24AI404", c: 3 },
+            { n: "PP", code: "U24AI405", c: 3 },
+            { n: "QALR", code: "U24VA406A", c: 2 },
+            { n: "PSD Lab-3", code: "U24SE407", c: 1, type: "lab" },
+            { n: "DBMS Lab", code: "U24AI408", c: 1, type: "lab" },
+            { n: "PP Lab", code: "U24AI409", c: 1, type: "lab" }
+        ],
         "Sem 5": [
-    { n: "M-Elective 1", code: "U24OE501YYX", c: 3 },
-    { n: "WP", code: "U24AI502", c: 4 },
-    { n: "DAA", code: "U24AI503", c: 3 },
-    { n: "ML", code: "U24AI504", c: 4 },
-    { n: "M Basket", code: "U24MB505X", c: 3 },
-    { n: "UHV-II", code: "U24IK506B", c: 2 },
-    { n: "PSD Lab-4", code: "U24AI507", c: 1, type: "lab" },
-    { n: "Tech. English", code: "U24MH508", c: 1 },
-    { n: "Seminar", code: "U24AI509", c: 1 },
-],
+            { n: "M-Elective 1", code: "U24OE501YYX", c: 3 },
+            { n: "WP", code: "U24AI502", c: 4 },
+            { n: "DAA", code: "U24AI503", c: 3 },
+            { n: "ML", code: "U24AI504", c: 4 },
+            { n: "M Basket", code: "U24MB505X", c: 3 },
+            { n: "UHV-II", code: "U24IK506B", c: 2 },
+            { n: "PSD Lab-4", code: "U24AI507", c: 1, type: "lab" },
+            { n: "Tech. English", code: "U24MH508", c: 1 },
+            { n: "Seminar", code: "U24AI509", c: 1 },
+        ],
 
-"Sem 6": [
-    { n: "P-Elective 1", code: "U24AI601X", c: 3 },
-    { n: "CV & IP", code: "U24AI602", c: 3 },
-    { n: "DL", code: "U24AI603", c: 4 },
-    { n: "DevOps", code: "U24AI604", c: 4 },
-    { n: "S&E Basket", code: "U24ST605X", c: 3 },
-    { n: "EITK", code: "U24IK606B", c: 2 },
-    { n: "PSD Lab-5", code: "U24AI607", c: 1, type: "lab" },
-    { n: "Mini Project", code: "U24AI608", c: 1, type: "lab" },
-],
+        "Sem 6": [
+            { n: "P-Elective 1", code: "U24AI601X", c: 3 },
+            { n: "CV & IP", code: "U24AI602", c: 3 },
+            { n: "DL", code: "U24AI603", c: 4 },
+            { n: "DevOps", code: "U24AI604", c: 4 },
+            { n: "S&E Basket", code: "U24ST605X", c: 3 },
+            { n: "EITK", code: "U24IK606B", c: 2 },
+            { n: "PSD Lab-5", code: "U24AI607", c: 1, type: "lab" },
+            { n: "Mini Project", code: "U24AI608", c: 1, type: "lab" },
+        ],
 
-"Sem 7": [
-    { n: "M-Elective-II", code: "U24OE701YYX", c: 3 },
-    { n: "P-Elective-II", code: "U24AI702X", c: 3 },
-    { n: "BDA", code: "U24AI703", c: 4 },
-    { n: "CC", code: "U24AI704", c: 3 },
-    { n: "EH", code: "U24AI705", c: 3 },
-    { n: "Internship", code: "U24AI706", c: 1, type: "lab" },
-    { n: "Major Project-I", code: "U24AI707", c: 4 }
-],
+        "Sem 7": [
+            { n: "M-Elective-II", code: "U24OE701YYX", c: 3 },
+            { n: "P-Elective-II", code: "U24AI702X", c: 3 },
+            { n: "BDA", code: "U24AI703", c: 4 },
+            { n: "CC", code: "U24AI704", c: 3 },
+            { n: "EH", code: "U24AI705", c: 3 },
+            { n: "Internship", code: "U24AI706", c: 1, type: "lab" },
+            { n: "Major Project-I", code: "U24AI707", c: 4 }
+        ],
 
-"Sem 8": [
-    { n: "M-Elective-III", code: "U24OE801YYX", c: 3 },
-    { n: "P-Elective-III", code: "U24AI802X", c: 3 },
-    { n: "P-Elective-IV", code: "U24AI803X", c: 3 },
-    { n: "Major Project-II", code: "U24AI804", c: 6 }
-]
+        "Sem 8": [
+            { n: "M-Elective-III", code: "U24OE801YYX", c: 3 },
+            { n: "P-Elective-III", code: "U24AI802X", c: 3 },
+            { n: "P-Elective-IV", code: "U24AI803X", c: 3 },
+            { n: "Major Project-II", code: "U24AI804", c: 6 }
+        ]
     },
     "ME": {
         "Sem 1": [
-            { n: "DCODE", code: "U24MH101", c: 3},
+            { n: "DCODE", code: "U24MH101", c: 3 },
             { n: "EC", code: "U24CY102A", c: 4 },
             { n: "TD", code: "U24ME103", c: 3 },
             { n: "PPSC", code: "U24ME104", c: 4 },
@@ -216,7 +226,7 @@ const COURSE_DATA = {
             { n: "PSD Lab-2", code: "U24SE307", c: 1, type: "lab" }
         ],
         "Sem 4": [
-            { n: "HT", code: "U24ME401", c: 3},
+            { n: "HT", code: "U24ME401", c: 3 },
             { n: "MD", code: "U24ME402", c: 4 },
             { n: "FM & HM", code: "U24ME403", c: 4 },
             { n: "DME", code: "U24ME404", c: 3 },
@@ -243,7 +253,7 @@ const COURSE_DATA = {
             { n: "S&E Basket", code: "", c: 3 },
             { n: "EITK", code: "U24IK606A", c: 2 },
             { n: "AIML Lab", code: "U24ME607", c: 1, type: "lab" },
-            { n: "Mini Project", code: "U24ME608", c: 1}
+            { n: "Mini Project", code: "U24ME608", c: 1 }
         ],
         "Sem 7": [
             { n: "M-Elective-II", code: "U24OE701YYX", c: 3 },
@@ -263,247 +273,252 @@ const COURSE_DATA = {
     },
     "CSD": {
         "Sem 1": [
-    { n: "DCODE", code: "U24MH101", c: 3 },
-    { n: "EC", code: "U24CY102B", c: 4 },
-    { n: "STLD", code: "U24EC111", c: 3 },
-    { n: "PPSC", code: "U24DS104", c: 4 },
-    { n: "ECRW", code: "U24MH105", c: 2 },
-    { n: "Sports & Yoga", code: "U24VA106", c: 1, type: "lab" },
-    { n: "EGCAD", code: "U24ME107", c: 1, type: "lab" }
-],
+            { n: "DCODE", code: "U24MH101", c: 3 },
+            { n: "EC", code: "U24CY102B", c: 4 },
+            { n: "STLD", code: "U24EC111", c: 3 },
+            { n: "PPSC", code: "U24DS104", c: 4 },
+            { n: "ECRW", code: "U24MH105", c: 2 },
+            { n: "Sports & Yoga", code: "U24VA106", c: 1, type: "lab" },
+            { n: "EGCAD", code: "U24ME107", c: 1, type: "lab" }
+        ],
 
-"Sem 2": [
-    { n: "MTVC", code: "U24MH201", c: 3 },
-    { n: "EP", code: "U24PY202B", c: 4 },
-    { n: "COA", code: "U24DS203", c: 3 },
-    { n: "DSTC", code: "U24DS204", c: 4 },
-    { n: "BEE", code: "U24EE205B", c: 4 },
-    { n: "ILMS", code: "U24AE207", c: 1, type: "lab" },
-    { n: "PSD Lab-1", code: "U24SE208", c: 1, type: "lab" }
-],
+        "Sem 2": [
+            { n: "MTVC", code: "U24MH201", c: 3 },
+            { n: "EP", code: "U24PY202B", c: 4 },
+            { n: "COA", code: "U24DS203", c: 3 },
+            { n: "DSTC", code: "U24DS204", c: 4 },
+            { n: "BEE", code: "U24EE205B", c: 4 },
+            { n: "ILMS", code: "U24AE207", c: 1, type: "lab" },
+            { n: "PSD Lab-1", code: "U24SE208", c: 1, type: "lab" }
+        ],
 
-"Sem 3": [
-    { n: "EM & SD", code: "U24MH301F", c: 3 },
-    { n: "ADS", code: "U24DS302", c: 4 },
-    { n: "OS", code: "U24DS303", c: 3 },
-    { n: "ATCD", code: "U24DS304", c: 3 },
-    { n: "OOP Through Java", code: "U24DS305", c: 4 },
-    { n: "SIS", code: "U24VA306B", c: 1 },
-    { n: "PSD Lab-2", code: "U24SE307", c: 1, type: "lab" }
-],
+        "Sem 3": [
+            { n: "EM & SD", code: "U24MH301F", c: 3 },
+            { n: "ADS", code: "U24DS302", c: 4 },
+            { n: "OS", code: "U24DS303", c: 3 },
+            { n: "ATCD", code: "U24DS304", c: 3 },
+            { n: "OOP Through Java", code: "U24DS305", c: 4 },
+            { n: "SIS", code: "U24VA306B", c: 1 },
+            { n: "PSD Lab-2", code: "U24SE307", c: 1, type: "lab" }
+        ],
 
-"Sem 4": [
-    { n: "DBMS", code: "U24DS401", c: 4 },
-    { n: "AI", code: "U24DS402", c: 3 },
-    { n: "SE", code: "U24DS403", c: 3 },
-    { n: "CN", code: "U24DS404", c: 3 },
-    { n: "PP", code: "U24DS405", c: 4 },
-    { n: "QALR", code: "U24VA406A", c: 2 },
-    { n: "PSD Lab-3", code: "U24SE407", c: 1, type: "lab" }
-],
+        "Sem 4": [
+            { n: "DBMS", code: "U24DS401", c: 3 }, //data contributed by Mohammed Taqiuddin and K. Varun
+            { n: "AI", code: "U24DS402", c: 3 },
+            { n: "SE", code: "U24DS403", c: 3 },
+            { n: "CN", code: "U24DS404", c: 3 },
+            { n: "PP", code: "U24DS405", c: 3 },
+            { n: "QALR", code: "U24VA406A", c: 2 },
+            { n: "PSD Lab-3", code: "U24SE407", c: 1, type: "lab" },
+            { n: "DBMS Lab", code: "U24DS408", c: 1, type: "lab" },
+            { n: "PP Lab", code: "U24DS409", c: 1, type: "lab" },
+        ],
         "Sem 5": [
-    { n: "M-Elective 1", code: "U24OE501YYX", c: 3 },
-    { n: "WP", code: "U24DS502", c: 4 },
-    { n: "DAA", code: "U24DS503", c: 3 },
-    { n: "ML", code: "U24DS504", c: 4 },
-    { n: "M Basket", code: "U24MB505X", c: 3 },
-    { n: "UHV-II", code: "U24IK506B", c: 2 },
-    { n: "PSD Lab-4", code: "U24DS507", c: 1, type: "lab" },
-    { n: "Tech. English", code: "U24MH508", c: 1 },
-    { n: "Seminar", code: "U24DS509", c: 1 },
-],
+            { n: "M-Elective 1", code: "U24OE501YYX", c: 3 },
+            { n: "WP", code: "U24DS502", c: 4 },
+            { n: "DAA", code: "U24DS503", c: 3 },
+            { n: "ML", code: "U24DS504", c: 4 },
+            { n: "M Basket", code: "U24MB505X", c: 3 },
+            { n: "UHV-II", code: "U24IK506B", c: 2 },
+            { n: "PSD Lab-4", code: "U24DS507", c: 1, type: "lab" },
+            { n: "Tech. English", code: "U24MH508", c: 1 },
+            { n: "Seminar", code: "U24DS509", c: 1 },
+        ],
 
-"Sem 6": [
-    { n: "P-Elective 1", code: "U24DS601X", c: 3 },
-    { n: "CV & IP", code: "U24DS602", c: 3 },
-    { n: "DL", code: "U24DS603", c: 4 },
-    { n: "DevOps", code: "U24DS604", c: 4 },
-    { n: "S&E Basket", code: "U24ST605X", c: 3 },
-    { n: "EITK", code: "U24IK606B", c: 2 },
-    { n: "PSD Lab-5", code: "U24DS607", c: 1, type: "lab" },
-    { n: "Mini Project", code: "U24DS608", c: 1, type: "lab" },
-],
+        "Sem 6": [
+            { n: "P-Elective 1", code: "U24DS601X", c: 3 },
+            { n: "CV & IP", code: "U24DS602", c: 3 },
+            { n: "DL", code: "U24DS603", c: 4 },
+            { n: "DevOps", code: "U24DS604", c: 4 },
+            { n: "S&E Basket", code: "U24ST605X", c: 3 },
+            { n: "EITK", code: "U24IK606B", c: 2 },
+            { n: "PSD Lab-5", code: "U24DS607", c: 1, type: "lab" },
+            { n: "Mini Project", code: "U24DS608", c: 1, type: "lab" },
+        ],
 
-"Sem 7": [
-    { n: "M-Elective-II", code: "U24OE701YYX", c: 3 },
-    { n: "P-Elective-II", code: "U24DS702X", c: 3 },
-    { n: "BDA", code: "U24DS703", c: 4 },
-    { n: "CC", code: "U24DS704", c: 3 },
-    { n: "EH", code: "U24DS705", c: 3 },
-    { n: "Internship", code: "U24DS706", c: 1, type: "lab" },
-    { n: "Major Project-I", code: "U24DS707", c: 4 }
-],
+        "Sem 7": [
+            { n: "M-Elective-II", code: "U24OE701YYX", c: 3 },
+            { n: "P-Elective-II", code: "U24DS702X", c: 3 },
+            { n: "BDA", code: "U24DS703", c: 4 },
+            { n: "CC", code: "U24DS704", c: 3 },
+            { n: "EH", code: "U24DS705", c: 3 },
+            { n: "Internship", code: "U24DS706", c: 1, type: "lab" },
+            { n: "Major Project-I", code: "U24DS707", c: 4 }
+        ],
 
-"Sem 8": [
-    { n: "M-Elective-III", code: "U24OE801YYX", c: 3 },
-    { n: "P-Elective-III", code: "U24DS802X", c: 3 },
-    { n: "P-Elective-IV", code: "U24DS803X", c: 3 },
-    { n: "Major Project-II", code: "U24DS804", c: 6 }
-]
- },
+        "Sem 8": [
+            { n: "M-Elective-III", code: "U24OE801YYX", c: 3 },
+            { n: "P-Elective-III", code: "U24DS802X", c: 3 },
+            { n: "P-Elective-IV", code: "U24DS803X", c: 3 },
+            { n: "Major Project-II", code: "U24DS804", c: 6 }
+        ]
+    },
     "CSN": {
         "Sem 1": [
-    { n: "DCODE", code: "U24MH101", c: 3 },
-    { n: "EC", code: "U24CY102B", c: 4 },
-    { n: "DLD", code: "U24CI111", c: 3 },
-    { n: "PPSC", code: "U24CN104", c: 4 },
-    { n: "ECRW", code: "U24MH105", c: 2 },
-    { n: "Sports & Yoga", code: "U24VA106", c: 1, type: "lab" },
-    { n: "EGCAD", code: "U24AE107", c: 1, type: "lab" }
-],
+            { n: "DCODE", code: "U24MH101", c: 3 },
+            { n: "EC", code: "U24CY102B", c: 4 },
+            { n: "DLD", code: "U24CI111", c: 3 },
+            { n: "PPSC", code: "U24CN104", c: 4 },
+            { n: "ECRW", code: "U24MH105", c: 2 },
+            { n: "Sports & Yoga", code: "U24VA106", c: 1, type: "lab" },
+            { n: "EGCAD", code: "U24AE107", c: 1, type: "lab" }
+        ],
 
-"Sem 2": [
-    { n: "MTVC", code: "U24MH201", c: 3 },
-    { n: "EP", code: "U24PY202B", c: 4 },
-    { n: "COA", code: "U24CN203", c: 3 },
-    { n: "DSTC", code: "U24CN204", c: 4 },
-    { n: "BEE", code: "U24EE205B", c: 4 },
-    { n: "ILMS", code: "U24AE207", c: 1, type: "lab" },
-    { n: "PSD Lab-1", code: "U24SE208", c: 1, type: "lab" }
-],
+        "Sem 2": [
+            { n: "MTVC", code: "U24MH201", c: 3 },
+            { n: "EP", code: "U24PY202B", c: 4 },
+            { n: "COA", code: "U24CN203", c: 3 },
+            { n: "DSTC", code: "U24CN204", c: 4 },
+            { n: "BEE", code: "U24EE205B", c: 4 },
+            { n: "ILMS", code: "U24AE207", c: 1, type: "lab" },
+            { n: "PSD Lab-1", code: "U24SE208", c: 1, type: "lab" }
+        ],
 
-"Sem 3": [
-    { n: "ATCD", code: "U24CN301", c: 3 },
-    { n: "OS", code: "U24CN302", c: 3 },
-    { n: "ADS", code: "U24CN303", c: 4 },
-    { n: "CN", code: "U24CN304", c: 4 },
-    { n: "OOP Through Java", code: "U24CN305", c: 4 },
-    { n: "SIS", code: "U24VA306B", c: 1 },
-    { n: "PSD Lab-2", code: "U24SE307", c: 1, type: "lab" }
-],
+        "Sem 3": [
+            { n: "ATCD", code: "U24CN301", c: 3 },
+            { n: "OS", code: "U24CN302", c: 3 },
+            { n: "ADS", code: "U24CN303", c: 4 },
+            { n: "CN", code: "U24CN304", c: 4 },
+            { n: "OOP Through Java", code: "U24CN305", c: 4 },
+            { n: "SIS", code: "U24VA306B", c: 1 },
+            { n: "PSD Lab-2", code: "U24SE307", c: 1, type: "lab" }
+        ],
 
-"Sem 4": [
-    { n: "DMPS", code: "U24MH401D", c: 3 },
-    { n: "DBMS", code: "U24CN402", c: 4 },
-    { n: "DAA", code: "U24CN403", c: 3 },
-    { n: "PP", code: "U24CN405", c: 4 },
-    { n: "I & V", code: "U24CN404", c: 4 },
-    { n: "QALR", code: "U24VA406A", c: 2 },
-    { n: "PSD Lab-3", code: "U24SE407", c: 1, type: "lab" }
-],
+        "Sem 4": [
+            { n: "DMPS", code: "U24MH401", c: 3 },
+            { n: "DBMS", code: "U24CN402", c: 3 },
+            { n: "DAA", code: "U24CN403", c: 3 },
+            { n: "I & V", code: "U24CN404", c: 3 },
+            { n: "PP", code: "U24CN405", c: 3 },
+            { n: "QALR", code: "U24VA406B", c: 2 },
+            { n: "PSD Lab-3", code: "U24SE407", c: 1, type: "lab" },
+            { n: "DBMS Lab", code: "U24CN408", c: 1, type: "lab" },
+            { n: "IV Lab", code: "U24CN409", c: 1, type: "lab" },
+            { n: "PP Lab", code: "U24CN410", c: 1, type: "lab" }
+        ],
         "Sem 5": [
-    { n: "M-Elective 1", code: "U24OE501YYX", c: 3 },
-    { n: "AIML", code: "U24CN502", c: 4 },
-    { n: "WP", code: "U24CN503", c: 4 },
-    { n: "NA", code: "U24CN504", c: 4 },
-    { n: "M Basket", code: "U24MB505X", c: 3 },
-    { n: "UHV-II", code: "U24IK506B", c: 2 },
-    { n: "DAA Lab", code: "U24CN507", c: 1, type: "lab" },
-    { n: "Tech. English", code: "U24MH508", c: 1 },
-    { n: "Seminar", code: "U24CN509", c: 1 },
-],
+            { n: "M-Elective 1", code: "U24OE501YYX", c: 3 },
+            { n: "AIML", code: "U24CN502", c: 4 },
+            { n: "WP", code: "U24CN503", c: 4 },
+            { n: "NA", code: "U24CN504", c: 4 },
+            { n: "M Basket", code: "U24MB505X", c: 3 },
+            { n: "UHV-II", code: "U24IK506B", c: 2 },
+            { n: "DAA Lab", code: "U24CN507", c: 1, type: "lab" },
+            { n: "Tech. English", code: "U24MH508", c: 1 },
+            { n: "Seminar", code: "U24CN509", c: 1 },
+        ],
 
-"Sem 6": [
-    { n: "P-Elective 1", code: "U24CN601X", c: 3 },
-    { n: "CNS", code: "U24CN602", c: 4 },
-    { n: "DevOps", code: "U24CN603", c: 4 },
-    { n: "IoT", code: "U24CN604", c: 4 },
-    { n: "S&E Basket", code: "U24ST605X", c: 3 },
-    { n: "EITK", code: "U24IK606A", c: 2 },
-    { n: "FSD Lab", code: "U24CN607", c: 1, type: "lab" },
-    { n: "Mini Project", code: "U24CN608", c: 1, type: "lab" },
-],
+        "Sem 6": [
+            { n: "P-Elective 1", code: "U24CN601X", c: 3 },
+            { n: "CNS", code: "U24CN602", c: 4 },
+            { n: "DevOps", code: "U24CN603", c: 4 },
+            { n: "IoT", code: "U24CN604", c: 4 },
+            { n: "S&E Basket", code: "U24ST605X", c: 3 },
+            { n: "EITK", code: "U24IK606A", c: 2 },
+            { n: "FSD Lab", code: "U24CN607", c: 1, type: "lab" },
+            { n: "Mini Project", code: "U24CN608", c: 1, type: "lab" },
+        ],
 
-"Sem 7": [
-    { n: "M-Elective-II", code: "U24OE701YYX", c: 3 },
-    { n: "P-Elective-II", code: "U24CN702", c: 3 },
-    { n: "CASE", code: "U24CN703", c: 4 },
-    { n: "DCN", code: "U24CN704", c: 4 },
-    { n: "Internship", code: "U24CN705", c: 1, type: "lab" },
-    { n: "Major Project-I", code: "U24CN706", c: 4 }
-],
+        "Sem 7": [
+            { n: "M-Elective-II", code: "U24OE701YYX", c: 3 },
+            { n: "P-Elective-II", code: "U24CN702", c: 3 },
+            { n: "CASE", code: "U24CN703", c: 4 },
+            { n: "DCN", code: "U24CN704", c: 4 },
+            { n: "Internship", code: "U24CN705", c: 1, type: "lab" },
+            { n: "Major Project-I", code: "U24CN706", c: 4 }
+        ],
 
-"Sem 8": [
-    { n: "M-Elective-III", code: "U24OE801YYX", c: 3 },
-    { n: "P-Elective-III", code: "U24CN802", c: 3 },
-    { n: "P-Elective-IV", code: "U24CN803", c: 3 },
-    { n: "Major Project-II", code: "U24CN804", c: 6 }
-]
+        "Sem 8": [
+            { n: "M-Elective-III", code: "U24OE801YYX", c: 3 },
+            { n: "P-Elective-III", code: "U24CN802", c: 3 },
+            { n: "P-Elective-IV", code: "U24CN803", c: 3 },
+            { n: "Major Project-II", code: "U24CN804", c: 6 }
+        ]
     },
     "CSO": {
         "Sem 1": [
-    { n: "DCODE", code: "U24MH101", c: 3 },
-    { n: "EC", code: "U24CY102B", c: 4 },
-    { n: "DLD", code: "U24CI111", c: 3 },
-    { n: "PPSC", code: "U24IN104", c: 4 },
-    { n: "ECRW", code: "U24MH105", c: 2 },
-    { n: "Sports & Yoga", code: "U24VA106", c: 1, type: "lab" },
-    { n: "EGCAD", code: "U24ME107", c: 1, type: "lab" }
-],
+            { n: "DCODE", code: "U24MH101", c: 3 },
+            { n: "EC", code: "U24CY102B", c: 4 },
+            { n: "DLD", code: "U24CI111", c: 3 },
+            { n: "PPSC", code: "U24IN104", c: 4 },
+            { n: "ECRW", code: "U24MH105", c: 2 },
+            { n: "Sports & Yoga", code: "U24VA106", c: 1, type: "lab" },
+            { n: "EGCAD", code: "U24ME107", c: 1, type: "lab" }
+        ],
 
-"Sem 2": [
-    { n: "MTVC", code: "U24MH201", c: 3 },
-    { n: "EP", code: "U24PY202B", c: 4 },
-    { n: "COA", code: "U24IN203", c: 3 },
-    { n: "DSTC", code: "U24IN204", c: 4 },
-    { n: "BEE", code: "U24EE205B", c: 4 },
-    { n: "ILMS", code: "U24AE207", c: 1, type: "lab" },
-    { n: "PSD Lab-1", code: "U24SE208", c: 1, type: "lab" }
-],
+        "Sem 2": [
+            { n: "MTVC", code: "U24MH201", c: 3 },
+            { n: "EP", code: "U24PY202B", c: 4 },
+            { n: "COA", code: "U24IN203", c: 3 },
+            { n: "DSTC", code: "U24IN204", c: 4 },
+            { n: "BEE", code: "U24EE205B", c: 4 },
+            { n: "ILMS", code: "U24AE207", c: 1, type: "lab" },
+            { n: "PSD Lab-1", code: "U24SE208", c: 1, type: "lab" }
+        ],
 
-"Sem 3": [
-    { n: "FIOT", code: "U24IN301", c: 4 },
-    { n: "OS", code: "U24IN302", c: 3 },
-    { n: "ADS", code: "U24IN303", c: 4 },
-    { n: "CN", code: "U24IN304", c: 3 },
-    { n: "OOP Through Java", code: "U24IN305", c: 4 },
-    { n: "SIS", code: "U24VA306B", c: 1 },
-    { n: "PSD Lab-2", code: "U24SE307", c: 1, type: "lab" }
-],
+        "Sem 3": [
+            { n: "FIOT", code: "U24IN301", c: 4 },
+            { n: "OS", code: "U24IN302", c: 3 },
+            { n: "ADS", code: "U24IN303", c: 4 },
+            { n: "CN", code: "U24IN304", c: 3 },
+            { n: "OOP Through Java", code: "U24IN305", c: 4 },
+            { n: "SIS", code: "U24VA306B", c: 1 },
+            { n: "PSD Lab-2", code: "U24SE307", c: 1, type: "lab" }
+        ],
 
-"Sem 4": [
-    { n: "DMPS", code: "U24MH401D", c: 3 },
-    { n: "WT", code: "U24IN402", c: 4 },
-    { n: "DBMS", code: "U24IN403", c: 4 },
-    { n: "IoTA & P", code: "U24IN404", c: 3 },
-    { n: "PPIoT", code: "U24IN405", c: 4 },
-    { n: "QALR", code: "U24VA406A", c: 2 },
-    { n: "PSD Lab-3", code: "U24SE407", c: 1, type: "lab" }
-],
+        "Sem 4": [
+            { n: "DMPS", code: "U24MH401D", c: 3 },
+            { n: "WT", code: "U24IN402", c: 4 },
+            { n: "DBMS", code: "U24IN403", c: 4 },
+            { n: "IoTA & P", code: "U24IN404", c: 3 },
+            { n: "PPIoT", code: "U24IN405", c: 4 },
+            { n: "QALR", code: "U24VA406A", c: 2 },
+            { n: "PSD Lab-3", code: "U24SE407", c: 1, type: "lab" }
+        ],
         "Sem 5": [
-    { n: "M-Elective 1", code: "U24OE501XX", c: 3 },
-    { n: "AIoT", code: "U24IN502", c: 4 },
-    { n: "ATCD", code: "U24IN503", c: 3 },
-    { n: "DAA", code: "U24IN504", c: 4 },
-    { n: "M Basket", code: "U24ST505X", c: 3 },
-    { n: "UHV-II", code: "U24IK506B", c: 2 },
-    { n: "FSD Lab", code: "U24IN507", c: 1, type: "lab" },
-    { n: "Tech. English", code: "U24MH508", c: 1 },
-    { n: "Seminar", code: "U24IN509", c: 1 },
-],
+            { n: "M-Elective 1", code: "U24OE501XX", c: 3 },
+            { n: "AIoT", code: "U24IN502", c: 4 },
+            { n: "ATCD", code: "U24IN503", c: 3 },
+            { n: "DAA", code: "U24IN504", c: 4 },
+            { n: "M Basket", code: "U24ST505X", c: 3 },
+            { n: "UHV-II", code: "U24IK506B", c: 2 },
+            { n: "FSD Lab", code: "U24IN507", c: 1, type: "lab" },
+            { n: "Tech. English", code: "U24MH508", c: 1 },
+            { n: "Seminar", code: "U24IN509", c: 1 },
+        ],
 
-"Sem 6": [
-    { n: "P-Elective 1", code: "U24IN601X", c: 3 },
-    { n: "IoTF", code: "U24IN602", c: 4 },
-    { n: "DevOps", code: "U24IN603", c: 3 },
-    { n: "Industrial IoT", code: "U24IN604", c: 4 },
-    { n: "S&E Basket", code: "U24MB605X", c: 3 },
-    { n: "EITK", code: "U24IK606A", c: 2 },
-    { n: "DevOps Lab", code: "U24IN607", c: 1, type: "lab" },
-    { n: "Mini Project", code: "U24IN608", c: 1, type: "lab" },
-],
+        "Sem 6": [
+            { n: "P-Elective 1", code: "U24IN601X", c: 3 },
+            { n: "IoTF", code: "U24IN602", c: 4 },
+            { n: "DevOps", code: "U24IN603", c: 3 },
+            { n: "Industrial IoT", code: "U24IN604", c: 4 },
+            { n: "S&E Basket", code: "U24MB605X", c: 3 },
+            { n: "EITK", code: "U24IK606A", c: 2 },
+            { n: "DevOps Lab", code: "U24IN607", c: 1, type: "lab" },
+            { n: "Mini Project", code: "U24IN608", c: 1, type: "lab" },
+        ],
 
-"Sem 7": [
-    { n: "M-Elective-II", code: "U24OE701YYX", c: 3 },
-    { n: "P-Elective-II", code: "U24IN702", c: 3 },
-    { n: "CASE", code: "U24IN703", c: 4 },
-    { n: "PSIoT", code: "U24IN704", c: 3 },
-    { n: "CPS", code: "U24IN705", c: 3 },
-    { n: "Internship", code: "U24IN706", c: 1, type: "lab" },
-    { n: "Major Project-I", code: "U24IN707", c: 4 }
-],
+        "Sem 7": [
+            { n: "M-Elective-II", code: "U24OE701YYX", c: 3 },
+            { n: "P-Elective-II", code: "U24IN702", c: 3 },
+            { n: "CASE", code: "U24IN703", c: 4 },
+            { n: "PSIoT", code: "U24IN704", c: 3 },
+            { n: "CPS", code: "U24IN705", c: 3 },
+            { n: "Internship", code: "U24IN706", c: 1, type: "lab" },
+            { n: "Major Project-I", code: "U24IN707", c: 4 }
+        ],
 
-"Sem 8": [
-    { n: "M-Elective-III", code: "U24OE801YYX", c: 3 },
-    { n: "P-Elective-III", code: "U24IN802", c: 3 },
-    { n: "P-Elective-IV", code: "U24IN803", c: 3 },
-    { n: "Major Project-II", code: "U24IN804", c: 6 }
-]
+        "Sem 8": [
+            { n: "M-Elective-III", code: "U24OE801YYX", c: 3 },
+            { n: "P-Elective-III", code: "U24IN802", c: 3 },
+            { n: "P-Elective-IV", code: "U24IN803", c: 3 },
+            { n: "Major Project-II", code: "U24IN804", c: 6 }
+        ]
 
     },
     "ECE": {
         "Sem 1": [
-            { n: "DCODE", code: "U24MH101", c: 3},
+            { n: "DCODE", code: "U24MH101", c: 3 },
             { n: "EP", code: "U24PY102E", c: 4 },
             { n: "STLD", code: "U24EC103", c: 3 },
             { n: "PPSC", code: "U24EC104", c: 4 },
@@ -578,7 +593,7 @@ const COURSE_DATA = {
     },
     "EEE": {
         "Sem 1": [
-            { n: "DCODE", code: "U24MH101", c: 3    },
+            { n: "DCODE", code: "U24MH101", c: 3 },
             { n: "EP", code: "U24PY102D", c: 4 },
             { n: "EMS", code: "U24EE103", c: 3 },
             { n: "PPSC", code: "U24EE104", c: 4 },
@@ -662,16 +677,16 @@ const COURSE_DATA = {
             { n: "EGCAD", code: "U24ME107", c: 1, type: "lab" }
         ],
         "Sem 2": [
-            { n: "MTVC", c: 3, code: "U24MH201" },
-            { n: "EP", c: 4, code: "U24PY202B" }, // auto split
-            { n: "COA", c: 3, code: "U24IT203"},
-            { n: "DSTC", c: 4, code: "U24IT204" }, // auto split
-            { n: "BEE", c: 4, code: "U24EE205B" }, // auto split
-            { n: "ILMS", c: 1, code: "U24AE207", type: "lab" }, // mention standalone labs explicitly
-            { n: "PSD Lab-1", c: 1, code: "U24SE208", type: "lab" },
-            { n: "Practicum-2", c: 1 },
-            { n: "SEA/SAA-2", c: 1 },
-            { n: "ETS-2", c: 1 }
+            { n: "MTVC", code: "U24MH201", c: 3 }, //data contributed by Mohammed K Moinuddin
+            { n: "EP", code: "U24PY202B", c: 3 },
+            { n: "CAO", code: "U24IT203", c: 3 },
+            { n: "DSTC", code: "U24IT204", c: 3 },
+            { n: "BEE", code: "U24EE205B", c: 3 },
+            { n: "ILMS", code: "U24AE207", c: 1, type: "lab" },
+            { n: "PSD Lab-1", code: "U24SE208", c: 1, type: "lab" },
+            { n: "EP Lab", code: "U24PY209B", c: 1, type: "lab" },
+            { n: "DSTC Lab", code: "U24IT210", c: 1, type: "lab" },
+            { n: "BEE Lab", code: "U24EE211B", c: 1, type: "lab" },
         ],
         "Sem 3": [
             { n: "AI", code: "U24IT301", c: 3 },
@@ -687,13 +702,16 @@ const COURSE_DATA = {
          * Added course codes for robust UMS auto-fill matching.
          */
         "Sem 4": [
-            { n: "DMPS", c: 3, code: "U24MH401"},
-            { n: "DAA", c: 4, code: "U24IT402" }, // 4 credits → auto splits theory+lab
-            { n: "PP", c: 4, code: "U24IT403" },  // auto split
-            { n: "OS", c: 4, code: "U24IT404" },  // auto split
-            { n: "CN", c: 3, code: "U24IT405",},
-            { n: "QALR", c: 2, code: "U24VA406A",},
-            { n: "PSD Lab-3", c: 1, code: "U24SE407", type: "lab" }// Standalone Lab — must explicitly define type
+            { n: "DMPS", code: "U24MH401", c: 3 }, //data contributed by Salman Imran Syed
+            { n: "DAA", code: "U24IT402", c: 3 },
+            { n: "PP", code: "U24IT403", c: 3 },
+            { n: "OS", code: "U24IT404", c: 3 },
+            { n: "CN", code: "U24IT405", c: 3 },
+            { n: "QALR", code: "U24VA406A", c: 2 },
+            { n: "PSD Lab-3", code: "U24SE407", c: 1, type: "lab" },
+            { n: "DAA Lab", code: "U24IT408", c: 1, type: "lab" },
+            { n: "PP Lab", code: "U24IT409", c: 1, type: "lab" },
+            { n: "OS Lab", code: "U24IT410", c: 1, type: "lab" },
         ],
         "Sem 5": [
             { n: "M-Elective 1", code: "U24OE501YYX", c: 3 },
@@ -703,7 +721,7 @@ const COURSE_DATA = {
             { n: "M Basket", code: "U24MB505X", c: 3 },
             { n: "UHV-II", code: "U24IK506B", c: 2 },
             { n: "PSD Lab-4", code: "U24SE507", c: 1, type: "lab" },
-            { n: "Tech. English", code: "U24MH508", c: 1},
+            { n: "Tech. English", code: "U24MH508", c: 1 },
             { n: "Seminar", code: "U24IT509", c: 1 }
         ],
         "Sem 6": [
@@ -711,8 +729,8 @@ const COURSE_DATA = {
             { n: "Data Science", code: "U24IT602", c: 3 },
             { n: "CC", code: "U24IT603", c: 4 },
             { n: "Full Stack w Java", code: "U24IT604", c: 4 },
-            { n: "S&E Basket", code: "U24ST605X", c: 3},
-            { n: "EITK", code: "U24IK606A", c: 2},
+            { n: "S&E Basket", code: "U24ST605X", c: 3 },
+            { n: "EITK", code: "U24IK606A", c: 2 },
             { n: "PSD Lab-5", code: "U24SE607", c: 1, type: "lab" },
             { n: "Mini Project", code: "U24IT608", c: 1 }
         ],
@@ -734,7 +752,7 @@ const COURSE_DATA = {
     },
     "ECI": {
         "Sem 1": [
-            { n: "DCODE", code: "U24MH101", c: 3},
+            { n: "DCODE", code: "U24MH101", c: 3 },
             { n: "EP", code: "U24PY102B", c: 4 },
             { n: "EMI", code: "U24CI103", c: 3, },
             { n: "PPSC", code: "U24CI104", c: 4 },
@@ -743,7 +761,7 @@ const COURSE_DATA = {
             { n: "ILMS", c: 1, type: "lab" }
         ],
         "Sem 2": [
-            { n: "MTVC", code: "U24MH201", c: 3},
+            { n: "MTVC", code: "U24MH201", c: 3 },
             { n: "EC", code: "U24CY202B", c: 4 },
             { n: "AE", code: "U24CI203", c: 3 },
             { n: "DSTC", code: "U24CI204", c: 4 },
@@ -753,10 +771,10 @@ const COURSE_DATA = {
             { n: "PSD Lab-1", code: "U24SE208", c: 1, type: "lab" }
         ],
         "Sem 3": [
-            { n: "MFSP", code: "U24MH301C", c: 3},
+            { n: "MFSP", code: "U24MH301C", c: 3 },
             { n: "S&A", code: "U24CI302", c: 4 },
             { n: "AIC&A", code: "U24CI303", c: 4 },
-            { n: "DCLD", code: "U24CI304", c: 3},
+            { n: "DCLD", code: "U24CI304", c: 3 },
             { n: "OOP Through Java", code: "U24CI305", c: 4 },
             { n: "QALR", code: "U24VA306A", c: 2, },
             { n: "PSD Lab-2", code: "U24SE307", c: 1, type: "lab" }
@@ -774,10 +792,10 @@ const COURSE_DATA = {
         "Sem 5": [
             { n: "M-Elective 1", code: "U24OE501YYX", c: 3 },
             { n: "M&ES", code: "U24CI502", c: 4 },
-            { n: "LCS", code: "U24CI503", c: 3},
+            { n: "LCS", code: "U24CI503", c: 3 },
             { n: "AI&ML", code: "U24CI504", c: 4 },
-            { n: "S&E Basket", code: "U24ST505X", c: 3},
-            { n: "EITK", code: "U24IK506A", c: 2},
+            { n: "S&E Basket", code: "U24ST505X", c: 3 },
+            { n: "EITK", code: "U24IK506A", c: 2 },
             { n: "PSD Lab-4", code: "U24SE507", c: 1, type: "lab" },
             { n: "Tech. English", code: "U24MH508", c: 1 },
             { n: "Seminar", code: "U24CI509", c: 1 }
@@ -785,7 +803,7 @@ const COURSE_DATA = {
         "Sem 6": [
             { n: "P-Elective 1", code: "U24CI601", c: 3 },
             { n: "IoT", code: "U24CI602", c: 4 },
-            { n: "BI&SP", code: "U24CI603", c: 3},
+            { n: "BI&SP", code: "U24CI603", c: 3 },
             { n: "A&DC", code: "U24CI604", c: 4 },
             { n: "MCB", code: "U24MB605X", c: 3 },
             { n: "UHV-II", code: "U24IK606B", c: 2 },
@@ -796,7 +814,7 @@ const COURSE_DATA = {
             { n: "M-Elective-II", code: "U24OE701YYX", c: 3 },
             { n: "P-Elective-II", code: "U24CI702", c: 3 },
             { n: "IA&C", code: "U24CI703", c: 4 },
-            { n: "S&FOC", code: "U24CI704", c: 3},
+            { n: "S&FOC", code: "U24CI704", c: 3 },
             { n: "DC&N", code: "U24CI705", c: 3 },
             { n: "Internship", code: "U24CI706", c: 1 },
             { n: "Major Project-I", code: "U24CI707", c: 4 }
