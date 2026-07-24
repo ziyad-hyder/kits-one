@@ -1,6 +1,15 @@
+/**
+ * URR26 Regulations Data (Placeholders)
+ * Fill in course details for URR26 as needed.
+ * 
+ * Each course object accepts:
+ * - n: Course Name (string)
+ * - code: Course Code (string)
+ * - c: Credits (number)
+ * - type: "theory" | "lab" (optional string, defaults to "theory")
+ */
 
-// Grading Scale Constants (URR24-R25)
-var GRADE_POINTS_URR24_R25 = {
+const GRADE_POINTS_URR26 = {
     "S": 10,
     "A": 9,
     "B": 8,
@@ -11,7 +20,7 @@ var GRADE_POINTS_URR24_R25 = {
     "M": 0
 };
 
-var BRANCH_MAPPING_URR24_R25 = {
+const BRANCH_MAPPING_URR26 = {
     "CSE": "Computer Science & Engineering",
     "CSM": "CSE (AI & ML)",
     "CSD": "CSE (Data Science)",
@@ -24,8 +33,9 @@ var BRANCH_MAPPING_URR24_R25 = {
     "ECI": "Electronics Comm. & Instrumentation Engg"
 };
 
+
 // n: Name, c: Credits
-var COURSE_DATA_URR24_R25 = {
+const COURSE_DATA_URR26 = {
     "CSE": {
         "Sem 1": [
             { n: "DCODE", code: "U24MH101", c: 3 },
@@ -50,72 +60,64 @@ var COURSE_DATA_URR24_R25 = {
         ],
 
         "Sem 3": [
-            { n: "SE", code: "U24CS301-R25", c: 3 },
-            { n: "TOC", code: "U24CS302-R25", c: 3 },
-            { n: "ADS", code: "U24CS303-R25", c: 3 },
-            { n: "CN", code: "U24CS304-R25", c: 3 },
-            { n: "OOPJ", code: "U24CS305-R25", c: 3 },
-            // { n: "QALR", code: "U24VA306A-R25", c: 2 }, //idk why they removed this, ass clg
-            { n: "PSD Lab-2", code: "U24SE307-R25", c: 1, type: "lab" },
-            { n: "ADS Lab", code: "U24CS308-R25", c: 1, type: "lab" },
-            { n: "Java Lab", code: "U24CS309-R25", c: 1, type: "lab" },
+            { n: "SE", code: "U24CS301", c: 3 },
+            { n: "TOC", code: "U24CS302", c: 3 },
+            { n: "ADS", code: "U24CS303", c: 4 },
+            { n: "CN", code: "U24CS304", c: 3 },
+            { n: "OOP Through Java", code: "U24CS305", c: 4 },
+            { n: "QALR", code: "U24VA306A", c: 2 },
+            { n: "PSD Lab-2", code: "U24SE307", c: 1, type: "lab" },
         ],
 
         "Sem 4": [
-            { n: "DMPS", code: "U24MH401-R25", c: 3 }, //data contributed by Mohammad Fayazuddin
-            { n: "WP", code: "U24CS402-R25", c: 3 },
-            { n: "DBMS", code: "U24CS403-R25", c: 3 },
-            { n: "AI", code: "U24CS404-R25", c: 3 },
-            { n: "PP", code: "U24CS405-R25", c: 3 },
-            { n: "SIS", code: "U24VA406B-R25", c: 1 },//default to "theory" in attendance.js so not required to explicitly mark as type "theory"
-            { n: "PSD Lab-3", code: "U24SE407-R25", c: 1, type: "lab" },// stanalone alone labs marked seperately 
-            { n: "WP Lab", code: "U24CS408-R25", c: 1, type: "lab" },
-            { n: "DBMS Lab", code: "U24CS409-R25", c: 1, type: "lab" },
-            { n: "PP Lab", code: "U24CS410-R25", c: 1, type: "lab" },
+            { n: "DMPS", code: "U24MH401", c: 3 }, //data contributed by Mohammad Fayazuddin
+            { n: "WP", code: "U24CS402", c: 3 },
+            { n: "DBMS", code: "U24CS403", c: 3 },
+            { n: "AI", code: "U24CS404", c: 3 },
+            { n: "PP", code: "U24CS405", c: 3 },
+            { n: "SIS", code: "U24VA406B", c: 1 },//default to "theory" in attendance.js so not required to explicitly mark as type "theory"
+            { n: "PSD Lab-3", code: "U24SE407", c: 1, type: "lab" },// stanalone alone labs marked seperately 
+            { n: "WP Lab", code: "U24CS408", c: 1, type: "lab" },
+            { n: "DBMS Lab", code: "U24CS409", c: 1, type: "lab" },
+            { n: "PP Lab", code: "U24CS410", c: 1, type: "lab" },
         ],
         "Sem 5": [
-            { n: "DT", code: "U24OE501A-SEB", c: 3 },
-            { n: "ML", code: "U24CS502", c: 3 },
-            { n: "FSD", code: "U24CS503", c: 4 },
-            { n: "DAA", code: "U24CS504", c: 3 },
-            { n: "QC", code: "U24CS505", c: 3 },
+            { n: "M-Elective 1", code: "U24OE501YYX", c: 3 },
+            { n: "ML", code: "U24CS502", c: 4 },
+            { n: "Full Stack Dev", code: "U24CS503", c: 4 },
+            { n: "CD", code: "U24CS504", c: 4 },
+            { n: "S&E Basket", code: "U24ST505X", c: 3 },
             { n: "EITK", code: "U24IK506A", c: 2 },
-            { n: "Tech. English", code: "U24MH507", c: 1 },
-            { n: "ML Lab", code: "U24CS508", c: 1, type: "lab" },
-            { n: "FSD Lab", code: "U24CS509", c: 1, type: "lab" },
-            { n: "Seminar", code: "U24CS510", c: 1 },
+            { n: "PSD Lab-4", code: "U24SE507", c: 1, type: "lab" },
+            { n: "Tech. English", code: "U24MH508", c: 1 },
+            { n: "Seminar", code: "U24CS509", c: 1 },
         ],
 
         "Sem 6": [
-            { n: "OE-Management Basket 1", code: "U24OE601X-MB", c: 3 },
-            { n: "P-Elective 1", code: "U24CS602", c: 3 },
-            { n: "DL", code: "U24CS603", c: 3 },
-            { n: "CD", code: "U24CS604", c: 3 },
-            { n: "IOT", code: "U24CS605", c: 3 },
+            { n: "P-Elective 1", code: "U24CS601", c: 3 },
+            { n: "CNS", code: "U24CS602", c: 3 },
+            { n: "DAA", code: "U24CS603", c: 4 },
+            { n: "IOT", code: "U24IN604", c: 4 },
+            { n: "MCB", code: "U24MB605X", c: 3 },
             { n: "UHV-II", code: "U24IK606B", c: 2 },
-            // { n: "MCB", code: "U24MB606", c: 3 },
             { n: "PSD Lab-5", code: "U24SE607", c: 1, type: "lab" },
-            { n: "CD Lab", code: "U24SE608", c: 1, type: "lab" },
-            { n: "IOT Lab", code: "U24SE609", c: 1, type: "lab" },
-            { n: "Mini Project", code: "U24CS610", c: 1, type: "lab" },
+            { n: "Mini Project", code: "U24CS608", c: 1, type: "lab" },
         ],
 
         "Sem 7": [
-            { n: "OE-SDG", code: "U24OE701X", c: 3 },
+            { n: "M-Elective-II", code: "U24OE701XX", c: 3 },
             { n: "P-Elective-II", code: "U24CS702", c: 3 },
-            { n: "CC", code: "U24CS703", c: 3 },
-            { n: "Gen AI", code: "U24CS704", c: 3 },
-            { n: "DS", code: "U24CS705", c: 3 },
-            { n: "CC Lab", code: "U24CS706", c: 1, type: "lab" },
-            { n: "DS Lab", code: "U24CS707", c: 1, type: "lab" },
-            { n: "Internship", code: "U24CS708", c: 1, type: "lab" },
-            { n: "Major Project-I", code: "U24CS709", c: 4 }
+            { n: "CC", code: "U24CS703", c: 4 },
+            { n: "DL", code: "U24CS704", c: 3 },
+            { n: "Blockchain", code: "U24CS705", c: 3 },
+            { n: "Internship", code: "U24CS706", c: 1, type: "lab" },
+            { n: "Major Project-I", code: "U24CS707", c: 4 }
         ],
 
         "Sem 8": [
-            { n: "P-Elective-III", code: "U24CS801", c: 3 },
-            { n: "P-Elective-IV", code: "U24CS802", c: 3 },
-            { n: "M-Elective-III", code: "U24OE803", c: 3 },
+            { n: "M-Elective-III", code: "U24OE801XX", c: 3 },
+            { n: "P-Elective-III", code: "U24CS802", c: 3 },
+            { n: "P-Elective-IV", code: "U24CS803", c: 3 },
             { n: "Major Project-II", code: "U24CS804", c: 6 }
         ]
     },
@@ -837,34 +839,43 @@ var COURSE_DATA_URR24_R25 = {
 };
 
 
+// Generate default placeholders for any missing branch / semester combination
+const COMMON_SEMESTERS_URR26 = ["Sem 1", "Sem 2", "Sem 3", "Sem 4", "Sem 5", "Sem 6", "Sem 7", "Sem 8"];
+const ALL_BRANCHES_URR26 = Object.keys(BRANCH_MAPPING_URR26);
 
-// placeholders to avoid crashes
-const COMMON_SEMESTERS = ["Sem 1", "Sem 2", "Sem 3", "Sem 4", "Sem 5", "Sem 6", "Sem 7", "Sem 8"];
-const ALL_BRANCHES = Object.keys(BRANCH_MAPPING_URR24_R25);
-
-ALL_BRANCHES.forEach(branch => {
-    if (!COURSE_DATA_URR24_R25[branch]) COURSE_DATA_URR24_R25[branch] = {};
-    COMMON_SEMESTERS.forEach(sem => {
-        if (!COURSE_DATA_URR24_R25[branch][sem]) {
-            COURSE_DATA_URR24_R25[branch][sem] = [
-                { n: `Course 1 (${branch} ${sem})`, c: 3 },
-                { n: `Course 2 (${branch} ${sem})`, c: 3 },
-                { n: `Course 3 (${branch} ${sem})`, c: 4 },
-                { n: `Course 4 (${branch} ${sem})`, c: 4 },
-                { n: `Lab 1 (${branch} ${sem})`, c: 1.5 },
-                { n: `Lab 2 (${branch} ${sem})`, c: 1.5 }
+ALL_BRANCHES_URR26.forEach(branch => {
+    if (!COURSE_DATA_URR26[branch]) COURSE_DATA_URR26[branch] = {};
+    COMMON_SEMESTERS_URR26.forEach(sem => {
+        if (!COURSE_DATA_URR26[branch][sem]) {
+            COURSE_DATA_URR26[branch][sem] = [
+                { n: `URR26 Subject 1 (${branch} ${sem})`, code: `U26${branch}101`, c: 3 },
+                { n: `URR26 Subject 2 (${branch} ${sem})`, code: `U26${branch}102`, c: 4 },
+                { n: `URR26 Lab 1 (${branch} ${sem})`, code: `U26${branch}103`, c: 1, type: "lab" }
             ];
         }
     });
 });
 
-// Register URR24-R25 in window.REGULATIONS
+// Register URR26 in window.REGULATIONS
 window.REGULATIONS = window.REGULATIONS || {};
-window.REGULATIONS['URR24-R25'] = {
-    key: 'URR24-R25',
-    title: 'URR24-R25',
-    GRADE_POINTS: GRADE_POINTS_URR24_R25,
-    BRANCH_MAPPING: BRANCH_MAPPING_URR24_R25,
-    COURSE_DATA: COURSE_DATA_URR24_R25
+window.REGULATIONS['URR26'] = {
+    key: 'URR26',
+    title: 'URR26',
+    GRADE_POINTS: GRADE_POINTS_URR26,
+    BRANCH_MAPPING: BRANCH_MAPPING_URR26,
+    COURSE_DATA: COURSE_DATA_URR26
 };
 
+// Bind active dataset based on user selection saved in localStorage
+(function () {
+    var selectedReg = 'URR24-R25';
+    try {
+        selectedReg = localStorage.getItem('selectedRegulation') || 'URR24-R25';
+    } catch (e) { }
+
+    var activeReg = window.REGULATIONS[selectedReg] || window.REGULATIONS['URR24-R25'];
+
+    window.GRADE_POINTS = activeReg.GRADE_POINTS;
+    window.BRANCH_MAPPING = activeReg.BRANCH_MAPPING;
+    window.COURSE_DATA = activeReg.COURSE_DATA;
+})();

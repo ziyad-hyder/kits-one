@@ -61,25 +61,100 @@ function switchTab(tabId) {
     }
 }
 
+// Regulation Management State & Logic
+let currentRegulation = Store.get('selectedRegulation') || 'URR24-R25';
+
+function onRegulationChange(val) {
+    Store.set('selectedRegulation', val);
+    if (typeof trackEvent === 'function') {
+        trackEvent('regulation_changed', { regulation: val });
+    }
+    window.location.reload();
+}
+
+function populateBranches() {
+    const savedBranch = Store.get(`lastBranch_${currentRegulation}`) || Store.get('lastBranch');
+    const savedSem = Store.get(`lastSem_${currentRegulation}`) || Store.get('lastSem');
+    const courseData = window.COURSE_DATA || (window.REGULATIONS && window.REGULATIONS[currentRegulation] ? window.REGULATIONS[currentRegulation].COURSE_DATA : {});
+    const branchMapping = window.BRANCH_MAPPING || (window.REGULATIONS && window.REGULATIONS[currentRegulation] ? window.REGULATIONS[currentRegulation].BRANCH_MAPPING : {});
+
+    branchSelect.innerHTML = '<option value="">Select Branch</option>';
+    if (branchMapping) {
+        Object.keys(branchMapping).forEach(code => {
+            branchSelect.innerHTML += `<option value="${code}">${branchMapping[code]} (${code})</option>`;
+        });
+    }
+
+    semesterSelect.innerHTML = '<option value="">Select Semester</option>';
+    semesterSelect.disabled = true;
+
+    if (savedBranch && courseData[savedBranch]) {
+        branchSelect.value = savedBranch;
+        semesterSelect.disabled = false;
+
+        Object.keys(courseData[savedBranch]).forEach(sem => {
+            semesterSelect.innerHTML += `<option value="${sem}">${sem}</option>`;
+        });
+
+        if (savedSem && courseData[savedBranch][savedSem]) {
+            semesterSelect.value = savedSem;
+            renderCourses();
+        } else {
+            semesterSelect.value = '';
+            courseContainer.classList.add('hidden');
+            resultsSection.classList.add('hidden');
+        }
+    } else {
+        branchSelect.value = '';
+        courseContainer.classList.add('hidden');
+        resultsSection.classList.add('hidden');
+    }
+
+    if (typeof renderAttendanceTable === 'function') renderAttendanceTable();
+    if (typeof EseCalculator !== 'undefined') EseCalculator.render();
+}
+
 // Initialization
 function init() {
-    // Populate Branches
-    branchSelect.innerHTML = '<option value="">Select Branch</option>';
-    Object.keys(BRANCH_MAPPING).forEach(code => {
-        branchSelect.innerHTML += `<option value="${code}">${BRANCH_MAPPING[code]} (${code})</option>`;
-    });
+    // Initialize Attendance Module first so DOM elements are available
+    if (typeof initAttendance === 'function') initAttendance();
 
-    // Populate Semesters on Branch Change — also persist selection
-    branchSelect.addEventListener('change', () => {
+    // Setup Regulation Dropdown Listener & Title
+    const regSelect = document.getElementById('regulation-select');
+    if (regSelect) {
+        if (!window.REGULATIONS || !window.REGULATIONS[currentRegulation]) {
+            currentRegulation = 'URR24-R25';
+        }
+        regSelect.value = currentRegulation;
+        regSelect.addEventListener('change', (e) => {
+            const newReg = e.target.value;
+            Store.set('selectedRegulation', newReg);
+            trackEvent('regulation_changed', { regulation: newReg });
+            window.location.reload();
+        });
+    }
+
+    const regTitleDisplay = document.getElementById('regulation-title-display');
+    if (regTitleDisplay && window.REGULATIONS && window.REGULATIONS[currentRegulation]) {
+        regTitleDisplay.innerText = window.REGULATIONS[currentRegulation].title;
+    }
+
+    // Populate Branches
+    populateBranches();
+
+    const onBranchChange = () => {
         const branch = branchSelect.value;
+        const courseData = window.COURSE_DATA || (window.REGULATIONS && window.REGULATIONS[currentRegulation] ? window.REGULATIONS[currentRegulation].COURSE_DATA : {});
+        Store.set(`lastBranch_${currentRegulation}`, branch);
         Store.set('lastBranch', branch);
-        Store.remove('lastSem'); // reset sem when branch changes
+        Store.remove(`lastSem_${currentRegulation}`);
+        Store.remove('lastSem');
 
         semesterSelect.innerHTML = '<option value="">Select Semester</option>';
         semesterSelect.disabled = !branch;
 
-        if (branch && COURSE_DATA[branch]) {
-            Object.keys(COURSE_DATA[branch]).forEach(sem => {
+        if (branch && courseData[branch]) {
+            Object.keys(courseData[branch]).forEach(sem => {
                 semesterSelect.innerHTML += `<option value="${sem}">${sem}</option>`;
             });
         }
@@ -88,30 +163,20 @@ function init() {
 
         if (typeof renderAttendanceTable === 'function') renderAttendanceTable();
         if (typeof EseCalculator !== 'undefined') EseCalculator.render();
-    });
+    };
+
+    branchSelect.addEventListener('change', onBranchChange);
+    branchSelect.addEventListener('input', onBranchChange);
 
     // Render Courses on Semester Change — also persist selection
     semesterSelect.addEventListener('change', () => {
-        Store.set('lastSem', semesterSelect.value);
+        const sem = semesterSelect.value;
+        Store.set(`lastSem_${currentRegulation}`, sem);
+        Store.set('lastSem', sem);
         renderCourses();
         if (typeof renderAttendanceTable === 'function') renderAttendanceTable();
         if (typeof EseCalculator !== 'undefined') EseCalculator.render();
     });
-
-    // ── Restore last used branch + semester ──────────────────────────────────
-    const savedBranch = Store.get('lastBranch');
-    const savedSem    = Store.get('lastSem');
-    if (savedBranch && COURSE_DATA[savedBranch]) {
-        branchSelect.value = savedBranch;
-        branchSelect.dispatchEvent(new Event('change'));
-        if (savedSem) {
-            semesterSelect.value = savedSem;
-            semesterSelect.dispatchEvent(new Event('change'));
-        }
-    }
-
-    // Initialize Attendance Module
-    if (typeof initAttendance === 'function') initAttendance();
 
     // Initialize Gestures
     if (typeof initGestures === 'function') initGestures();
@@ -154,14 +219,16 @@ function init() {
 function renderCourses() {
     const branch = branchSelect.value;
     const sem    = semesterSelect.value;
+    const courseData = window.COURSE_DATA || (window.REGULATIONS && window.REGULATIONS[currentRegulation] ? window.REGULATIONS[currentRegulation].COURSE_DATA : {});
+    const gradePoints = window.GRADE_POINTS || (window.REGULATIONS && window.REGULATIONS[currentRegulation] ? window.REGULATIONS[currentRegulation].GRADE_POINTS : {});
 
-    if (!branch || !sem || !COURSE_DATA[branch][sem]) {
+    if (!branch || !sem || !courseData[branch] || !courseData[branch][sem]) {
         courseContainer.classList.add('hidden');
         return;
     }
 
     courseTableBody.innerHTML = '';
-    COURSE_DATA[branch][sem].forEach((course) => {
+    courseData[branch][sem].forEach((course) => {
         const row = document.createElement('tr');
         row.className = "transition-colors";
         row.innerHTML = `
@@ -174,7 +241,7 @@ function renderCourses() {
                 <select class="grade-input theme-input w-full p-2 border theme-border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" 
                         data-credits="${course.c}" onchange="calculateResults()">
                     <option value="" selected disabled>Grade</option>
-                    ${Object.keys(GRADE_POINTS).filter(g => g !== 'F' && g !== 'M').map(g => `<option value="${GRADE_POINTS[g]}">${g} (${GRADE_POINTS[g]})</option>`).join('')}
+                    ${Object.keys(gradePoints).filter(g => g !== 'F' && g !== 'M').map(g => `<option value="${gradePoints[g]}">${g} (${gradePoints[g]})</option>`).join('')}
                 </select>
             </td>
         `;

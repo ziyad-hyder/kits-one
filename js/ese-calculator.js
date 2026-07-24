@@ -68,7 +68,9 @@ const EseCalculator = {
         creditContainer.innerHTML = '';
         if (resultsSection) resultsSection.classList.add('hidden');
 
-        if (!branch || !sem || !COURSE_DATA[branch] || !COURSE_DATA[branch][sem]) {
+        const courseData = window.COURSE_DATA || (window.REGULATIONS && window.REGULATIONS[currentRegulation] ? window.REGULATIONS[currentRegulation].COURSE_DATA : {});
+
+        if (!branch || !sem || !courseData[branch] || !courseData[branch][sem]) {
             if (formContainer) formContainer.classList.add('hidden');
             if (emptyState) emptyState.classList.remove('hidden');
             return;
@@ -77,7 +79,7 @@ const EseCalculator = {
         if (formContainer) formContainer.classList.remove('hidden');
         if (emptyState) emptyState.classList.add('hidden');
 
-        const courses = COURSE_DATA[branch][sem];
+        const courses = courseData[branch][sem];
         let hasMain = false;
         let hasCredit = false;
 

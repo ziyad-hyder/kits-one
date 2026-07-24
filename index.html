@@ -46,16 +46,24 @@
 <body class="theme-bg min-h-screen p-4 lg:p-8">
 
     <!-- Header -->
-    <header class="max-w-4xl mx-auto mb-8 flex items-center justify-between">
+    <header class="max-w-4xl mx-auto mb-8 flex items-center justify-between gap-4">
         <div>
             <h1 class="text-2xl md:text-3xl font-black tracking-tight">KITS <span class="text-indigo-600">One</span>
             </h1>
-            <p class="font-medium">Academic Companion • URR-24 Regulations</p>
+            <p class="font-medium text-xs md:text-sm theme-muted">Academic Companion • <span id="regulation-title-display">URR24-R25</span> Regulations</p>
         </div>
 
-        <button id="theme-toggle" aria-label="Toggle dark mode"
-            class="p-2.5 theme-surface theme-border border rounded-xl shadow-sm hover:opacity-80 transition-opacity"
-            title="Toggle Theme">
+        <div class="flex items-center gap-2 md:gap-3">
+            <!-- Regulation Selection -->
+            <select id="regulation-select" onchange="onRegulationChange(this.value)" aria-label="Select Regulation"
+                class="p-2 md:py-2 md:px-3 theme-surface theme-border border rounded-xl shadow-sm text-xs md:text-sm font-bold text-indigo-600 dark:text-indigo-400 focus:ring-2 focus:ring-indigo-500 outline-none transition cursor-pointer">
+                <option value="URR24-R25">URR24-R25</option>
+                <option value="URR26">URR26</option>
+            </select>
+
+            <button id="theme-toggle" aria-label="Toggle dark mode"
+                class="p-2.5 theme-surface theme-border border rounded-xl shadow-sm hover:opacity-80 transition-opacity"
+                title="Toggle Theme">
             <!-- Sun Icon (shown in dark mode) -->
             <svg id="sun-icon" class="w-5 h-5 text-amber-500 hidden" fill="currentColor" viewBox="0 0 20 20">
                 <path
@@ -400,6 +408,7 @@ You can still edit everything manually below."
     </button>
 
     <script src="js/data.js"></script>
+    <script src="js/data-urr26.js"></script>
     <script src="js/gestures.js"></script>
     <script src="js/calculator.js"></script>
     <script src="js/ese-calculator.js"></script>

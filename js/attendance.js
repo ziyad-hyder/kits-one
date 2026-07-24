@@ -4,18 +4,21 @@ const attendanceStoragePrefix = 'bunkBuffer_v2_';
 let attTableBody, attTableContainer, attEmptyState;
 let overallPctEl, overallFracEl, bufferValEl, bufferTitleEl, bufferSubEl, futureInput, futureResultEl;
 
-function initAttendance() {
-    attTableBody = document.getElementById('att-table-body');
-    attTableContainer = document.getElementById('att-table-container');
-    attEmptyState = document.getElementById('att-empty-state');
+function ensureAttElements() {
+    if (!attTableBody) attTableBody = document.getElementById('att-table-body');
+    if (!attTableContainer) attTableContainer = document.getElementById('att-table-container');
+    if (!attEmptyState) attEmptyState = document.getElementById('att-empty-state');
+    if (!overallPctEl) overallPctEl = document.getElementById('att-overall-pct');
+    if (!overallFracEl) overallFracEl = document.getElementById('att-overall-frac');
+    if (!bufferValEl) bufferValEl = document.getElementById('att-buffer-value');
+    if (!bufferTitleEl) bufferTitleEl = document.getElementById('att-buffer-title');
+    if (!bufferSubEl) bufferSubEl = document.getElementById('att-buffer-subtitle');
+    if (!futureInput) futureInput = document.getElementById('att-future-input');
+    if (!futureResultEl) futureResultEl = document.getElementById('att-future-result');
+}
 
-    overallPctEl = document.getElementById('att-overall-pct');
-    overallFracEl = document.getElementById('att-overall-frac');
-    bufferValEl = document.getElementById('att-buffer-value');
-    bufferTitleEl = document.getElementById('att-buffer-title');
-    bufferSubEl = document.getElementById('att-buffer-subtitle');
-    futureInput = document.getElementById('att-future-input');
-    futureResultEl = document.getElementById('att-future-result');
+function initAttendance() {
+    ensureAttElements();
 
     if (!attTableBody) return;
 
@@ -51,9 +54,10 @@ function initAttendance() {
  * - Others -> 1 row
  */
 function generateSubjects(branch, sem) {
-    if (!COURSE_DATA[branch] || !COURSE_DATA[branch][sem]) return [];
+    const courseData = window.COURSE_DATA || (window.REGULATIONS && window.REGULATIONS[currentRegulation] ? window.REGULATIONS[currentRegulation].COURSE_DATA : {});
+    if (!courseData[branch] || !courseData[branch][sem]) return [];
 
-    const rawCourses = COURSE_DATA[branch][sem];
+    const rawCourses = courseData[branch][sem];
     const generated = [];
 
     rawCourses.forEach(c => {
@@ -119,14 +123,24 @@ function getStorageKey() {
     const branch = document.getElementById('branch-select').value;
     const sem = document.getElementById('semester-select').value;
     if (!branch || !sem) return null;
-    return `${attendanceStoragePrefix}${branch}_${sem}`;
+    const reg = (typeof currentRegulation !== 'undefined') ? currentRegulation : (Store.get('selectedRegulation') || 'URR24-R25');
+    return `${attendanceStoragePrefix}${reg}_${branch}_${sem}`;
 }
 
 function getAttendanceData() {
     const key = getStorageKey();
     if (!key) return null;
 
-    const saved = Store.get(key);
+    let saved = Store.get(key);
+    if (!saved) {
+        const branch = document.getElementById('branch-select').value;
+        const sem = document.getElementById('semester-select').value;
+        const reg = (typeof currentRegulation !== 'undefined') ? currentRegulation : (Store.get('selectedRegulation') || 'URR24-R25');
+        if (reg === 'URR24-R25') {
+            saved = Store.get(`${attendanceStoragePrefix}${branch}_${sem}`);
+        }
+    }
+
     if (saved) {
         try {
             return JSON.parse(saved);
@@ -149,6 +163,8 @@ function saveAttendanceData(data) {
 }
 
 function renderAttendanceTable() {
+    ensureAttElements();
+    if (!attTableContainer || !attEmptyState) return;
     const data = getAttendanceData();
     // Safe backward compatibility (match by name, not index)
     if (data && Array.isArray(data)) {
