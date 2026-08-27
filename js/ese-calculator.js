@@ -25,7 +25,7 @@ const EseCalculator = {
      * Special: credits >= 4 with no explicit type → theory+lab combo (total 350)
      */
     getSubjectCategory(course) {
-        if (course.c === 0) return 'skip'; // 0-credit audit courses — exclude from ESE
+        if (course.c === 0) return 'skip'; // 0-credit audit courses - exclude from ESE
         if (course.c === 1) return 'credit';
         if (course.type === 'lab' && course.c >= 3) return 'lab';
         if (course.c >= 4 && course.type !== 'lab') return 'theorylab'; // theory+lab combo
@@ -114,8 +114,8 @@ const EseCalculator = {
         const totalMarks = this.getTotalMarks(category);
         const isLab = (category === 'lab' || category === 'theorylab');
         const subtitle = isLab
-            ? `${course.c} Credits • CIE: 150 + ESE: 100 + Lab: 100`
-            : `${course.c} Credits • CIE: 150 + ESE: 100`;
+            ? `${course.c} Credits | CIE: 150 + ESE: 100 + Lab: 100`
+            : `${course.c} Credits | CIE: 150 + ESE: 100`;
 
         let fieldsHTML = `
             <div class="grid grid-cols-2 gap-3">
@@ -127,7 +127,7 @@ const EseCalculator = {
         `;
 
         return `
-            <div class="theme-card p-5 rounded-xl border theme-border">
+            <div class="theme-card p-5 rounded-lg border theme-border">
                 <h4 class="text-base font-bold theme-text mb-1">${course.n}</h4>
                 <p class="text-xs theme-muted mb-3">${subtitle}</p>
                 ${fieldsHTML}
@@ -141,7 +141,7 @@ const EseCalculator = {
      */
     buildCreditCard(course, subId) {
         return `
-            <div class="theme-card p-4 rounded-xl border theme-border">
+            <div class="theme-card p-4 rounded-lg border theme-border">
                 <h4 class="text-sm font-bold theme-text mb-1">${course.n}</h4>
                 <p class="text-xs theme-muted mb-2">${course.c} Credit</p>
                 ${this.gradeSelect(`${subId}_gp`, 'Expected Grade')}
@@ -158,7 +158,7 @@ const EseCalculator = {
                 <label for="${id}" class="block text-xs font-bold theme-muted mb-1">${label} (${max})</label>
                 <input type="number" id="${id}" name="${id}" value="0" min="0" max="${max}" required
                     onblur="this.value = Math.max(0, Math.min(${max}, this.value || 0))"
-                    class="theme-input w-full p-2 border theme-border rounded-lg text-sm font-medium text-center focus:ring-2 focus:ring-indigo-500 outline-none transition">
+                    class="theme-input w-full p-2 border theme-border rounded-lg text-sm font-medium text-center focus:ring-1 focus:ring-[#557C86] outline-none transition">
             </div>
         `;
     },
@@ -173,9 +173,9 @@ const EseCalculator = {
 
         return `
             <div class="col-span-2">
-                <label for="${id}" class="block text-xs font-bold text-indigo-500 mb-1">${label}</label>
+                <label for="${id}" class="block text-xs font-bold theme-muted mb-1">${label}</label>
                 <select id="${id}" name="${id}"
-                    class="theme-input w-full p-2 border theme-border rounded-lg text-sm font-medium focus:ring-2 focus:ring-indigo-500 outline-none transition cursor-pointer">
+                    class="theme-input w-full p-2 border theme-border rounded-lg text-sm font-medium focus:ring-1 focus:ring-[#557C86] outline-none transition cursor-pointer">
                     ${options}
                 </select>
             </div>
@@ -229,19 +229,19 @@ const EseCalculator = {
                 if (desiredGP === 0) {
                     resultText = 'F Grade selected';
                     resultColor = 'theme-muted';
-                    summaryText = `<strong>${course.n}:</strong> F Grade selected — no ESE target.`;
+                    summaryText = `<strong>${course.n}:</strong> F Grade selected: no ESE target.`;
                 } else if (eseNeeded <= 0) {
-                    resultText = `✓ Already achieved! (surplus: ${Math.abs(eseNeeded)})`;
-                    resultColor = 'text-green-500';
+                    resultText = `Already achieved (surplus: ${Math.abs(eseNeeded)})`;
+                    resultColor = 'text-[#0F6E56] dark:text-[#2DD4BF]';
                     summaryText = `<strong>${course.n}:</strong> Already achieved ${desiredGP} GP target.`;
                 } else if (eseNeeded > 100) {
-                    resultText = `✗ Needs ${eseNeeded} in ESE (not possible)`;
-                    resultColor = 'text-red-500';
+                    resultText = `Needs ${eseNeeded} in ESE (not possible)`;
+                    resultColor = 'text-[#991B1B] dark:text-[#FCA5A5]';
                     summaryText = `<strong>${course.n}:</strong> ${desiredGP} GP not possible (needs ${eseNeeded} in ESE).`;
                     allGrades[index] = 0; // Override to F for SGPA calc
                 } else {
-                    resultText = `→ Need ${eseNeeded} in ESE`;
-                    resultColor = 'text-amber-500';
+                    resultText = `Need ${eseNeeded} in ESE`;
+                    resultColor = 'text-amber-600 dark:text-amber-400';
                     summaryText = `<strong>${course.n}:</strong> Need <strong>${eseNeeded}</strong> in ESE for ${desiredGP} GP.`;
                 }
 
@@ -262,7 +262,7 @@ const EseCalculator = {
                 totalCredits += allCredits[i];
             }
         }
-        const sgpa = totalCredits === 0 ? 0 : (totalPoints / totalCredits);
+        const sgpa = totalCredits > 0 ? totalPoints / totalCredits : 0;
 
         // Update results UI
         const sgpaDisplay = document.getElementById('ese-sgpa-display');
@@ -276,7 +276,7 @@ const EseCalculator = {
             resultsSection.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // GA4 — track ESE calculation
+        // GA4 - track ESE calculation
         trackEvent('ese_calculated', { branch, semester: sem, estimated_sgpa: sgpa.toFixed(2) });
 
         // Save inputs to localStorage
@@ -371,7 +371,7 @@ const EseCalculator = {
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
-            // GA4 — track ESE export
+            // GA4 - track ESE export
             trackEvent('ese_exported');
         }).catch(err => {
             console.error("Export Error:", err);

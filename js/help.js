@@ -28,20 +28,20 @@ const HelpSystem = {
             steps: [
                 {
                     icon: '1',
-                    text: 'Open the official <a href="https://tscms-kitsw.aptonline.in/UMS" style="color: #4f46e5; text-decoration: underline;" target="_blank"><strong>KITS UMS</strong></a> portal',
-                    tip: 'Tap the link! No need to search manually'
+                    text: 'Open the official <a href="https://tscms-kitsw.aptonline.in/UMS" style="text-decoration: underline; font-weight: 700;" target="_blank">KITS UMS</a> portal',
+                    tip: 'Tap the link to open directly'
                 },
                 {
                     icon: '2',
-                    text: 'Login and go to:<br><strong>Report → Attendance Report</strong>'
+                    text: 'Login and go to:<br><strong>Report -> Attendance Report</strong>'
                 },
                 {
                     icon: '3',
-                    text: 'Quick mode! We’ll auto-fill Held & Absent for you.',
+                    text: 'Quick mode: We will auto-fill Held and Absent for you.',
                     subItems: [
-                        'Open KITS UMS → Attendance Report and paste the copied text in the autofill box.',
-                        'Desktop: Ctrl + A → Ctrl + C',
-                        'Mobile: Select All → Copy → Paste',
+                        'Open KITS UMS -> Attendance Report and paste the copied text in the autofill box.',
+                        'Desktop: Ctrl + A -> Ctrl + C',
+                        'Mobile: Select All -> Copy -> Paste',
                         'You can still edit everything manually below.',
                     ]
                 },
@@ -50,7 +50,7 @@ const HelpSystem = {
                     text: 'Click anywhere on the page to instantly see your bunk buffer.'
                 }
             ],
-            tip: 'Your attendance data is saved locally on this device, so you won\'t lose it after refresh.'
+            tip: 'Your attendance data is saved locally on this device, so you will not lose it after refresh.'
         },
         'tab-calc': {
             title: 'How to use Expected SGPA Calculator',
@@ -81,7 +81,7 @@ const HelpSystem = {
             steps: [
                 {
                     icon: '1',
-                    text: 'Open <a href="https://www.kitswexams.com" style="color: #4f46e5; text-decoration: underline;" target="_blank"><strong>KITSW Exams</strong></a> portal'
+                    text: 'Open <a href="https://www.kitswexams.com" style="text-decoration: underline; font-weight: 700;" target="_blank">KITSW Exams</a> portal'
                 },
                 {
                     icon: '2',
@@ -89,16 +89,16 @@ const HelpSystem = {
                 },
                 {
                     icon: '3',
-                    text: 'Go to:<br><strong>Marks Details → Overall Marks</strong><br>Note your current CGPA and credits.'
+                    text: 'Go to:<br><strong>Marks Details -> Overall Marks</strong><br>Note your current CGPA and credits.'
                 },
                 {
                     icon: '4',
                     text: 'Now come back to KITS One and enter:',
                     subItems: [
-                        '<strong>Current CGPA</strong> → Your CGPA till now',
-                        '<strong>Current Credits</strong> → Total credits earned so far',
-                        '<strong>Target CGPA</strong> → CGPA you aim to achieve',
-                        '<strong>Next Semester Credits</strong> → Credits in the upcoming semester'
+                        '<strong>Current CGPA</strong>: Your CGPA till now',
+                        '<strong>Current Credits</strong>: Total credits earned so far',
+                        '<strong>Target CGPA</strong>: CGPA you aim to achieve',
+                        '<strong>Next Semester Credits</strong>: Credits in the upcoming semester'
                     ]
                 },
                 {
@@ -106,7 +106,7 @@ const HelpSystem = {
                     text: 'The planner will tell you what SGPA you must score to reach your goal.'
                 }
             ],
-            tip: 'This feature is ideal for: planning 8/9+ cutoff for placements, avoiding last-minute panic, and tracking long-term goals.'
+            tip: 'This feature is ideal for planning cutoffs for placements and tracking long-term goals.'
         },
         'tab-ese': {
             title: 'How to use ESE Target Calculator',
@@ -123,9 +123,9 @@ const HelpSystem = {
                     icon: '2',
                     text: 'Enter your marks for each subject:',
                     subItems: [
-                        '<strong>CIE Total</strong> — From UMS "Total (out of 150)" column',
-                        '<strong>Lab Internal</strong> — From UMS (for lab subjects only)',
-                        '<strong>Lab External</strong> — Your expected lab external marks'
+                        '<strong>CIE Total</strong>: From UMS "Total (out of 150)" column',
+                        '<strong>Lab Internal</strong>: From UMS (for lab subjects only)',
+                        '<strong>Lab External</strong>: Your expected lab external marks'
                     ]
                 },
                 {
@@ -136,12 +136,12 @@ const HelpSystem = {
                     icon: '4',
                     text: 'Click <strong>Calculate ESE Targets</strong>',
                     subItems: [
-                        'You\'ll see the required ESE marks for each subject',
+                        'You will see the required ESE marks for each subject',
                         'An estimated SGPA based on your desired grades'
                     ]
                 }
             ],
-            tip: 'If required ESE marks exceed 100, that grade is mathematically unattainable. Focus on maximizing your Internal Marks (CIE) to lower your ESE burden!'
+            tip: 'If required ESE marks exceed 100, that grade is mathematically unattainable. Focus on maximizing your Internal Marks (CIE) to lower your ESE burden.'
         }
     },
 
@@ -268,7 +268,7 @@ const HelpSystem = {
                     <input type="checkbox" id="help-dismiss-checkbox" class="help-dismiss-checkbox">
                     <span>Don't show this again</span>
                 </label>
-                <button id="help-got-it-btn" class="help-got-it-btn">Got it!</button>
+                <button id="help-got-it-btn" class="help-got-it-btn">Got it</button>
             </div>
         `;
     },

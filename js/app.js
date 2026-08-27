@@ -168,7 +168,7 @@ function init() {
     branchSelect.addEventListener('change', onBranchChange);
     branchSelect.addEventListener('input', onBranchChange);
 
-    // Render Courses on Semester Change — also persist selection
+    // Render Courses on Semester Change - also persist selection
     semesterSelect.addEventListener('change', () => {
         const sem = semesterSelect.value;
         Store.set(`lastSem_${currentRegulation}`, sem);
@@ -238,7 +238,7 @@ function renderCourses() {
             </td>
             <td class="p-4 text-center text-sm font-bold theme-muted hidden md:table-cell">${course.c}</td>
             <td class="p-4 max-w-[140px]">
-                <select class="grade-input theme-input w-full p-2 border theme-border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" 
+                <select class="grade-input theme-input w-full p-2 border theme-border rounded-lg text-sm focus:ring-1 focus:ring-[#557C86] focus:border-[#557C86] outline-none transition" 
                         data-credits="${course.c}" onchange="calculateResults()">
                     <option value="" selected disabled>Grade</option>
                     ${Object.keys(gradePoints).filter(g => g !== 'F' && g !== 'M').map(g => `<option value="${gradePoints[g]}">${g} (${gradePoints[g]})</option>`).join('')}
@@ -276,7 +276,7 @@ function calculateResults() {
 
     resultsSection.classList.remove('hidden');
 
-    // GA4 — track SGPA calculation
+    // GA4 - track SGPA calculation
     trackEvent('sgpa_calculated', {
         branch: branchSelect.value,
         semester: semesterSelect.value,
@@ -297,11 +297,11 @@ function convertSgpaToPerc() {
         <div class="grid grid-cols-2 gap-4 w-full">
             <div>
                 <div class="text-xs theme-muted uppercase font-bold tracking-wider mb-1">Percentage</div>
-                <div class="text-3xl font-black text-indigo-600">${perc}%</div>
+                <div class="text-3xl font-black theme-heading">${perc}%</div>
             </div>
             <div class="border-l theme-border pl-4">
                 <div class="text-xs theme-muted uppercase font-bold tracking-wider mb-1">US 4.0 Scale <span class="font-normal normal-case">(approx.)</span></div>
-                <div class="text-3xl font-black text-emerald-600">${usScale.toFixed(2)}</div>
+                <div class="text-3xl font-black text-[#0F6E56] dark:text-[#2DD4BF]">${usScale.toFixed(2)}</div>
             </div>
         </div>
     `;
@@ -331,7 +331,7 @@ function calculateTarget() {
     } else {
         resEl.innerHTML = `
              <div class="text-sm theme-muted uppercase font-bold tracking-wider mb-1">Required SGPA</div>
-             <div class="text-3xl font-black text-indigo-600">${req}</div>
+             <div class="text-3xl font-black theme-heading">${req}</div>
         `;
     }
 }
