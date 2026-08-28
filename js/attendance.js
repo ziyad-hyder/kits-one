@@ -199,67 +199,65 @@ function renderAttendanceTable() {
     attEmptyState.classList.add('hidden');
 
     // Render Table Rows (Desktop) & Mobile Cards
-    // Added data-code and data-type attributes to enable reliable course-based attendance matching in both desktop and mobile view
     attTableBody.innerHTML = data.map((s, i) => `
-        <tr class="group border-b border-slate-100 hover:bg-slate-50 transition-colors hidden md:table-row">
-<td class="p-4 font-bold theme-text text-sm">
+        <tr class="group border-b theme-border hover:bg-[var(--row-hover-bg)] transition-colors hidden md:table-row">
+            <td class="p-3 font-medium theme-text text-sm">
                 ${s.name}
             </td>
-            <td class="p-4 text-center">
+            <td class="p-3 text-center">
                 <input type="number" min="0" data-idx="${i}" data-code="${s.code || ''}" data-type="${s.type || ''}" data-field="held" value="${s.held}" 
-                    class="w-16 p-2 text-center theme-input border theme-border rounded-lg font-bold focus:ring-2 focus:ring-indigo-500 outline-none transition text-sm">
+                    class="w-16 p-1.5 text-center theme-input border theme-border rounded-lg font-medium focus-ring-accent outline-none transition text-sm">
             </td>
-            <td class="p-4 text-center">
+            <td class="p-3 text-center">
                 <input type="number" min="0" data-idx="${i}" data-code="${s.code || ''}" data-type="${s.type || ''}" data-field="absent" value="${s.absent}" 
-                    class="w-16 p-2 text-center theme-input border theme-border rounded-lg font-bold focus:ring-2 focus:ring-red-500 outline-none transition text-sm">
+                    class="w-16 p-1.5 text-center theme-input border theme-border rounded-lg font-medium att-absent-input focus-ring-accent outline-none transition text-sm">
             </td>
-            <td class="p-4 text-right">
-                <span id="att-pct-${i}" class="font-bold theme-muted text-sm">0%</span>
-                <div id="att-warn-${i}" class="hidden text-xs text-amber-500 font-semibold mt-1">⚠ Absent &gt; Held</div>
+            <td class="p-3 text-right">
+                <span id="att-pct-${i}" class="font-medium theme-muted text-xs">0%</span>
+                <div id="att-warn-${i}" class="hidden text-xs text-rose-500 font-medium mt-0.5">Absent &gt; Held</div>
             </td>
         </tr>
 
-
-<!-- Mobile Card View -->
-<tr class="md:hidden border-b theme-border last:border-0">
-    <td colspan="4" class="p-4">
-        <div class="flex flex-col gap-3">
-            <div class="flex justify-between items-start">
-                <span class="font-bold theme-text text-base">${s.name}</span>
-                <span id="att-pct-mobile-${i}" class="font-bold theme-muted text-sm px-2 py-1 rounded theme-bg">0%</span>
-            </div>
-            
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-xs font-bold theme-muted uppercase mb-1">Held</label>
-                    <input type="number"
-                        inputmode="numeric"
-                        pattern="[0-9]*"
-                        min="0"
-                        data-idx="${i}"
-                        data-code="${s.code || ''}"
-                        data-type="${s.type || ''}"
-                        data-field="held"
-                        value="${s.held}"
-                        class="theme-input w-full p-3 text-center border theme-border rounded-xl font-bold focus:ring-2 focus:ring-indigo-500 outline-none text-lg">
+        <!-- Mobile Card View -->
+        <tr class="md:hidden border-b theme-border last:border-0">
+            <td colspan="4" class="p-3.5">
+                <div class="flex flex-col gap-2.5">
+                    <div class="flex justify-between items-start">
+                        <span class="font-medium theme-text text-sm">${s.name}</span>
+                        <span id="att-pct-mobile-${i}" class="font-medium text-xs px-2 py-0.5 rounded theme-bg theme-muted">0%</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <div>
+                            <label class="block text-xs font-medium theme-muted uppercase mb-1">Held</label>
+                            <input type="number"
+                                inputmode="numeric"
+                                pattern="[0-9]*"
+                                min="0"
+                                data-idx="${i}"
+                                data-code="${s.code || ''}"
+                                data-type="${s.type || ''}"
+                                data-field="held"
+                                value="${s.held}"
+                                class="theme-input w-full p-2 text-center border theme-border rounded-lg font-medium focus-ring-accent outline-none text-base">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium theme-muted uppercase mb-1">Absent</label>
+                            <input type="number"
+                                inputmode="numeric"
+                                pattern="[0-9]*"
+                                min="0"
+                                data-idx="${i}"
+                                data-code="${s.code || ''}"
+                                data-type="${s.type || ''}"
+                                data-field="absent"
+                                value="${s.absent}"
+                                class="w-full p-2 text-center theme-input border theme-border rounded-lg font-medium att-absent-input focus-ring-accent outline-none text-base">
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <label class="block text-xs font-bold text-red-300 uppercase mb-1">Absent</label>
-                    <input type="number"
-                        inputmode="numeric"
-                        pattern="[0-9]*"
-                        min="0"
-                        data-idx="${i}"
-                        data-code="${s.code || ''}"
-                        data-type="${s.type || ''}"
-                        data-field="absent"
-                        value="${s.absent}"
-                        class="w-full p-3 text-center theme-input border theme-border rounded-xl font-bold att-absent-input focus:ring-2 focus:ring-red-500 outline-none text-lg">
-                </div>
-            </div>
-        </div>
-    </td>
-</tr>
+            </td>
+        </tr>
     `).join('');
 
     updateAttendanceCalculations(data);
@@ -304,7 +302,7 @@ function updateAttendanceCalculations(providedData = null) {
         const pctEl = document.getElementById(`att-pct-${i}`);
         const warnEl = document.getElementById(`att-warn-${i}`);
         if (pctEl) {
-            pctEl.textContent = isInvalid ? '⚠ Invalid' : pct.toFixed(1) + '%';
+            pctEl.textContent = isInvalid ? 'Invalid' : pct.toFixed(1) + '%';
             if (isInvalid) {
                 pctEl.className = 'att-badge att-badge--warn';
             } else if (pct >= 75) {
@@ -320,7 +318,7 @@ function updateAttendanceCalculations(providedData = null) {
         // Mobile Badge
         const mobPctEl = document.getElementById(`att-pct-mobile-${i}`);
         if (mobPctEl) {
-            mobPctEl.textContent = isInvalid ? '⚠ Invalid' : pct.toFixed(1) + '%';
+            mobPctEl.textContent = isInvalid ? 'Invalid' : pct.toFixed(1) + '%';
             if (isInvalid) {
                 mobPctEl.className = 'att-badge att-badge--warn';
             } else if (pct >= 75) {
@@ -338,33 +336,43 @@ function updateAttendanceCalculations(providedData = null) {
     }
 
     // Overall Stats
+    const attHeroCard = document.getElementById('att-hero-card');
     const overallPct = totalHeld > 0 ? ((totalHeld - totalAbsent) / totalHeld) * 100 : 0;
     overallPctEl.textContent = overallPct.toFixed(2) + '%';
     overallFracEl.textContent = `${totalHeld - totalAbsent} / ${totalHeld} Classes`;
 
-    // Buffer Calculation (75% Rule)
+    // Only apply coral hero state when totalHeld > 0 (real result exists)
+    if (attHeroCard) {
+        if (totalHeld > 0) {
+            attHeroCard.classList.add('has-result');
+        } else {
+            attHeroCard.classList.remove('has-result');
+        }
+    }
+
+    // Buffer Calculation (75% Rule) - stays neutral
     const buffer = Math.floor(0.25 * totalHeld - totalAbsent);
 
     if (totalHeld === 0) {
         bufferValEl.textContent = "-";
-        bufferValEl.className = "text-5xl font-black theme-heading";
+        bufferValEl.className = "text-4xl md:text-5xl font-semibold theme-heading";
         bufferTitleEl.textContent = "Buffer Status";
-        bufferTitleEl.className = "theme-muted text-xs font-bold uppercase tracking-widest mb-1";
-        bufferSubEl.textContent = "No data";
+        bufferTitleEl.className = "theme-muted text-xs font-medium uppercase tracking-wider mb-1";
+        bufferSubEl.textContent = "Calculated";
     } else if (buffer >= 0) {
         // Safe
         bufferValEl.textContent = buffer;
-        bufferValEl.className = "text-5xl font-black text-[#2DD4BF]";
+        bufferValEl.className = "text-4xl md:text-5xl font-semibold text-emerald-600 dark:text-emerald-400";
         bufferTitleEl.textContent = "Bunks Available";
-        bufferTitleEl.className = "text-xs font-bold text-[#2DD4BF] uppercase tracking-widest mb-1";
+        bufferTitleEl.className = "text-xs font-medium text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-1";
         bufferSubEl.textContent = "to stay above 75%";
     } else {
         // Danger
         const needed = Math.ceil(totalAbsent / 0.25 - totalHeld);
         bufferValEl.textContent = needed;
-        bufferValEl.className = "text-5xl font-black text-rose-500";
+        bufferValEl.className = "text-4xl md:text-5xl font-semibold text-rose-600 dark:text-rose-400";
         bufferTitleEl.textContent = "Classes Needed";
-        bufferTitleEl.className = "text-xs font-bold text-rose-600 uppercase tracking-widest mb-1";
+        bufferTitleEl.className = "text-xs font-medium text-rose-600 dark:text-rose-400 uppercase tracking-wider mb-1";
         bufferSubEl.textContent = "to recover to 75%";
     }
 
@@ -377,6 +385,8 @@ function resetStats() {
     bufferValEl.textContent = "-";
     bufferTitleEl.textContent = "Buffer Status";
     bufferSubEl.textContent = "Calculated";
+    const attHeroCard = document.getElementById('att-hero-card');
+    if (attHeroCard) attHeroCard.classList.remove('has-result');
 }
 
 function calculateFutureBuffer() {
@@ -389,28 +399,22 @@ function calculateFutureBuffer() {
     }
 
     const data = getCurrentTableData();
-    // Current totals
     const curHeld = data.reduce((a, b) => a + b.held, 0);
     const curAbsent = data.reduce((a, b) => a + b.absent, 0);
-
-    // New total held
     const newHeld = curHeld + extraClasses;
-
-    // Buffer logic: (Held * 0.25) - Absent
-    // New Buffer: ( (CurrentHeld + FutureHeld) * 0.25 ) - CurrentAbsent
     const fBuf = Math.floor(0.25 * newHeld - curAbsent);
 
     if (extraClasses > 0) {
         if (fBuf >= 0) {
             futureResultEl.textContent = `${fBuf} Bunks`;
-            futureResultEl.className = "ml-2 px-3 py-1 bg-emerald-100 text-emerald-700 font-bold rounded-lg border border-emerald-200 text-sm";
+            futureResultEl.className = "text-xs font-medium text-emerald-600 dark:text-emerald-400";
         } else {
             futureResultEl.textContent = `${Math.abs(fBuf)} Classes Still Needed`;
-            futureResultEl.className = "ml-2 px-3 py-1 bg-rose-100 text-rose-700 font-bold rounded-lg border border-rose-200 text-xs";
+            futureResultEl.className = "text-xs font-medium text-rose-600 dark:text-rose-400";
         }
     } else {
         futureResultEl.textContent = "...";
-        futureResultEl.className = "ml-2 theme-muted font-bold text-sm";
+        futureResultEl.className = "text-xs font-medium theme-muted";
     }
 }
 
@@ -421,44 +425,28 @@ function resetAttendanceData() {
         renderAttendanceTable();
     }
 }
-/*
- * UMS Auto-Fill (Code-Based Matching)
- * Uses official course code + type (theory/lab) for matching.
- * Avoids fragile name-based comparisons.
- * Fully overwrites existing attendance safely.
- */
 
-// Normalize course code by removing single trailing letter (A/B/C etc.)
 function normalizeCode(code) {
     if (!code) return code;
     return code.replace(/([0-9])([A-Z])$/, '$1');
 }
 
 /**
- * Attendance Modal — reuses help-modal overlay + matching CSS classes
- * @param {string} title - Modal header text
- * @param {string} bodyHTML - Inner HTML for modal body
- * @param {'success'|'warning'|'error'} type - Controls header color
+ * Attendance Modal — reuses help-modal overlay
  */
 function showAttendanceModal(title, bodyHTML, type = 'success') {
     const overlay = document.getElementById('help-modal-overlay');
     const modal = document.getElementById('help-modal');
-    if (!overlay || !modal) { alert(bodyHTML); return; } // fallback
+    if (!overlay || !modal) { alert(bodyHTML); return; }
 
-    const headerGradient = {
-        success: 'linear-gradient(135deg, #059669 0%, #10b981 100%)',
-        warning: 'linear-gradient(135deg, #d97706 0%, #f59e0b 100%)',
-        error: 'linear-gradient(135deg, #dc2626 0%, #ef4444 100%)'
-    }[type] || 'linear-gradient(135deg, var(--primary) 0%, #6366f1 100%)';
-
-    const icon = { success: '✓', warning: '⚠', error: '✕' }[type] || '';
+    const icon = { success: '✓', warning: '!', error: '✕' }[type] || '';
 
     modal.innerHTML = `
-        <div class="help-modal-header" style="background: ${headerGradient}">
-            <span style="font-size:1.5rem">${icon}</span>
+        <div class="help-modal-header">
+            ${icon ? `<span class="help-step-icon">${icon}</span>` : ''}
             <h3 class="help-modal-title">${title}</h3>
             <button id="att-modal-close" class="help-close-btn" aria-label="Close">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
             </button>
@@ -468,7 +456,7 @@ function showAttendanceModal(title, bodyHTML, type = 'success') {
         </div>
         <div class="help-modal-footer">
             <span></span>
-            <button id="att-modal-ok" class="help-got-it-btn">Got it!</button>
+            <button id="att-modal-ok" class="btn-primary py-2 px-6 text-sm">Got it</button>
         </div>
     `;
 
@@ -477,7 +465,7 @@ function showAttendanceModal(title, bodyHTML, type = 'success') {
 
     const closeModal = () => {
         overlay.classList.remove('help-visible');
-        setTimeout(() => overlay.classList.add('hidden'), 200);
+        setTimeout(() => overlay.classList.add('hidden'), 150);
     };
 
     document.getElementById('att-modal-close').addEventListener('click', closeModal);

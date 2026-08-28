@@ -28,8 +28,8 @@ const HelpSystem = {
             steps: [
                 {
                     icon: '1',
-                    text: 'Open the official <a href="https://tscms-kitsw.aptonline.in/UMS" style="color: #4f46e5; text-decoration: underline;" target="_blank"><strong>KITS UMS</strong></a> portal',
-                    tip: 'Tap the link! No need to search manually'
+                    text: 'Open the official <a href="https://tscms-kitsw.aptonline.in/UMS" class="text-accent underline font-medium" target="_blank">KITS UMS</a> portal',
+                    tip: 'Tap the link to open the portal'
                 },
                 {
                     icon: '2',
@@ -81,7 +81,7 @@ const HelpSystem = {
             steps: [
                 {
                     icon: '1',
-                    text: 'Open <a href="https://www.kitswexams.com" style="color: #4f46e5; text-decoration: underline;" target="_blank"><strong>KITSW Exams</strong></a> portal'
+                    text: 'Open <a href="https://www.kitswexams.com" class="text-accent underline font-medium" target="_blank">KITSW Exams</a> portal'
                 },
                 {
                     icon: '2',
@@ -268,7 +268,7 @@ const HelpSystem = {
                     <input type="checkbox" id="help-dismiss-checkbox" class="help-dismiss-checkbox">
                     <span>Don't show this again</span>
                 </label>
-                <button id="help-got-it-btn" class="help-got-it-btn">Got it!</button>
+                <button id="help-got-it-btn" class="btn-primary py-2 px-5 text-sm">Got it</button>
             </div>
         `;
     },

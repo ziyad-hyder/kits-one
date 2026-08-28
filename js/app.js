@@ -12,7 +12,6 @@ const resultsSection = document.getElementById('results-section');
 // TAB_ORDER is defined in gestures.js
 
 // Safe localStorage wrapper 
-// All reads/writes go through these helpers so the app never crashes silently.
 const Store = {
     get(key) {
         try { return localStorage.getItem(key); } catch { return null; }
@@ -212,7 +211,7 @@ function init() {
     const hint = document.getElementById('swipe-hint');
     if (hint && window.innerWidth < 768) {
         hint.classList.remove('hidden');
-        setTimeout(() => hint.classList.add('hidden'), 5000);
+        setTimeout(() => hint.classList.add('hidden'), 4000);
     }
 }
 
@@ -232,13 +231,13 @@ function renderCourses() {
         const row = document.createElement('tr');
         row.className = "transition-colors";
         row.innerHTML = `
-            <td class="p-4 text-sm font-medium theme-text">
+            <td class="p-3 text-sm font-normal theme-text">
                 ${course.n}
-                <div class="md:hidden text-xs theme-muted-light mt-1">Credits: ${course.c}</div>
+                <div class="md:hidden text-xs theme-muted mt-0.5">Credits: ${course.c}</div>
             </td>
-            <td class="p-4 text-center text-sm font-bold theme-muted hidden md:table-cell">${course.c}</td>
-            <td class="p-4 max-w-[140px]">
-                <select class="grade-input theme-input w-full p-2 border theme-border rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" 
+            <td class="p-3 text-center text-sm font-medium theme-muted hidden md:table-cell">${course.c}</td>
+            <td class="p-3 max-w-[130px]">
+                <select class="grade-input theme-input w-full p-2 border theme-border rounded-lg text-sm font-normal focus-ring-accent outline-none transition cursor-pointer" 
                         data-credits="${course.c}" onchange="calculateResults()">
                     <option value="" selected disabled>Grade</option>
                     ${Object.keys(gradePoints).filter(g => g !== 'F' && g !== 'M').map(g => `<option value="${gradePoints[g]}">${g} (${gradePoints[g]})</option>`).join('')}
@@ -250,6 +249,8 @@ function renderCourses() {
 
     courseContainer.classList.remove('hidden');
     resultsSection.classList.add('hidden');
+    const sgpaHero = document.getElementById('sgpa-hero-card');
+    if (sgpaHero) sgpaHero.classList.remove('has-result');
 }
 
 function calculateResults() {
@@ -270,9 +271,12 @@ function calculateResults() {
     const result     = Calculator.calculateSGPA(grades);
     const percentage = Calculator.cgpaToPercentage(result.sgpa);
 
-    document.getElementById('sgpa-display').innerText     = result.sgpa.toFixed(2);
+    document.getElementById('sgpa-display').innerText       = result.sgpa.toFixed(2);
     document.getElementById('percentage-display').innerText = percentage + "%";
-    document.getElementById('credits-display').innerText  = result.clearedCredits + " / " + result.totalRegisteredCredits;
+    document.getElementById('credits-display').innerText    = result.clearedCredits + " / " + result.totalRegisteredCredits;
+
+    const sgpaHero = document.getElementById('sgpa-hero-card');
+    if (sgpaHero) sgpaHero.classList.add('has-result');
 
     resultsSection.classList.remove('hidden');
 
@@ -287,21 +291,24 @@ function calculateResults() {
 // Converter Logic
 function convertSgpaToPerc() {
     const val = parseFloat(document.getElementById('converter-input').value);
+    const resEl = document.getElementById('converter-result');
     if (isNaN(val) || val < 0 || val > 10) {
         alert("Please enter a valid SGPA/CGPA (0-10)");
         return;
     }
     const perc    = Calculator.cgpaToPercentage(val);
     const usScale = (val / 10) * 4;
-    document.getElementById('converter-result').innerHTML = `
-        <div class="grid grid-cols-2 gap-4 w-full">
+
+    resEl.classList.add('has-result');
+    resEl.innerHTML = `
+        <div class="grid grid-cols-2 gap-3 w-full text-center">
             <div>
-                <div class="text-xs theme-muted uppercase font-bold tracking-wider mb-1">Percentage</div>
-                <div class="text-3xl font-black text-indigo-600">${perc}%</div>
+                <div class="hero-result-title text-xs uppercase font-medium tracking-wider mb-1">Percentage</div>
+                <div class="hero-result-value text-3xl font-semibold">${perc}%</div>
             </div>
-            <div class="border-l theme-border pl-4">
-                <div class="text-xs theme-muted uppercase font-bold tracking-wider mb-1">US 4.0 Scale <span class="font-normal normal-case">(approx.)</span></div>
-                <div class="text-3xl font-black text-emerald-600">${usScale.toFixed(2)}</div>
+            <div class="border-l border-black/10 dark:border-white/10 pl-3">
+                <div class="hero-result-title text-xs uppercase font-medium tracking-wider mb-1">US 4.0 Scale</div>
+                <div class="hero-result-value text-3xl font-semibold">${usScale.toFixed(2)}</div>
             </div>
         </div>
     `;
@@ -327,15 +334,16 @@ function calculateTarget() {
     const resEl = document.getElementById('planner-result');
 
     if (typeof req === 'string') {
-        resEl.innerHTML = `<span class="text-red-500 font-bold">${req}</span>`;
+        resEl.classList.remove('has-result');
+        resEl.innerHTML = `<span class="text-rose-500 font-semibold text-sm">${req}</span>`;
     } else {
+        resEl.classList.add('has-result');
         resEl.innerHTML = `
-             <div class="text-sm theme-muted uppercase font-bold tracking-wider mb-1">Required SGPA</div>
-             <div class="text-3xl font-black text-indigo-600">${req}</div>
+             <div class="hero-result-title text-xs uppercase font-medium tracking-wider mb-1">Required SGPA</div>
+             <div class="hero-result-value text-4xl font-semibold">${req}</div>
         `;
     }
 }
 
 // Initialize on Load
 document.addEventListener('DOMContentLoaded', init);
-
