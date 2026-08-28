@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KITS One — SGPA, Attendance & CGPA Calculator for KITSW (URR24-R25 & URR26)</title>
+    <title>KITS One • Academic Companion</title>
     <meta name="description"
         content="Free academic companion for KITSW students. Calculate SGPA, track attendance with the Bunk Buffer, plan your ESE targets, and convert CGPA — accurate for both URR24-R25 and URR26 regulations.">
     <meta name="keywords"
@@ -86,7 +86,8 @@
     <header class="max-w-4xl mx-auto mb-6 flex items-center justify-between gap-4">
         <div>
             <h1 class="text-xl md:text-2xl font-semibold tracking-tight">KITS One</h1>
-            <p class="font-normal text-xs md:text-sm theme-muted">Academic Companion • <span id="regulation-title-display">URR24-R25</span></p>
+            <p class="font-normal text-xs md:text-sm theme-muted">Academic Companion • <span
+                    id="regulation-title-display">URR24-R25</span></p>
         </div>
 
         <div class="flex items-center gap-2">
@@ -101,12 +102,14 @@
                 class="p-2 theme-surface theme-border border rounded-lg hover:opacity-80 transition-opacity"
                 title="Toggle Theme">
                 <!-- Sun Icon (shown in dark mode) -->
-                <svg id="sun-icon" class="w-4 h-4 text-accent hidden" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                <svg id="sun-icon" class="w-4 h-4 text-accent hidden" aria-hidden="true" fill="currentColor"
+                    viewBox="0 0 20 20">
                     <path
                         d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.243 1.757a1 1 0 011.414 0l.707.707a1 1 0 11-1.414 1.414l-.707-.707a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM14.243 16.243a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM10 18a1 1 0 01-1 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.243-1.757a1 1 0 010-1.414l.707-.707a1 1 0 011.414 1.414l-.707.707a1 1 0 01-1.414 0zM2 10a1 1 0 011-1h1a1 1 0 110 2H3a1 1 0 01-1-1zm1.757-4.243a1 1 0 010-1.414l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0zM10 7a3 3 0 100 6 3 3 0 000-6z" />
                 </svg>
                 <!-- Moon Icon (shown in light mode) -->
-                <svg id="moon-icon" class="w-4 h-4 text-accent" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                <svg id="moon-icon" class="w-4 h-4 text-accent" aria-hidden="true" fill="currentColor"
+                    viewBox="0 0 20 20">
                     <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
                 </svg>
             </button>
@@ -119,15 +122,19 @@
         <!-- Tabs -->
         <div class="flex border-b theme-border overflow-x-auto scroller-hide">
             <button onclick="switchTab('tab-attend')"
-                class="tab-btn active flex-1 py-3 px-4 text-sm font-medium whitespace-nowrap text-center">Bunk Buffer</button>
+                class="tab-btn active flex-1 py-3 px-4 text-sm font-medium whitespace-nowrap text-center">Bunk
+                Buffer</button>
             <button onclick="switchTab('tab-ese')"
                 class="tab-btn flex-1 py-3 px-4 text-sm font-medium whitespace-nowrap text-center">ESE Planner</button>
             <button onclick="switchTab('tab-calc')"
-                class="tab-btn flex-1 py-3 px-4 text-sm font-medium whitespace-nowrap text-center">SGPA Calculator</button>
+                class="tab-btn flex-1 py-3 px-4 text-sm font-medium whitespace-nowrap text-center">SGPA
+                Calculator</button>
             <button onclick="switchTab('tab-plan')"
-                class="tab-btn flex-1 py-3 px-4 text-sm font-medium whitespace-nowrap text-center">Target Planner</button>
+                class="tab-btn flex-1 py-3 px-4 text-sm font-medium whitespace-nowrap text-center">Target
+                Planner</button>
             <button onclick="switchTab('tab-conv')"
-                class="tab-btn flex-1 py-3 px-4 text-sm font-medium whitespace-nowrap text-center">CGPA Converter</button>
+                class="tab-btn flex-1 py-3 px-4 text-sm font-medium whitespace-nowrap text-center">CGPA
+                Converter</button>
         </div>
 
         <!-- Content Area -->
@@ -153,20 +160,23 @@
             <!-- Tool 1: Bunk Buffer -->
             <div id="tab-attend" class="tab-content max-w-2xl mx-auto space-y-4">
                 <!-- Empty State -->
-                <div id="att-empty-state"
-                    class="theme-card text-center p-6 rounded-xl border theme-border">
+                <div id="att-empty-state" class="theme-card text-center p-6 rounded-xl border theme-border">
                     <p class="theme-muted text-sm font-normal">Select Branch and Semester to load subjects</p>
                 </div>
 
                 <!-- Stats Cards -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div id="att-hero-card" class="hero-result-card p-5 text-center flex flex-col justify-center">
-                        <p class="hero-result-title text-xs font-medium uppercase tracking-wider mb-1 theme-muted">Overall Attendance</p>
-                        <h2 id="att-overall-pct" class="hero-result-value text-4xl md:text-5xl font-semibold theme-text">0.00%</h2>
+                        <p class="hero-result-title text-xs font-medium uppercase tracking-wider mb-1 theme-muted">
+                            Overall Attendance</p>
+                        <h2 id="att-overall-pct"
+                            class="hero-result-value text-4xl md:text-5xl font-semibold theme-text">0.00%</h2>
                         <p id="att-overall-frac" class="hero-result-sub text-xs theme-muted mt-1">0 / 0 Classes</p>
                     </div>
-                    <div class="theme-card p-5 rounded-xl border theme-border text-center flex flex-col justify-center items-center">
-                        <p id="att-buffer-title" class="theme-muted text-xs font-medium uppercase tracking-wider mb-1">Buffer Status</p>
+                    <div
+                        class="theme-card p-5 rounded-xl border theme-border text-center flex flex-col justify-center items-center">
+                        <p id="att-buffer-title" class="theme-muted text-xs font-medium uppercase tracking-wider mb-1">
+                            Buffer Status</p>
                         <h2 id="att-buffer-value" class="text-4xl md:text-5xl font-semibold theme-heading">-</h2>
                         <p id="att-buffer-subtitle" class="theme-muted text-xs font-normal mt-1">Calculated</p>
                     </div>
@@ -174,17 +184,16 @@
 
                 <!-- UMS Auto-Fill Section -->
                 <div class="theme-card p-4 rounded-xl border theme-border">
-                    <textarea id="ums-paste" rows="4" placeholder="Quick mode: Paste your copied UMS attendance report here to auto-fill Held & Absent. Manual editing available below."
+                    <textarea id="ums-paste" rows="4"
+                        placeholder="Quick mode: Paste your copied UMS attendance report here to auto-fill Held & Absent. Manual editing available below."
                         class="theme-input w-full border theme-border rounded-lg text-sm font-normal resize-none focus-ring-accent p-3 outline-none transition"></textarea>
-                    <button onclick="parseUmsAttendance()"
-                        class="mt-2.5 w-full py-2.5 btn-primary text-sm">
+                    <button onclick="parseUmsAttendance()" class="mt-2.5 w-full py-2.5 btn-primary text-sm">
                         Auto Fill From UMS
                     </button>
                 </div>
 
                 <!-- Table -->
-                <div id="att-table-container"
-                    class="theme-card border theme-border rounded-xl overflow-hidden hidden">
+                <div id="att-table-container" class="theme-card border theme-border rounded-xl overflow-hidden hidden">
                     <table class="w-full text-left">
                         <thead class="theme-surface border-b theme-border">
                             <tr>
@@ -201,7 +210,8 @@
                 </div>
 
                 <!-- Future Planner (Mini) -->
-                <div class="theme-card p-3.5 rounded-xl border theme-border flex flex-col md:flex-row items-center justify-between gap-3">
+                <div
+                    class="theme-card p-3.5 rounded-xl border theme-border flex flex-col md:flex-row items-center justify-between gap-3">
                     <div class="flex items-center gap-2.5 w-full md:w-auto">
                         <span class="text-xs font-medium theme-muted uppercase whitespace-nowrap">If next</span>
                         <input type="number" id="att-future-input" placeholder="0" min="0"
@@ -214,7 +224,8 @@
 
                 <div class="text-center pt-2">
                     <button onclick="resetAttendanceData()"
-                        class="text-xs theme-muted hover:text-red-500 transition underline underline-offset-4">Reset Subject Data</button>
+                        class="text-xs theme-muted hover:text-red-500 transition underline underline-offset-4">Reset
+                        Subject Data</button>
                 </div>
             </div>
 
@@ -222,43 +233,46 @@
             <div id="tab-ese" class="tab-content hidden space-y-4 animate-fade-in">
                 <div class="text-center mb-2">
                     <h3 class="font-semibold text-lg theme-heading">ESE Target Calculator</h3>
-                    <p class="text-xs theme-muted mt-0.5">Enter CIE marks to calculate required ESE scores and estimated SGPA</p>
+                    <p class="text-xs theme-muted mt-0.5">Enter CIE marks to calculate required ESE scores and estimated
+                        SGPA</p>
                 </div>
                 <!-- Empty State -->
-                <div id="ese-empty-state"
-                    class="theme-card text-center p-6 rounded-xl border theme-border">
+                <div id="ese-empty-state" class="theme-card text-center p-6 rounded-xl border theme-border">
                     <p class="theme-muted text-sm font-normal">Select Branch and Semester to load subjects</p>
                 </div>
                 <!-- Form Container -->
                 <div id="ese-form-container" class="hidden space-y-4">
                     <!-- Main Subjects -->
                     <div>
-                        <h4 id="ese-main-header" class="text-xs font-medium theme-muted uppercase tracking-wider mb-2">Main Subjects</h4>
+                        <h4 id="ese-main-header" class="text-xs font-medium theme-muted uppercase tracking-wider mb-2">
+                            Main Subjects</h4>
                         <div id="ese-main-subjects" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
                     </div>
                     <!-- 1-Credit Subjects -->
                     <div>
                         <h4 id="ese-credit-header"
-                            class="text-xs font-medium theme-muted uppercase tracking-wider mb-2 hidden">1-Credit Subjects</h4>
+                            class="text-xs font-medium theme-muted uppercase tracking-wider mb-2 hidden">1-Credit
+                            Subjects</h4>
                         <div id="ese-credit-subjects" class="grid grid-cols-2 md:grid-cols-4 gap-2.5"></div>
                     </div>
                     <!-- Calculate Button -->
-                    <button onclick="EseCalculator.calculate()"
-                        class="btn-primary w-full py-3 text-sm">
+                    <button onclick="EseCalculator.calculate()" class="btn-primary w-full py-3 text-sm">
                         Calculate ESE Targets
                     </button>
                 </div>
                 <!-- Results Section -->
                 <div id="ese-results" class="hidden space-y-3">
                     <div id="ese-hero-card" class="hero-result-card p-5 text-center flex flex-col justify-center">
-                        <p class="hero-result-title text-xs font-medium uppercase tracking-wider mb-1 theme-muted">Estimated SGPA</p>
+                        <p class="hero-result-title text-xs font-medium uppercase tracking-wider mb-1 theme-muted">
+                            Estimated SGPA</p>
                         <h2 id="ese-sgpa-display" class="hero-result-value text-4xl md:text-5xl font-semibold">0.00</h2>
                     </div>
                     <div class="theme-card p-4 rounded-xl border theme-border">
                         <h4 class="text-xs font-medium theme-muted uppercase tracking-wider mb-2">Target Summary</h4>
                         <ul id="ese-summary" class="space-y-1.5 list-none"></ul>
                     </div>
-                    <p class="text-xs text-center theme-muted">Note: ESE scores depend on exam performance and grading rules. Maximize internals.</p>
+                    <p class="text-xs text-center theme-muted">Note: ESE scores depend on exam performance and grading
+                        rules. Maximize internals.</p>
                     <button id="ese-export-btn" onclick="EseCalculator.exportToImage()"
                         class="btn-secondary w-full py-2.5 text-sm">
                         Export as Image
@@ -273,8 +287,11 @@
                     <table class="w-full text-left">
                         <thead class="theme-surface border-b theme-border">
                             <tr>
-                                <th class="p-3 text-xs font-medium theme-muted uppercase tracking-wider">Course Title</th>
-                                <th class="p-3 text-xs font-medium theme-muted uppercase text-center w-20 hidden md:table-cell">Credits</th>
+                                <th class="p-3 text-xs font-medium theme-muted uppercase tracking-wider">Course Title
+                                </th>
+                                <th
+                                    class="p-3 text-xs font-medium theme-muted uppercase text-center w-20 hidden md:table-cell">
+                                    Credits</th>
                                 <th class="p-3 text-xs font-medium theme-muted uppercase w-28">Grade</th>
                             </tr>
                         </thead>
@@ -287,7 +304,8 @@
                 <!-- Results -->
                 <div id="results-section" class="hidden grid grid-cols-1 md:grid-cols-3 gap-3">
                     <div id="sgpa-hero-card" class="hero-result-card p-5 text-center flex flex-col justify-center">
-                        <p class="hero-result-title text-xs font-medium uppercase tracking-wider mb-1 theme-muted">Semester SGPA</p>
+                        <p class="hero-result-title text-xs font-medium uppercase tracking-wider mb-1 theme-muted">
+                            Semester SGPA</p>
                         <h2 id="sgpa-display" class="hero-result-value text-4xl md:text-5xl font-semibold">0.00</h2>
                     </div>
                     <div class="theme-card p-5 rounded-xl border theme-border text-center flex flex-col justify-center">
@@ -331,12 +349,12 @@
                     </div>
                 </div>
 
-                <button onclick="calculateTarget()"
-                    class="btn-primary w-full py-3 text-sm">
+                <button onclick="calculateTarget()" class="btn-primary w-full py-3 text-sm">
                     Calculate Required SGPA
                 </button>
 
-                <div id="planner-result" class="hero-result-card text-center p-5 min-h-[80px] flex flex-col justify-center items-center">
+                <div id="planner-result"
+                    class="hero-result-card text-center p-5 min-h-[80px] flex flex-col justify-center items-center">
                     <span class="theme-muted text-sm font-normal">Enter details to calculate</span>
                 </div>
             </div>
@@ -345,7 +363,8 @@
             <div id="tab-conv" class="tab-content hidden max-w-lg mx-auto space-y-4 pt-2">
                 <div class="text-center">
                     <h3 class="font-semibold text-lg theme-heading">CGPA Converter</h3>
-                    <p class="text-xs theme-muted mt-0.5">Formula: (CGPA - 0.50) × 10 &nbsp;|&nbsp; 4.0 Scale: (CGPA ÷ 10) × 4</p>
+                    <p class="text-xs theme-muted mt-0.5">Formula: (CGPA - 0.50) × 10 &nbsp;|&nbsp; 4.0 Scale: (CGPA ÷
+                        10) × 4</p>
                 </div>
                 <div class="flex gap-3 items-end theme-card p-4 rounded-xl border theme-border">
                     <div class="flex-1">
@@ -353,8 +372,7 @@
                         <input type="number" id="converter-input" step="0.01" max="10" placeholder="e.g. 8.75"
                             class="theme-input w-full p-2.5 border theme-border rounded-lg text-base font-semibold text-center focus-ring-accent outline-none">
                     </div>
-                    <button onclick="convertSgpaToPerc()"
-                        class="btn-primary h-[42px] px-5 text-sm">Convert</button>
+                    <button onclick="convertSgpaToPerc()" class="btn-primary h-[42px] px-5 text-sm">Convert</button>
                 </div>
                 <div id="converter-result"
                     class="hero-result-card text-center p-5 min-h-[80px] flex flex-col justify-center items-center">
@@ -374,11 +392,13 @@
                 <a href="https://kitsw.rlabs24.in/" target="_blank" class="pill-link">Courseweb</a>
                 <a href="https://tscms-kitsw.aptonline.in/UMS" target="_blank" class="pill-link">UMS Login</a>
                 <a href="https://www.kitswexams.com/" target="_blank" class="pill-link">Exam Results</a>
-                <a href="https://www.kitsw.ac.in/academics/URR-24/URR24_Rules_and_Regulations.pdf" target="_blank" class="pill-link">URR-24 Rules (PDF)</a>
+                <a href="https://www.kitsw.ac.in/academics/URR-24/URR24_Rules_and_Regulations.pdf" target="_blank"
+                    class="pill-link">URR-24 Rules (PDF)</a>
             </div>
         </div>
 
-        <p>Made by <a target="_blank" href="https://github.com/ziyad-hyder" class="text-accent font-medium hover:underline">Ziyad Hyder</a></p>
+        <p>Built by <a target="_blank" href="https://github.com/ziyad-hyder"
+                class="text-accent font-medium hover:underline">Ziyad Hyder</a></p>
         <p class="mt-1">Not affiliated with KITS Administration</p>
         <p class="mt-1 font-mono">v3.0.0</p>
     </footer>
