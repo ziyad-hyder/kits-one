@@ -4,24 +4,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KITS One — SGPA, Attendance & CGPA Calculator for KITSW (URR24-R25 & URR26)</title>
     <meta name="description"
-        content="KITS One: The official academic companion for KITSW students. SGPA/CGPA calculator and attendance manager based on URR-24 regulations.">
-    <meta name="keywords" content="KITSW, KITS One, URR-24, SGPA Calculator, Attendance Manager, Ziyad Hyder">
-    <meta property="og:title" content="KITS One | Academic Companion">
-    <link rel="canonical" href="https://ziyad-hyder.github.io/kits-one/">
+        content="Free academic companion for KITSW students. Calculate SGPA, track attendance with the Bunk Buffer, plan your ESE targets, and convert CGPA — accurate for both URR24-R25 and URR26 regulations.">
+    <meta name="keywords"
+        content="KITSW SGPA calculator, KITSW attendance calculator, KITS One, URR24 CGPA converter, KITSW bunk buffer, KITSW ESE target calculator">
+    <link rel="canonical" href="https://ziyadhyder.dev/kits-one">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="KITS One — Academic Companion for KITSW">
+    <meta property="og:description"
+        content="Bunk Buffer, SGPA Calculator, ESE Planner & CGPA Converter — supports URR24-R25 and URR26 regulations.">
+    <meta property="og:image" content="https://ziyadhyder.dev/kits-one/assets/brand/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://ziyadhyder.dev/kits-one">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="KITS One">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="KITS One — Academic Companion for KITSW">
+    <meta name="twitter:description"
+        content="Bunk Buffer, SGPA Calculator, ESE Planner & CGPA Converter — supports URR24-R25 and URR26 regulations.">
+    <meta name="twitter:image" content="https://ziyadhyder.dev/kits-one/assets/brand/og-image.png">
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-    <title>KITS One | Academic Companion</title>
-    <meta property="og:description"
-        content="Calculators, Attendance Tracking, and Academic Planning for KITSW Students. Built by Ziyad Hyder.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ziyad-hyder.github.io/kits-one/">
-    <meta property="og:image" content="https://ziyad-hyder.github.io/kits-one/assets/og-image.jpeg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="KITS One SGPA CGPA and Attendance Planner for KITS Warangal students">
+    <!-- Favicon & Brand Icons -->
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" href="assets/brand/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="assets/brand/favicon-16.png" type="image/png" sizes="16x16">
+    <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon-180.png">
+    <link rel="icon" type="image/svg+xml" href="assets/brand/favicon-source.svg">
+    <link rel="manifest" href="site.webmanifest">
+
+    <!-- Local Tailwind CSS -->
+    <link href="css/output.css" rel="stylesheet">
+    <meta name="google-site-verification" content="P53uMom3Vt8mM1fAM8-95QupltE2P9SIblg_Wx4Xps8" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-DBXCMLKDD3"></script>
@@ -31,14 +55,29 @@
         gtag('js', new Date());
         gtag('config', 'G-DBXCMLKDD3');
     </script>
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
-    <link rel="manifest" href="site.webmanifest">
-    <!-- Local Tailwind CSS -->
-    <link href="css/output.css" rel="stylesheet">
-    <meta name="google-site-verification" content="P53uMom3Vt8mM1fAM8-95QupltE2P9SIblg_Wx4Xps8" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "KITS One",
+      "url": "https://ziyadhyder.dev/kits-one",
+      "description": "Academic companion for KITSW students — SGPA calculator, attendance tracker, ESE target planner, and CGPA converter for URR24-R25 and URR26 regulations.",
+      "applicationCategory": "EducationApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "INR"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Ziyad Hyder",
+        "url": "https://ziyadhyder.dev"
+      }
+    }
+    </script>
 </head>
 
 <body class="theme-bg min-h-screen p-4 lg:p-8">
@@ -62,12 +101,12 @@
                 class="p-2 theme-surface theme-border border rounded-lg hover:opacity-80 transition-opacity"
                 title="Toggle Theme">
                 <!-- Sun Icon (shown in dark mode) -->
-                <svg id="sun-icon" class="w-4 h-4 text-accent hidden" fill="currentColor" viewBox="0 0 20 20">
+                <svg id="sun-icon" class="w-4 h-4 text-accent hidden" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                     <path
                         d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.243 1.757a1 1 0 011.414 0l.707.707a1 1 0 11-1.414 1.414l-.707-.707a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM14.243 16.243a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM10 18a1 1 0 01-1 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.243-1.757a1 1 0 010-1.414l.707-.707a1 1 0 011.414 1.414l-.707.707a1 1 0 01-1.414 0zM2 10a1 1 0 011-1h1a1 1 0 110 2H3a1 1 0 01-1-1zm1.757-4.243a1 1 0 010-1.414l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0zM10 7a3 3 0 100 6 3 3 0 000-6z" />
                 </svg>
                 <!-- Moon Icon (shown in light mode) -->
-                <svg id="moon-icon" class="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                <svg id="moon-icon" class="w-4 h-4 text-accent" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
                 </svg>
             </button>

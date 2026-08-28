@@ -446,7 +446,7 @@ function showAttendanceModal(title, bodyHTML, type = 'success') {
             ${icon ? `<span class="help-step-icon">${icon}</span>` : ''}
             <h3 class="help-modal-title">${title}</h3>
             <button id="att-modal-close" class="help-close-btn" aria-label="Close">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
             </button>

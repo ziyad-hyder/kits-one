@@ -3,14 +3,19 @@
   "short_name": "KITS One",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#4f46e5",
-  "description": "Academic Companion • URR-24 Regulations",
+  "background_color": "#F4F6F6",
+  "theme_color": "#152730",
+  "description": "Academic companion for KITSW students — SGPA calculator, attendance tracker, ESE target planner, and CGPA converter for URR24-R25 and URR26 regulations.",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "assets/brand/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/brand/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ]
 }
