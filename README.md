@@ -6,13 +6,13 @@ What began as a personal tool to calculate my own SGPA accurately gradually evol
 
 KITS One is a complete academic companion designed to take the guesswork out of your journey at college.
 
-***KITS One doesn’t track your attendance — it helps you understand and plan it.***
+***KITS One doesn't track your attendance - it helps you understand and plan it.***
 
 
 ## What's New!
 
 - **The ESE Target Planner:** No more blind panic before your external exams. Just enter your CIE internals (out of 150), pick your dream grade, and the tool calculates the exact minimum marks you need to score in the 100-mark ESE to get that grade. It even automatically saves your internals to your device.
-- **Export your goal!:** Stop taking ugly full-scroll screenshots. You can now tap "Export as Image" at the bottom of the ESE Planner to instantly download a sleek, square, high-res PNG image of your target scores—perfect for sharing to your class WhatsApp groups. Powered by html2canvas with reliable cross-browser download support.
+- **Export your goal!:** Stop taking ugly full-scroll screenshots. You can now tap "Export as Image" at the bottom of the ESE Planner to instantly download a sleek, square, high-res PNG image of your target scores - perfect for sharing to your class WhatsApp groups. Powered by html2canvas with reliable cross-browser download support.
 - **International CGPA Scales:** The Converter tab now instantly translates your KITS 10-point SGPA into Percentage and the US 4.0 Scale out of the box. Essential if you're eyeing MS applications abroad.
 - **Bunk Buffer Rules All:** Let's be real, we all know what tool gets used the most. The Bunk Buffer has been officially promoted to the #1 default launch tab.
 
@@ -35,16 +35,16 @@ KITS One is a complete academic companion designed to take the guesswork out of 
 
 ## Contributors
 
-- **[Simi Riza](https://github.com/SimiRiza)** – Attendance autofill feature (UMS table parsing & input automation)
+- **[Simi Riza](https://github.com/SimiRiza)** - Attendance autofill feature (UMS table parsing & input automation)
 
 ### Curriculum Data (URR24-R25)
 
-- **Md Fayazuddin** – 4CSE
-- **B. Varun** – 4CSM
-- **[Md Taqiuddin](https://github.com/Taqi128)** – 4CSD
-- **[Salman Syed](https://github.com/Salman-a-gamer)** – 4IT
-- **B. Pragnesh** – 2CSM
-- **Md K Moinuddin** – 2IT
+- **Md Fayazuddin** - 4CSE
+- **B. Varun** - 4CSM
+- **[Md Taqiuddin](https://github.com/Taqi128)** - 4CSD
+- **[Salman Syed](https://github.com/Salman-a-gamer)** - 4IT
+- **B. Pragnesh** - 2CSM
+- **Md K Moinuddin** - 2IT
 
 
 ## License

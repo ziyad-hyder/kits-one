@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KITS One • Academic Companion</title>
     <meta name="description"
-        content="Free academic companion for KITSW students. Calculate SGPA, track attendance with the Bunk Buffer, plan your ESE targets, and convert CGPA — accurate for both URR24-R25 and URR26 regulations.">
+        content="Free academic companion for KITSW students. Calculate SGPA, track attendance with the Bunk Buffer, plan your ESE targets, and convert CGPA - accurate for both URR24-R25 and URR26 regulations.">
     <meta name="keywords"
         content="KITSW SGPA calculator, KITSW attendance calculator, KITS One, URR24 CGPA converter, KITSW bunk buffer, KITSW ESE target calculator">
     <link rel="canonical" href="https://ziyadhyder.dev/kits-one">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="KITS One — Academic Companion for KITSW">
+    <meta property="og:title" content="KITS One • Academic Companion for KITSW">
     <meta property="og:description"
-        content="Bunk Buffer, SGPA Calculator, ESE Planner & CGPA Converter — supports URR24-R25 and URR26 regulations.">
+        content="Bunk Buffer, SGPA Calculator, ESE Planner & CGPA Converter - supports URR24-R25 and URR26 regulations.">
     <meta property="og:image" content="https://ziyadhyder.dev/kits-one/assets/brand/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -24,9 +24,9 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="KITS One — Academic Companion for KITSW">
+    <meta name="twitter:title" content="KITS One • Academic Companion for KITSW">
     <meta name="twitter:description"
-        content="Bunk Buffer, SGPA Calculator, ESE Planner & CGPA Converter — supports URR24-R25 and URR26 regulations.">
+        content="Bunk Buffer, SGPA Calculator, ESE Planner & CGPA Converter - supports URR24-R25 and URR26 regulations.">
     <meta name="twitter:image" content="https://ziyadhyder.dev/kits-one/assets/brand/og-image.png">
 
     <!-- Google Fonts -->
@@ -41,6 +41,10 @@
     <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon-180.png">
     <link rel="icon" type="image/svg+xml" href="assets/brand/favicon-source.svg">
     <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#152730">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="KITS One">
 
     <!-- Local Tailwind CSS -->
     <link href="css/output.css" rel="stylesheet">
@@ -63,7 +67,7 @@
       "@type": "WebApplication",
       "name": "KITS One",
       "url": "https://ziyadhyder.dev/kits-one",
-      "description": "Academic companion for KITSW students — SGPA calculator, attendance tracker, ESE target planner, and CGPA converter for URR24-R25 and URR26 regulations.",
+      "description": "Academic companion for KITSW students - SGPA calculator, attendance tracker, ESE target planner, and CGPA converter for URR24-R25 and URR26 regulations.",
       "applicationCategory": "EducationApplication",
       "operatingSystem": "Any",
       "offers": {
@@ -400,7 +404,7 @@
         <p>Built by <a target="_blank" href="https://github.com/ziyad-hyder"
                 class="text-accent font-medium hover:underline">Ziyad Hyder</a></p>
         <p class="mt-1">Not affiliated with KITS Administration</p>
-        <p class="mt-1 font-mono">v3.0.0</p>
+        <p class="mt-1 font-mono">v4.0.0</p>
     </footer>
 
     <!-- Swipe Hint (Mobile Only) -->
@@ -425,6 +429,19 @@
         <span>?</span>
     </button>
 
+    <!-- Offline Ready / Install Banner (One-time, dismissible) -->
+    <div id="install-banner"
+        class="hidden fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:max-w-sm theme-card border theme-border rounded-xl p-4 flex items-start gap-3 z-50">
+        <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/>
+        </svg>
+        <div class="flex-1">
+            <p class="text-sm font-medium theme-text">KITS One now works offline</p>
+            <p class="text-xs theme-muted mt-0.5">Install it to your home screen for one-tap access, even without signal.</p>
+        </div>
+        <button id="install-banner-dismiss" class="theme-muted hover:text-[var(--text)] text-lg leading-none transition" aria-label="Dismiss">&times;</button>
+    </div>
+
     <script src="js/data.js"></script>
     <script src="js/data-urr26.js"></script>
     <script src="js/gestures.js"></script>
@@ -434,6 +451,28 @@
     <script src="js/app.js"></script>
     <script src="js/attendance.js"></script>
     <script src="http://localhost:8080/tracker.js?id=kitsone"></script>
+
+    <!-- PWA Service Worker Registration & Banner -->
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("./sw.js").catch(console.error);
+            });
+
+            const BANNER_KEY = "kits-one-install-banner-dismissed";
+            navigator.serviceWorker.ready.then(() => {
+                if (!localStorage.getItem(BANNER_KEY)) {
+                    const banner = document.getElementById("install-banner");
+                    if (banner) banner.classList.remove("hidden");
+                }
+            });
+
+            document.getElementById("install-banner-dismiss")?.addEventListener("click", () => {
+                localStorage.setItem(BANNER_KEY, "1");
+                document.getElementById("install-banner")?.classList.add("hidden");
+            });
+        }
+    </script>
 </body>
 
 </html>

@@ -167,7 +167,7 @@ function init() {
     branchSelect.addEventListener('change', onBranchChange);
     branchSelect.addEventListener('input', onBranchChange);
 
-    // Render Courses on Semester Change — also persist selection
+    // Render Courses on Semester Change - also persist selection
     semesterSelect.addEventListener('change', () => {
         const sem = semesterSelect.value;
         Store.set(`lastSem_${currentRegulation}`, sem);
@@ -280,7 +280,7 @@ function calculateResults() {
 
     resultsSection.classList.remove('hidden');
 
-    // GA4 — track SGPA calculation
+    // GA4 - track SGPA calculation
     trackEvent('sgpa_calculated', {
         branch: branchSelect.value,
         semester: semesterSelect.value,

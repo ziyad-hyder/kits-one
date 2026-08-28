@@ -432,7 +432,7 @@ function normalizeCode(code) {
 }
 
 /**
- * Attendance Modal — reuses help-modal overlay
+ * Attendance Modal - reuses help-modal overlay
  */
 function showAttendanceModal(title, bodyHTML, type = 'success') {
     const overlay = document.getElementById('help-modal-overlay');
@@ -608,7 +608,7 @@ function parseUmsAttendance() {
     updateAttendanceCalculations();
     saveAttendanceData(getCurrentTableData()); // Fix: persist autofilled data to localStorage
 
-    // GA4 — track UMS autofill usage
+    // GA4 - track UMS autofill usage
     trackEvent('ums_autofill_used', {
         matched: Object.keys(parsedMap).length,
         unmatched: unmatched.length

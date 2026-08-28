@@ -23,7 +23,7 @@ const EseCalculator = {
      * - 'credit': credits === 1 → grade-only input (no CIE marks)
      */
     getSubjectCategory(course) {
-        if (course.c === 0) return 'skip'; // 0-credit audit courses — exclude from ESE
+        if (course.c === 0) return 'skip'; // 0-credit audit courses - exclude from ESE
         if (course.c === 1) return 'credit';
         if (course.type === 'lab' && course.c >= 3) return 'lab';
         if (course.c >= 4 && course.type !== 'lab') return 'theorylab'; // theory+lab combo
@@ -228,7 +228,7 @@ const EseCalculator = {
                 if (desiredGP === 0) {
                     resultText = 'F Grade selected';
                     resultColor = 'theme-muted';
-                    summaryText = `<span>${course.n}:</span> F Grade selected — no ESE target.`;
+                    summaryText = `<span>${course.n}:</span> F Grade selected - no ESE target.`;
                 } else if (eseNeeded <= 0) {
                     resultText = `Target already achieved (surplus: ${Math.abs(eseNeeded)})`;
                     resultColor = 'text-emerald-600 dark:text-emerald-400';
@@ -277,7 +277,7 @@ const EseCalculator = {
             resultsSection.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // GA4 — track ESE calculation
+        // GA4 - track ESE calculation
         trackEvent('ese_calculated', { branch, semester: sem, estimated_sgpa: sgpa.toFixed(2) });
 
         // Save inputs to localStorage

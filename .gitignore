@@ -4,5 +4,4 @@ node_modules/
 Thumbs.db
 *.log
 .env*
-kits-one-design-system-prompt.md
-kits-one-brand-seo-prompt.md
+kits-one-*.md

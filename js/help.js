@@ -123,9 +123,9 @@ const HelpSystem = {
                     icon: '2',
                     text: 'Enter your marks for each subject:',
                     subItems: [
-                        '<strong>CIE Total</strong> — From UMS "Total (out of 150)" column',
-                        '<strong>Lab Internal</strong> — From UMS (for lab subjects only)',
-                        '<strong>Lab External</strong> — Your expected lab external marks'
+                        '<strong>CIE Total</strong>: From UMS "Total (out of 150)" column',
+                        '<strong>Lab Internal</strong>: From UMS (for lab subjects only)',
+                        '<strong>Lab External</strong>: Your expected lab external marks'
                     ]
                 },
                 {
