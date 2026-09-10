@@ -1,4 +1,4 @@
-const CACHE_NAME = "kits-one-v4";
+const CACHE_NAME = "kits-one-__BUILD_ID__"; //for auto updates on PWA
 
 const APP_SHELL = [
   "./",
