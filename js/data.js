@@ -6,7 +6,10 @@ var GRADE_POINTS_URR24_R25 = {
     "B": 8,
     "C": 7,
     "D": 6,
-    "P": 4,
+    "P": 5, // DO NOT "FIX" THIS AGAIN
+    // Yes, P = 5
+    // Yes, this is intentional
+    // Yes, I have already fucked this up twice
     "F": 0,
     "M": 0
 };
@@ -183,7 +186,7 @@ var COURSE_DATA_URR24_R25 = {
 
         "Sem 6": [
             { n: "DT", code: "U24AI601A", c: 3 },
-            { n: "P-Elective 1", code: "U24AI602", c: 3 },,
+            { n: "P-Elective 1", code: "U24AI602", c: 3 }, ,
             { n: "DL", code: "U24AI603", c: 3 },
             { n: "MLOps", code: "U24AI604", c: 3 },
             { n: "BDA", code: "U24ST605", c: 3 },

@@ -12,31 +12,93 @@ const EseCalculator = {
         { value: 8, label: "8 (B)", minPercent: 70 },
         { value: 7, label: "7 (C)", minPercent: 60 },
         { value: 6, label: "6 (D)", minPercent: 50 },
-        { value: 4, label: "4 (P)", minPercent: 40 },
+        { value: 5, label: "5 (P)", minPercent: 40 }, //how the fuck did i make this mistake
         { value: 0, label: "0 (F)", minPercent: 0 }
     ],
 
     /**
+     * Regulation-specific ESE composition. Category logic itself (which
+     * subjects are 'theory' vs 'lab' vs 'credit') does NOT vary by regulation
+     * - only the marks totals and what makes up the CIE portion do.
+     */
+    eseRules: {
+        'URR24-R25': {
+            totals: { theory: 250, lab: 350 },
+            cieMax: { theory: 150, lab: 250 }, // 150 CIE + 60 labint + 40 labext
+            cieFields(category) {
+                const fields = [{ id: 'cie', label: 'CIE Total', max: 150 }];
+                if (category === 'lab') {
+                    fields.push(
+                        { id: 'labint', label: 'Lab Internal', max: 60 },
+                        { id: 'labext', label: 'Lab External (Exp.)', max: 40 }
+                    );
+                }
+                return fields;
+            },
+            computeCIE(category, v) {
+                return (v.cie || 0) + (v.labint || 0) + (v.labext || 0);
+            }
+        },
+        'URR26': {
+            totals: { theory: 100, lab: 100 },
+            cieMax: { theory: 40, lab: 40 }, // (0.7*30 + 0.3*30) + 10 = 40, not 30+30+10=70
+            cieFields(category) {
+                if (category === 'lab') {
+                    return [{ id: 'cie', label: 'Lab CIE', max: 40 }];
+                }
+                return [
+                    { id: 'mse1', label: 'MSE-I', max: 30 },
+                    { id: 'mse2', label: 'MSE-II', max: 30 },
+                    { id: 'ta', label: "Teacher's Assessment", max: 10 }
+                ];
+            },
+            computeCIE(category, v) {
+                if (category === 'lab') return v.cie || 0;
+                const best = Math.max(v.mse1 || 0, v.mse2 || 0);
+                const other = Math.min(v.mse1 || 0, v.mse2 || 0);
+                return (0.7 * best) + (0.3 * other) + (v.ta || 0);
+            }
+        }
+    },
+
+    /**
+     * Returns the active regulation's ESE rule set, falling back to
+     * URR24-R25 if the current regulation has none defined.
+     */
+    getRules() {
+        return this.eseRules[currentRegulation] || this.eseRules['URR24-R25'];
+    },
+
+    /**
      * Determines subject category for ESE calculation purposes.
-     * - 'lab': type === 'lab' AND credits >= 3 → total 350, has Lab CIE + Lab Ext fields
-     * - 'theory': credits >= 2 AND NOT lab → total 250, has Mid1 + Mid2 + GCBAA
-     * - 'credit': credits === 1 → grade-only input (no CIE marks)
+     * - 'lab': type === 'lab' → marks-based, lab-specific CIE fields (regardless of credit count)
+     * - 'credit': credits === 1 AND not a lab → grade-only input (no CIE marks)
+     * - 'theory': everything else → marks-based
+     * Same across regulations - only totals/fields differ (see eseRules).
      */
     getSubjectCategory(course) {
         if (course.c === 0) return 'skip'; // 0-credit audit courses - exclude from ESE
+        if (course.type === 'lab') return 'lab';
         if (course.c === 1) return 'credit';
-        if (course.type === 'lab' && course.c >= 3) return 'lab';
-        if (course.c >= 4 && course.type !== 'lab') return 'theorylab'; // theory+lab combo
         return 'theory';
     },
 
     /**
-     * Gets total marks for a subject category.
+     * Gets total marks for a subject category under the active regulation.
      */
     getTotalMarks(category) {
-        if (category === 'lab' || category === 'theorylab') return 350;
-        if (category === 'theory') return 250;
-        return 0;
+        return this.getRules().totals[category] || 0;
+    },
+
+    /**
+     * Gets the max possible ESE marks for a category under the active
+     * regulation (total minus whatever the CIE fields sum to).
+     */
+    getEseMax(category) {
+        const rules = this.getRules();
+        const total = rules.totals[category] || 0;
+        const cieMax = rules.cieMax[category] || 0;
+        return total - cieMax;
     },
 
     /**
@@ -111,16 +173,15 @@ const EseCalculator = {
      * Builds a card for a main subject (theory, lab, or theorylab).
      */
     buildMainCard(course, subId, category) {
-        const isLab = (category === 'lab' || category === 'theorylab');
-        const subtitle = isLab
-            ? `${course.c} Credits • CIE: 150 + ESE: 100 + Lab: 100`
-            : `${course.c} Credits • CIE: 150 + ESE: 100`;
+        const rules = this.getRules();
+        const fields = rules.cieFields(category);
+        const cieMax = rules.cieMax[category] || 0;
+        const eseMax = this.getEseMax(category);
+        const subtitle = `${course.c} ${course.c === 1 ? 'Credit' : 'Credits'} • CIE: ${cieMax} + ESE: ${eseMax}`;
 
-        let fieldsHTML = `
+        const fieldsHTML = `
             <div class="grid grid-cols-2 gap-2.5">
-                ${this.numberInput(`${subId}_cie`, 'CIE Total', 150)}
-                ${isLab ? this.numberInput(`${subId}_labint`, 'Lab Internal', 60) : ''}
-                ${isLab ? this.numberInput(`${subId}_labext`, 'Lab External (Exp.)', 40) : ''}
+                ${fields.map(f => this.numberInput(`${subId}_${f.id}`, f.label, f.max)).join('')}
                 ${this.gradeSelect(`${subId}_gp`, 'Desired Grade')}
             </div>
         `;
@@ -209,15 +270,18 @@ const EseCalculator = {
             allCredits.push(course.c);
 
             if (category !== 'credit') {
+                const rules = this.getRules();
                 const totalMarks = this.getTotalMarks(category);
-                const isLab = (category === 'lab' || category === 'theorylab');
+                const eseMax = this.getEseMax(category);
                 const resultEl = document.getElementById(`${subId}_result`);
 
-                const cieTotal = Math.min(Math.max(parseInt(document.getElementById(`${subId}_cie`)?.value) || 0, 0), 150);
-                const labInt = isLab ? Math.min(Math.max(parseInt(document.getElementById(`${subId}_labint`)?.value) || 0, 0), 60) : 0;
-                const labExt = isLab ? Math.min(Math.max(parseInt(document.getElementById(`${subId}_labext`)?.value) || 0, 0), 40) : 0;
+                const fieldValues = {};
+                rules.cieFields(category).forEach(f => {
+                    const raw = parseInt(document.getElementById(`${subId}_${f.id}`)?.value) || 0;
+                    fieldValues[f.id] = Math.min(Math.max(raw, 0), f.max);
+                });
 
-                const currentMarks = cieTotal + labInt + labExt;
+                const currentMarks = rules.computeCIE(category, fieldValues);
                 const requiredTotal = this.calculateRequiredMarks(totalMarks, desiredGP);
                 const eseNeeded = requiredTotal - currentMarks;
 
@@ -233,7 +297,7 @@ const EseCalculator = {
                     resultText = `Target already achieved (surplus: ${Math.abs(eseNeeded)})`;
                     resultColor = 'text-emerald-600 dark:text-emerald-400';
                     summaryText = `<span>${course.n}:</span> Already achieved ${desiredGP} GP target.`;
-                } else if (eseNeeded > 100) {
+                } else if (eseNeeded > eseMax) {
                     resultText = `Needs ${eseNeeded} in ESE (not possible)`;
                     resultColor = 'text-rose-600 dark:text-rose-400';
                     summaryText = `<span>${course.n}:</span> ${desiredGP} GP not possible (needs ${eseNeeded} in ESE).`;
@@ -291,27 +355,21 @@ const EseCalculator = {
         const courses = COURSE_DATA[branch]?.[sem];
         if (!courses) return;
         const data = {};
+        const rules = this.getRules();
         courses.forEach((course, index) => {
             const category = this.getSubjectCategory(course);
             if (category === 'skip') return;
             const subId = `ese_sub${index}`;
-            const isLab = (category === 'lab' || category === 'theorylab');
 
             // Save grade select for all non-skip subjects
             const gpEl = document.getElementById(`${subId}_gp`);
             if (gpEl) data[`${subId}_gp`] = gpEl.value;
 
             if (category !== 'credit') {
-                ['_cie'].forEach(suffix => {
-                    const el = document.getElementById(`${subId}${suffix}`);
-                    if (el) data[`${subId}${suffix}`] = el.value;
+                rules.cieFields(category).forEach(f => {
+                    const el = document.getElementById(`${subId}_${f.id}`);
+                    if (el) data[`${subId}_${f.id}`] = el.value;
                 });
-                if (isLab) {
-                    ['_labint', '_labext'].forEach(suffix => {
-                        const el = document.getElementById(`${subId}${suffix}`);
-                        if (el) data[`${subId}${suffix}`] = el.value;
-                    });
-                }
             }
         });
         Store.set(`ese_${branch}_${sem}`, JSON.stringify(data));
