@@ -1,4 +1,4 @@
-const CACHE_NAME = "kits-one-__BUILD_ID__"; //for auto updates on PWA
+const CACHE_NAME = "kits-one-__BUILD_ID__"; 
 
 const APP_SHELL = [
   "./",
@@ -45,8 +45,8 @@ self.addEventListener("fetch", (event) => {
   const { request } = event;
   if (request.method !== "GET") return;
 
-  // Don't intercept analytics or external trackers
-  if (request.url.includes("google-analytics.com") || request.url.includes("googletagmanager.com") || request.url.includes("tracker.js")) {
+  // Don't intercept analytics requests — let them go directly to the network
+  if (request.url.includes("google-analytics.com") || request.url.includes("googletagmanager.com")) {
     return;
   }
 

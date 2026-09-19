@@ -1,5 +1,8 @@
 const attendanceStoragePrefix = 'bunkBuffer_v2_';
 
+// Debounce state for bunk_calculated GA4 event
+let _bunkDebounceTimer = null;
+
 // DOM Elements
 let attTableBody, attTableContainer, attEmptyState;
 let overallPctEl, overallFracEl, bufferValEl, bufferTitleEl, bufferSubEl, futureInput, futureResultEl;
@@ -376,6 +379,18 @@ function updateAttendanceCalculations(providedData = null) {
         bufferSubEl.textContent = "to recover to 75%";
     }
 
+    // GA4 - track bunk buffer calculation, debounced so rapid typing doesn't spam
+    clearTimeout(_bunkDebounceTimer);
+    _bunkDebounceTimer = setTimeout(() => {
+        if (totalHeld > 0) {
+            trackEvent('bunk_calculated', {
+                attendance_pct: Math.round(overallPct * 10) / 10,
+                bunks_available: buffer,
+                regulation: (typeof currentRegulation !== 'undefined') ? currentRegulation : (Store.get('selectedRegulation') || 'URR24-R25')
+            });
+        }
+    }, 1500);
+
     calculateFutureBuffer();
 }
 
@@ -611,7 +626,10 @@ function parseUmsAttendance() {
     // GA4 - track UMS autofill usage
     trackEvent('ums_autofill_used', {
         matched: Object.keys(parsedMap).length,
-        unmatched: unmatched.length
+        unmatched: unmatched.length,
+        regulation: (typeof currentRegulation !== 'undefined') ? currentRegulation : (Store.get('selectedRegulation') || 'URR24-R25'),
+        branch: document.getElementById('branch-select')?.value || '',
+        semester: document.getElementById('semester-select')?.value || ''
     });
 
     if (unmatched.length > 0) {

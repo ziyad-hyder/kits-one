@@ -342,7 +342,7 @@ const EseCalculator = {
         }
 
         // GA4 - track ESE calculation
-        trackEvent('ese_calculated', { branch, semester: sem, estimated_sgpa: sgpa.toFixed(2) });
+        trackEvent('ese_calculated', { branch, semester: sem, estimated_sgpa: sgpa.toFixed(2), regulation: currentRegulation });
 
         // Save inputs to localStorage
         this.saveInputs(branch, sem);
@@ -426,7 +426,7 @@ const EseCalculator = {
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
-            trackEvent('ese_exported');
+            trackEvent('export_image', { source: 'ese_planner' });
         }).catch(err => {
             console.error("Export Error:", err);
             targetDiv.style.padding = '';

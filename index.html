@@ -450,7 +450,7 @@
     <script src="js/help.js"></script>
     <script src="js/app.js"></script>
     <script src="js/attendance.js"></script>
-    <script src="http://localhost:8080/tracker.js?id=kitsone"></script>
+
 
     <!-- PWA Service Worker Registration & Banner -->
     <script>
@@ -470,8 +470,21 @@
             document.getElementById("install-banner-dismiss")?.addEventListener("click", () => {
                 localStorage.setItem(BANNER_KEY, "1");
                 document.getElementById("install-banner")?.classList.add("hidden");
+                // GA4 - track install banner / offline toast dismissed
+                if (typeof trackEvent === 'function') trackEvent('pwa_prompt_dismissed');
             });
         }
+
+        // GA4 - PWA lifecycle events
+        // Note: beforeinstallprompt and appinstalled are Chromium-only.
+        // iOS Safari installs are not measurable via these events.
+        window.addEventListener('beforeinstallprompt', () => {
+            if (typeof trackEvent === 'function') trackEvent('pwa_prompt_shown');
+        });
+
+        window.addEventListener('appinstalled', () => {
+            if (typeof trackEvent === 'function') trackEvent('pwa_installed');
+        });
     </script>
 </body>
 

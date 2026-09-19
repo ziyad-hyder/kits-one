@@ -26,7 +26,27 @@ const Store = {
 
 // ─── GA4 event helper ────────────────────────────────────────────────────────
 function trackEvent(name, params = {}) {
-    if (typeof gtag === 'function') gtag('event', name, params);
+    try {
+        if (typeof gtag === 'function') gtag('event', name, params);
+    } catch (e) { /* silently no-op if gtag is blocked or throws */ }
+}
+
+// Debounce + dedup state for sgpa_calculated
+let _sgpaDebounceTimer = null;
+let _lastSgpaKey = null;
+
+/**
+ * Fires sgpa_calculated after a 1500ms quiet period and only when the result
+ * differs from the last fired result. Guard: only called when all grades filled.
+ */
+function trackSgpaCalculated(branch, semester, sgpa, regulation) {
+    const key = `${branch}|${semester}|${sgpa}|${regulation}`;
+    clearTimeout(_sgpaDebounceTimer);
+    _sgpaDebounceTimer = setTimeout(() => {
+        if (key === _lastSgpaKey) return;
+        _lastSgpaKey = key;
+        trackEvent('sgpa_calculated', { branch, semester, sgpa, regulation });
+    }, 1500);
 }
 
 // Tab Switching Logic
@@ -65,9 +85,9 @@ let currentRegulation = Store.get('selectedRegulation') || 'URR24-R25';
 
 function onRegulationChange(val) {
     Store.set('selectedRegulation', val);
-    if (typeof trackEvent === 'function') {
-        trackEvent('regulation_changed', { regulation: val });
-    }
+    // Note: trackEvent is intentionally NOT called here.
+    // The init() addEventListener below fires on the same element and handles
+    // tracking + the 150ms-delayed reload to give the GA4 beacon time to flush.
     window.location.reload();
 }
 
@@ -128,8 +148,10 @@ function init() {
         regSelect.addEventListener('change', (e) => {
             const newReg = e.target.value;
             Store.set('selectedRegulation', newReg);
+            // GA4 - track regulation change; delay reload 150ms so the beacon
+            // has time to flush before the page navigates.
             trackEvent('regulation_changed', { regulation: newReg });
-            window.location.reload();
+            setTimeout(() => window.location.reload(), 150);
         });
     }
 
@@ -192,6 +214,8 @@ function init() {
         const isDark = document.body.classList.toggle('dark-mode');
         Store.set('theme', isDark ? 'dark' : 'light');
         updateThemeIcons(isDark);
+        // GA4 - track theme toggle
+        trackEvent('theme_toggled', { theme: isDark ? 'dark' : 'light' });
     }
 
     function updateThemeIcons(isDark) {
@@ -280,12 +304,10 @@ function calculateResults() {
 
     resultsSection.classList.remove('hidden');
 
-    // GA4 - track SGPA calculation
-    trackEvent('sgpa_calculated', {
-        branch: branchSelect.value,
-        semester: semesterSelect.value,
-        sgpa: result.sgpa.toFixed(2)
-    });
+    // GA4 - track SGPA calculation only when every grade is filled (no partial results)
+    if (grades.length === inputs.length) {
+        trackSgpaCalculated(branchSelect.value, semesterSelect.value, result.sgpa.toFixed(2), currentRegulation);
+    }
 }
 
 // Converter Logic
@@ -312,6 +334,8 @@ function convertSgpaToPerc() {
             </div>
         </div>
     `;
+    // GA4 - track CGPA conversion (always converts to both scales simultaneously)
+    trackEvent('cgpa_converted', { scale: 'both' });
 }
 
 // Target Planner Logic
@@ -343,6 +367,8 @@ function calculateTarget() {
              <div class="hero-result-value text-4xl font-semibold">${req}</div>
         `;
     }
+    // GA4 - track Target Planner usage
+    trackEvent('target_planner_used', { regulation: currentRegulation });
 }
 
 // Initialize on Load
