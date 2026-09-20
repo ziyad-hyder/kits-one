@@ -1,37 +1,60 @@
-# KITS One
+﻿# KITS One
+
+<!-- TODO: add screenshot -->
+
+**Live app -> [ziyadhyder.dev/kits-one](https://ziyadhyder.dev/kits-one)**
 
 It started with a simple problem: KITSW's credit rules and grade exclusions are unique, and most generic GPA calculators just couldn't get the math right.
 
-What began as a personal tool to calculate my own SGPA accurately gradually evolved into a complete academic companion for every student of **KITSW** under **URR-24** regulations.
+What began as a personal tool to calculate my own SGPA accurately gradually evolved into a complete academic companion for every student of **KITSW** under **URR24-R25 and URR26** regulations (switch inside the app).
 
 KITS One is a complete academic companion designed to take the guesswork out of your journey at college.
 
 ***KITS One doesn't track your attendance - it helps you understand and plan it.***
 
 
-## What's New!
+## What's New in v4.0.0
 
-- **The ESE Target Planner:** No more blind panic before your external exams. Just enter your CIE internals (out of 150), pick your dream grade, and the tool calculates the exact minimum marks you need to score in the 100-mark ESE to get that grade. It even automatically saves your internals to your device.
-- **Export your goal!:** Stop taking ugly full-scroll screenshots. You can now tap "Export as Image" at the bottom of the ESE Planner to instantly download a sleek, square, high-res PNG image of your target scores - perfect for sharing to your class WhatsApp groups. Powered by html2canvas with reliable cross-browser download support.
-- **International CGPA Scales:** The Converter tab now instantly translates your KITS 10-point SGPA into Percentage and the US 4.0 Scale out of the box. Essential if you're eyeing MS applications abroad.
-- **Bunk Buffer Rules All:** Let's be real, we all know what tool gets used the most. The Bunk Buffer has been officially promoted to the #1 default launch tab.
+- **Two regulations, one app:** URR26 and URR24-R25 are both supported. Pick your regulation from the selector at the top - the calculator, attendance table, and ESE planner all update instantly.
+- **New design:** Navy, teal, and coral replace the old indigo interface. Completely redesigned from the ground up.
+- **Installable PWA:** Add KITS One to your home screen and use it offline after the first load (see "Install it" below).
+- **New home:** The app now lives at [ziyadhyder.dev/kits-one](https://ziyadhyder.dev/kits-one).
 
-## What’s inside?
+
+## What's inside?
 
 - **Smart Bunk Buffer:** Track your attendance and know exactly how many classes you can safely skip (or need to attend) to stay above 75%.
-- **Accurate SGPA Calculator:** Follows strict URR-24 guidelines. Supports all 9 branches including CSE, CSM, EEE, ECE, ME, and more.
+- **Accurate SGPA Calculator:** Follows strict KITSW grading rules - F-grade credits are excluded from both the numerator and denominator. Supports all 9 branches: CSE, CSM, CSD, CSN, CSO, ECE, EEE, ME, IT, ECI.
 - **Target SGPA Planner:** Input your current standing and your goal, and let the tool tell you exactly what you need to score in your endsem exams.
-- **CGPA to % Converter:** One-tap conversion using the official `(CGPA - 0.5) * 10` formula.
-- **Dark Mode & Mobile-First:** Because we check our grades late at night and mostly on our phones.
-- **NEW:** Built-in guided help for each feature (beginner-friendly onboarding)
-- **NEW: Attendance Autofill:** Paste your UMS attendance table and auto-fill Held/Absent values instantly using pattern matching. Manual entry still supported.
+- **ESE Target Planner:** Enter your CIE internals (out of 150 for URR24-R25, or MSE-I/MSE-II/TA for URR26), pick your dream grade, and get the exact ESE marks you need.
+- **Export as Image:** Tap "Export as Image" at the bottom of the ESE Planner to download a PNG of your target scores - ready to share to your class WhatsApp group.
+- **CGPA Converter:** One-tap conversion using the official `(CGPA - 0.50) x 10` formula, plus US 4.0 scale for MS applications abroad.
+- **Attendance Autofill:** Paste your UMS attendance table and auto-fill Held/Absent values instantly. Manual entry still supported.
+- **Contextual Help:** Built-in guided help for each feature.
+- **Dark Mode:** Because we check our grades late at night.
+
+
+## Install it
+
+**Android / Chrome** - Tap the install banner that appears at the bottom of the page, or open the browser menu and tap **Install app**.
+
+**iPhone / Safari** - Tap the Share button (box with arrow), then **Add to Home Screen**.
+
+Once installed, the app works offline after the first load.
 
 
 ## Technical Stack
 
-- **Frontend:** HTML5, Tailwind CSS
-- **Logic:** Vanilla JavaScript (ES6+)
-- **Design:** Mobile-first, clean UI
+- **Frontend:** HTML5, Tailwind CSS (compiled)
+- **Logic:** Vanilla JavaScript (ES6+), no framework
+- **PWA:** Service worker (cache-first app shell, stale-while-revalidate for data files) + Web App Manifest
+- **Export:** [html2canvas](https://html2canvas.hertzen.com/) for ESE Planner image download
+
+
+## Privacy
+
+No login. No ads. Anonymous usage analytics only (Google Analytics 4).
+
 
 ## Contributors
 
@@ -45,6 +68,8 @@ KITS One is a complete academic companion designed to take the guesswork out of 
 - **[Salman Syed](https://github.com/Salman-a-gamer)** - 4IT
 - **B. Pragnesh** - 2CSM
 - **Md K Moinuddin** - 2IT
+
+<!-- TODO: add URR26 curriculum data contributors if applicable -->
 
 
 ## License
