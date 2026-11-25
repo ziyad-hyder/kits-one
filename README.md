@@ -1,7 +1,5 @@
 ﻿# KITS One
 
-<!-- TODO: add screenshot -->
-
 **Live app -> [ziyadhyder.dev/kits-one](https://ziyadhyder.dev/kits-one)**
 
 It started with a simple problem: KITSW's credit rules and grade exclusions are unique, and most generic GPA calculators just couldn't get the math right.
@@ -23,14 +21,14 @@ KITS One is a complete academic companion designed to take the guesswork out of 
 
 ## What's inside?
 
-- **Smart Bunk Buffer:** Track your attendance and know exactly how many classes you can safely skip (or need to attend) to stay above 75%.
-- **Accurate SGPA Calculator:** Follows strict KITSW grading rules - F-grade credits are excluded from both the numerator and denominator. Supports all 9 branches: CSE, CSM, CSD, CSN, CSO, ECE, EEE, ME, IT, ECI.
-- **Target SGPA Planner:** Input your current standing and your goal, and let the tool tell you exactly what you need to score in your endsem exams.
-- **ESE Target Planner:** Enter your CIE internals (out of 150 for URR24-R25, or MSE-I/MSE-II/TA for URR26), pick your dream grade, and get the exact ESE marks you need.
-- **Export as Image:** Tap "Export as Image" at the bottom of the ESE Planner to download a PNG of your target scores - ready to share to your class WhatsApp group.
-- **CGPA Converter:** One-tap conversion using the official `(CGPA - 0.50) x 10` formula, plus US 4.0 scale for MS applications abroad.
+- **Smart Bunk Buffer:** Track your attendance and know exactly how many classes you can safely skip (or need to attend) to stay above 75%, plus a quick "next N classes" preview.
 - **Attendance Autofill:** Paste your UMS attendance table and auto-fill Held/Absent values instantly. Manual entry still supported.
-- **Contextual Help:** Built-in guided help for each feature.
+- **ESE Target Planner:** Enter your CIE internals (out of 150 for URR24-R25 theory, or MSE-I/MSE-II/TA for URR26 theory, plus lab internals), pick your dream grade, and get the exact ESE marks you need.
+- **Export as Image:** Tap "Export as Image" at the bottom of the ESE Planner to download a PNG of your target scores - ready to share to your class WhatsApp group.
+- **Accurate SGPA Calculator:** Follows strict KITSW grading rules - F-grade credits are excluded from both the numerator and denominator. Supports all 10 branches: CSE, CSM, CSD, CSN, CSO, ECE, EEE, ME, IT, ECI.
+- **Target SGPA Planner:** Input your current standing and your goal, and let the tool tell you exactly what you need to score in your endsem exams.
+- **CGPA Converter:** One-tap conversion using the official `(CGPA - 0.50) x 10` formula, plus US 4.0 scale for MS applications abroad.
+- **Contextual Help & Swipe Navigation:** Built-in guided help for each feature, plus swipe left/right between tools on mobile.
 - **Dark Mode:** Because we check our grades late at night.
 
 
@@ -53,7 +51,7 @@ Once installed, the app works offline after the first load.
 
 ## Privacy
 
-No login. No ads. Anonymous usage analytics only (Google Analytics 4).
+No login. No ads. Your selections and attendance stay on your device, with anonymous usage analytics only (Google Analytics 4).
 
 
 ## Contributors
@@ -69,12 +67,10 @@ No login. No ads. Anonymous usage analytics only (Google Analytics 4).
 - **B. Pragnesh** - 2CSM
 - **Md K Moinuddin** - 2IT
 
-<!-- TODO: add URR26 curriculum data contributors if applicable -->
-
 
 ## License
 
-**KITS One** is open-source under the **MIT License**.
+**KITS One** is open-source under the **[MIT License](LICENSE)**.
 
 ## Contact
 
