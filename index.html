@@ -82,6 +82,94 @@
       }
     }
     </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How is SGPA calculated at KITSW, and why are F-grade credits excluded?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Grade point scale: S = 10, A = 9, B = 8, C = 7, D = 6, P = 5, F = 0. SGPA = sum(Credits × Grade Point) ÷ sum(Cleared Credits). F = 0 GP, so an F subject drops out of both the numerator and denominator — it doesn't drag your GPA down, it just doesn't count at all, per URR-24 rule 12.11. Worked example: 3-credit A (9) + 3-credit B (8) + 3-credit F (0) → SGPA = (3×9 + 3×8) / (3+3) = 8.50. Cleared Credits: 6 / 9."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many classes can I bunk and stay above 75%?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If you are above 75%: Bunks available = floor(0.25 × Held − Absent). Example: 100 held, 18 absent → floor(25 − 18) = 7 bunks left. If you have already slipped below 75%: Classes needed = ceil(Absent ÷ 0.25 − Held). Example: 100 held, 30 absent → ceil(120 − 100) = 20 straight classes to recover. Tip: Paste your UMS Attendance Report into the autofill box — it fills Held and Absent for every subject automatically instead of typing each one."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I convert CGPA to percentage and to US 4.0 for MS applications?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Percentage (URR-24 rule 17.4a): (CGPA − 0.50) × 10. Example: 8.50 CGPA = 80.0%. US 4.0 scale (for MS abroad applications): (CGPA ÷ 10) × 4. Example: 8.50 CGPA = 3.40 / 4.0. Note: These are the official KITSW formulas. Some foreign universities use their own conversion tables — check with the institution before you apply."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the ESE planner work, and what do I need in the endsem for a target grade?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Step 1 — Enter your CIE marks for each subject. URR24-R25 theory: CIE Total out of 150. URR24-R25 lab: CIE + Lab Internal (60) + Lab External (40). URR26 theory: MSE-I, MSE-II, Teacher's Assessment — weighted as 0.7 × best + 0.3 × other + TA. Step 2 — Pick a target grade: S = 90%, A = 80%, B = 70%, C = 60%, D = 50%, P = 40%. The tool tells you exactly how many marks you need in the ESE. If the required score is higher than the max (100 for theory, 60 for labs), it flags that grade as not possible — lower the target, not your self-worth."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between URR24-R25 and URR26, and how do I switch?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "URR24-R25: Theory uses 150 CIE + 100 ESE (250 total). Labs use 150 CIE + 60 Lab Internal + 40 Lab External + 100 ESE (350 total). URR26: All subjects use 40 CIE + 60 ESE (100 total). Theory CIE is weighted across MSE-I, MSE-II, and Teacher's Assessment. To switch: use the regulation dropdown in the top-right header, right next to the dark mode toggle. Your choice saves locally and the subjects, credits, and ESE rules all reload automatically. Not sure which one? 2024 or 2025 batch is URR24-R25. 2026 batch is URR26."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it work offline, and how do I install it on my phone?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Android (Chrome): Tap the install banner that pops up at the bottom, or open the browser menu and tap Install app. iPhone (Safari): Tap the Share button (box with arrow) then Add to Home Screen. Offline works after the first load — the service worker caches the whole app. Open it in a lecture hall with no signal and it still works. Your attendance data is saved locally too, so it won't disappear after refresh."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my data stored anywhere, and is there a login?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No login. No account. No ads. Your data never leaves your device. Branch, semester, theme, attendance counts, and ESE inputs stay in localStorage on your device only. Anonymous usage events such as which tool you used and dark mode on or off go to Google Analytics 4."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which branches are supported?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "All 10 KITSW branches, Sem 1 to Sem 8, for both URR24-R25 and URR26: CSE, CSM, CSD, CSN, CSO, ECE, EEE, ME, IT, and ECI."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "A grade or credit looks wrong for my branch. What do I do?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Step 1: Cross-check the PDF — curriculum PDFs for every branch are in the /PDFs folder of the GitHub repo. Step 2: Report it — if the PDF confirms a mismatch, send over the branch, semester, subject code, and the correct credit count. Curriculum data is contributed by students across branches. Elective swaps and mid-year changes do slip through — that's why the PDFs folder exists."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Found a bug?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pick whichever is easier: open an issue or pull request on GitHub (github.com/ziyad-hyder), message on LinkedIn (linkedin.com/in/ziyadhyder), or email ziyadhyder01@gmail.com. I'll (try to) fix it."
+          }
+        }
+      ]
+    }
+    </script>
 </head>
 
 <body class="theme-bg min-h-screen p-4 lg:p-8">
@@ -386,6 +474,310 @@
 
         </div>
     </div>
+
+    <!-- FAQ Section -->
+    <section id="faq" aria-labelledby="faq-heading"
+        class="max-w-4xl mx-auto mt-8 theme-surface rounded-2xl border theme-border p-5 md:p-6">
+        <div class="mb-4">
+            <h2 id="faq-heading" class="text-lg font-semibold theme-heading">FAQ</h2>
+            <p class="text-xs theme-muted mt-0.5">Common questions about SGPA, Bunk Buffer, ESE targets, and regulations</p>
+        </div>
+
+        <div class="space-y-2.5">
+
+            <!-- Q1: SGPA -->
+            <details class="faq-item theme-card border theme-border rounded-xl overflow-hidden">
+                <summary class="faq-summary flex items-center justify-between gap-3 p-4 cursor-pointer text-sm font-medium theme-text select-none">
+                    <span>How is SGPA calculated at KITSW, and why are F-grade credits excluded?</span>
+                    <svg class="faq-chevron w-4 h-4 flex-shrink-0 theme-muted transition-transform duration-150" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </summary>
+                <div class="px-4 pb-4 pt-3 space-y-2.5 border-t theme-border">
+                    <div class="help-step">
+                        <span class="help-step-icon">GP</span>
+                        <div class="help-step-content">
+                            <p><strong>Grade point scale</strong></p>
+                            <ul class="help-sub-items">
+                                <li>S = 10 &nbsp;·&nbsp; A = 9 &nbsp;·&nbsp; B = 8 &nbsp;·&nbsp; C = 7 &nbsp;·&nbsp; D = 6 &nbsp;·&nbsp; P = 5 &nbsp;·&nbsp; F = 0</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="help-step">
+                        <span class="help-step-icon">÷</span>
+                        <div class="help-step-content">
+                            <p><strong>SGPA = sum(Credits × Grade Point) ÷ sum(Cleared Credits)</strong></p>
+                            <p class="help-step-tip">F = 0 GP, so an F subject drops out of <em>both</em> the numerator and denominator. It doesn't drag your GPA down — it just doesn't count at all, per URR-24 rule 12.11.</p>
+                        </div>
+                    </div>
+                    <div class="help-step">
+                        <span class="help-step-icon">eg</span>
+                        <div class="help-step-content">
+                            <p><strong>Worked example</strong></p>
+                            <ul class="help-sub-items">
+                                <li>3-credit A (9) + 3-credit B (8) + 3-credit F (0)</li>
+                                <li>SGPA = (3×9 + 3×8) / (3+3) = <strong>8.50</strong></li>
+                                <li>Cleared Credits: 6 / 9 — the F just sits there, embarrassed.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <!-- Q2: Bunk Buffer -->
+            <details class="faq-item theme-card border theme-border rounded-xl overflow-hidden">
+                <summary class="faq-summary flex items-center justify-between gap-3 p-4 cursor-pointer text-sm font-medium theme-text select-none">
+                    <span>How many classes can I bunk and stay above 75%?</span>
+                    <svg class="faq-chevron w-4 h-4 flex-shrink-0 theme-muted transition-transform duration-150" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </summary>
+                <div class="px-4 pb-4 pt-3 space-y-2.5 border-t theme-border">
+                    <div class="help-step">
+                        <span class="help-step-icon">≥0</span>
+                        <div class="help-step-content">
+                            <p><strong>If you're above 75%</strong></p>
+                            <p class="help-step-tip">Bunks available = floor(0.25 × Held − Absent)<br>
+                            100 held, 18 absent → floor(25 − 18) = <strong>7 bunks left.</strong></p>
+                        </div>
+                    </div>
+                    <div class="help-step">
+                        <span class="help-step-icon">&lt;0</span>
+                        <div class="help-step-content">
+                            <p><strong>If you've already slipped below 75%</strong></p>
+                            <p class="help-step-tip">Classes needed = ceil(Absent ÷ 0.25 − Held)<br>
+                            100 held, 30 absent → ceil(120 − 100) = <strong>20 straight classes to recover.</strong></p>
+                        </div>
+                    </div>
+                    <div class="help-tip-box">
+                        <strong>Tip:</strong> Don't type every subject by hand. Paste your UMS Attendance Report into the autofill box — it fills Held &amp; Absent for every subject automatically.
+                    </div>
+                </div>
+            </details>
+
+            <!-- Q3: CGPA Converter -->
+            <details class="faq-item theme-card border theme-border rounded-xl overflow-hidden">
+                <summary class="faq-summary flex items-center justify-between gap-3 p-4 cursor-pointer text-sm font-medium theme-text select-none">
+                    <span>How do I convert CGPA to percentage and to US 4.0 for MS applications?</span>
+                    <svg class="faq-chevron w-4 h-4 flex-shrink-0 theme-muted transition-transform duration-150" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </summary>
+                <div class="px-4 pb-4 pt-3 space-y-2.5 border-t theme-border">
+                    <div class="help-step">
+                        <span class="help-step-icon">%</span>
+                        <div class="help-step-content">
+                            <p><strong>Percentage</strong> (URR-24 rule 17.4a)</p>
+                            <p class="help-step-tip">(CGPA − 0.50) × 10 &nbsp;→&nbsp; 8.50 CGPA = <strong>80.0%</strong></p>
+                        </div>
+                    </div>
+                    <div class="help-step">
+                        <span class="help-step-icon">4.0</span>
+                        <div class="help-step-content">
+                            <p><strong>US 4.0 Scale</strong> (for MS abroad applications)</p>
+                            <p class="help-step-tip">(CGPA ÷ 10) × 4 &nbsp;→&nbsp; 8.50 CGPA = <strong>3.40 / 4.0</strong></p>
+                        </div>
+                    </div>
+                    <div class="help-tip-box">
+                        <strong>Note:</strong> These are the official KITSW formulas. Some foreign universities use their own conversion tables — check with the institution before you apply.
+                    </div>
+                </div>
+            </details>
+
+            <!-- Q4: ESE Planner -->
+            <details class="faq-item theme-card border theme-border rounded-xl overflow-hidden">
+                <summary class="faq-summary flex items-center justify-between gap-3 p-4 cursor-pointer text-sm font-medium theme-text select-none">
+                    <span>How does the ESE planner work, and what do I need in the endsem for a target grade?</span>
+                    <svg class="faq-chevron w-4 h-4 flex-shrink-0 theme-muted transition-transform duration-150" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </summary>
+                <div class="px-4 pb-4 pt-3 space-y-2.5 border-t theme-border">
+                    <div class="help-step">
+                        <span class="help-step-icon">1</span>
+                        <div class="help-step-content">
+                            <p><strong>Enter your CIE marks</strong> for each subject</p>
+                            <ul class="help-sub-items">
+                                <li><strong>URR24-R25 theory:</strong> CIE Total (out of 150)</li>
+                                <li><strong>URR24-R25 lab:</strong> CIE + Lab Internal (60) + Lab External (40)</li>
+                                <li><strong>URR26 theory:</strong> MSE-I, MSE-II, Teacher's Assessment — weighted as 0.7 × best + 0.3 × other + TA</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="help-step">
+                        <span class="help-step-icon">2</span>
+                        <div class="help-step-content">
+                            <p><strong>Pick a target grade</strong> for each subject</p>
+                            <ul class="help-sub-items">
+                                <li>S = 90% · A = 80% · B = 70% · C = 60% · D = 50% · P = 40%</li>
+                                <li>It tells you exactly how many marks you need in the ESE.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="help-tip-box">
+                        <strong>Stop the blind panic before externals.</strong> If the required ESE score is higher than the max (100 for theory, 60 for labs), it flags that grade as not possible — lower the target, not your self-worth.
+                    </div>
+                </div>
+            </details>
+
+            <!-- Q5: URR24 vs URR26 -->
+            <details class="faq-item theme-card border theme-border rounded-xl overflow-hidden">
+                <summary class="faq-summary flex items-center justify-between gap-3 p-4 cursor-pointer text-sm font-medium theme-text select-none">
+                    <span>What is the difference between URR24-R25 and URR26, and how do I switch?</span>
+                    <svg class="faq-chevron w-4 h-4 flex-shrink-0 theme-muted transition-transform duration-150" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </summary>
+                <div class="px-4 pb-4 pt-3 space-y-2.5 border-t theme-border">
+                    <div class="help-step help-step-no-icon">
+                        <div class="help-step-content">
+                            <p>Two regulations, two completely different marking schemes:</p>
+                            <ul class="help-sub-items">
+                                <li><strong>URR24-R25</strong> — Theory: 150 CIE + 100 ESE (250 total). Labs: 150 CIE + 60 Lab Int + 40 Lab Ext + 100 ESE (350 total).</li>
+                                <li><strong>URR26</strong> — All subjects: 40 CIE + 60 ESE (100 total). Theory CIE is weighted across MSE-I, MSE-II, and TA.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="help-step help-step-no-icon">
+                        <div class="help-step-content">
+                            <p><strong>To switch:</strong> Use the <strong>regulation dropdown</strong> in the top-right header, right next to the dark mode toggle. Your choice saves locally — the subjects, credits, and ESE rules all reload automatically.</p>
+                        </div>
+                    </div>
+                    <div class="help-tip-box">
+                        <strong>Not sure which one?</strong> If you joined KITSW in 2024 or 2025, you're on URR24-R25. 2026 batch is URR26.
+                    </div>
+                </div>
+            </details>
+
+            <!-- Q6: Offline / Install -->
+            <details class="faq-item theme-card border theme-border rounded-xl overflow-hidden">
+                <summary class="faq-summary flex items-center justify-between gap-3 p-4 cursor-pointer text-sm font-medium theme-text select-none">
+                    <span>Does it work offline, and how do I install it on my phone?</span>
+                    <svg class="faq-chevron w-4 h-4 flex-shrink-0 theme-muted transition-transform duration-150" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </summary>
+                <div class="px-4 pb-4 pt-3 space-y-2.5 border-t theme-border">
+                    <div class="help-step">
+                        <span class="help-step-icon">↓</span>
+                        <div class="help-step-content">
+                            <p><strong>Android (Chrome)</strong></p>
+                            <ul class="help-sub-items">
+                                <li>Tap the install banner that pops up at the bottom, or</li>
+                                <li>Open the browser menu → <strong>Install app</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="help-step">
+                        <span class="help-step-icon">↑</span>
+                        <div class="help-step-content">
+                            <p><strong>iPhone (Safari)</strong></p>
+                            <ul class="help-sub-items">
+                                <li>Tap the Share button (box with arrow) → <strong>Add to Home Screen</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="help-tip-box">
+                        <strong>Offline works after the first load.</strong> The service worker caches the whole app — open it in a lecture hall with no signal, it still works. Your attendance data is saved locally too, so it won't disappear after refresh.
+                    </div>
+                </div>
+            </details>
+
+            <!-- Q7: Privacy -->
+            <details class="faq-item theme-card border theme-border rounded-xl overflow-hidden">
+                <summary class="faq-summary flex items-center justify-between gap-3 p-4 cursor-pointer text-sm font-medium theme-text select-none">
+                    <span>Is my data stored anywhere, and is there a login?</span>
+                    <svg class="faq-chevron w-4 h-4 flex-shrink-0 theme-muted transition-transform duration-150" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </summary>
+                <div class="px-4 pb-4 pt-3 space-y-2.5 border-t theme-border">
+                    <div class="help-step help-step-no-icon">
+                        <div class="help-step-content">
+                            <p>No login. No account. No ads. Your data never leaves your device.</p>
+                            <ul class="help-sub-items">
+                                <li>Branch, semester, theme, attendance counts, ESE inputs → <strong>localStorage on your device only</strong></li>
+                                <li>Anonymous usage events (which tool you used, dark mode on/off) → Google Analytics 4</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <!-- Q8: Branches -->
+            <details class="faq-item theme-card border theme-border rounded-xl overflow-hidden">
+                <summary class="faq-summary flex items-center justify-between gap-3 p-4 cursor-pointer text-sm font-medium theme-text select-none">
+                    <span>Which branches are supported?</span>
+                    <svg class="faq-chevron w-4 h-4 flex-shrink-0 theme-muted transition-transform duration-150" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </summary>
+                <div class="px-4 pb-4 pt-3 space-y-2.5 border-t theme-border">
+                    <div class="help-step help-step-no-icon">
+                        <div class="help-step-content">
+                            <p>All 10 KITSW branches, Sem 1 to Sem 8, for both URR24-R25 and URR26:</p>
+                            <ul class="help-sub-items">
+                                <li>CSE · CSM · CSD · CSN · CSO · ECE · EEE · ME · IT · ECI</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <!-- Q9: Wrong grade/credit -->
+            <details class="faq-item theme-card border theme-border rounded-xl overflow-hidden">
+                <summary class="faq-summary flex items-center justify-between gap-3 p-4 cursor-pointer text-sm font-medium theme-text select-none">
+                    <span>A grade or credit looks wrong for my branch. What do I do?</span>
+                    <svg class="faq-chevron w-4 h-4 flex-shrink-0 theme-muted transition-transform duration-150" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </summary>
+                <div class="px-4 pb-4 pt-3 space-y-2.5 border-t theme-border">
+                    <div class="help-step">
+                        <span class="help-step-icon">1</span>
+                        <div class="help-step-content">
+                            <p><strong>Cross-check the PDF</strong> — curriculum PDFs for every branch are in the <code style="font-size:0.75rem">/PDFs</code> folder of the GitHub repo.</p>
+                        </div>
+                    </div>
+                    <div class="help-step">
+                        <span class="help-step-icon">2</span>
+                        <div class="help-step-content">
+                            <p><strong>Report it</strong> — if the PDF confirms a mismatch, send over the branch, semester, subject code, and the correct credit count. I'll fix it.</p>
+                        </div>
+                    </div>
+                    <div class="help-tip-box">
+                        Curriculum data is contributed by students across branches. Elective swaps and mid-year changes do slip through — that's why the PDFs folder exists.
+                    </div>
+                </div>
+            </details>
+
+            <!-- Q10: Bug report -->
+            <details class="faq-item theme-card border theme-border rounded-xl overflow-hidden">
+                <summary class="faq-summary flex items-center justify-between gap-3 p-4 cursor-pointer text-sm font-medium theme-text select-none">
+                    <span>Found a bug?</span>
+                    <svg class="faq-chevron w-4 h-4 flex-shrink-0 theme-muted transition-transform duration-150" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </summary>
+                <div class="px-4 pb-4 pt-3 space-y-2.5 border-t theme-border">
+                    <div class="help-step help-step-no-icon">
+                        <div class="help-step-content">
+                            <p>Pick whichever is easier:</p>
+                            <ul class="help-sub-items">
+                                <li><a href="https://github.com/ziyad-hyder" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline font-medium">GitHub</a> — open an issue or a PR</li>
+                                <li><a href="https://www.linkedin.com/in/ziyadhyder/" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline font-medium">LinkedIn</a> — message me directly</li>
+                                <li><a href="mailto:ziyadhyder01@gmail.com" class="text-accent hover:underline font-medium">ziyadhyder01@gmail.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="help-tip-box">
+                        I'll (try to) fix it.
+                    </div>
+                </div>
+            </details>
+
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="max-w-4xl mx-auto mt-10 mb-6 text-center theme-muted text-xs">

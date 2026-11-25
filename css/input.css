@@ -549,3 +549,25 @@ input[type=number] {
     accent-color: var(--accent);
     cursor: pointer;
 }
+
+/* FAQ Accordion */
+.faq-summary {
+    list-style: none;
+}
+
+.faq-summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-summary:hover {
+    background-color: var(--row-hover-bg);
+}
+
+.faq-item[open] .faq-summary {
+    color: var(--accent) !important;
+}
+
+.faq-item[open] .faq-chevron {
+    transform: rotate(180deg);
+    color: var(--accent) !important;
+}

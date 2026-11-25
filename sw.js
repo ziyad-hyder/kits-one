@@ -1,4 +1,4 @@
-const CACHE_NAME = "kits-one-__BUILD_ID__"; 
+const CACHE_NAME = "kits-one-v4.0.1-__BUILD_ID__"; 
 
 const APP_SHELL = [
   "./",
